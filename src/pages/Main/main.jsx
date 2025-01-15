@@ -3,6 +3,7 @@ import "../../assets/css/all.css";
 import "../../assets/css/Main/main.css";
 import Footer from "../Common/Footer";
 import Header from "../Common/Header";
+import Modal from "../Common/Modal";
 
 function Main() {
   const [inputText, setInputText] = useState("");
@@ -50,7 +51,7 @@ function Main() {
   const toggleModal = () => {
     setIsModalOpen((prev) => !prev);
   };
-  
+
   return (
     <>
       <div className="translation-container">
@@ -154,28 +155,7 @@ function Main() {
         </main>
 
         {/* Modal */}
-        {isModalOpen && (
-          <div className="modal-overlay" onClick={toggleModal}>
-            <div
-              className="modal-content"
-              onClick={(e) => e.stopPropagation()} // 부모 클릭 이벤트 차단
-            >
-              <h2>로그인</h2>
-              <button className="login-button google">
-                Google 계정으로 로그인
-              </button>
-              <button className="login-button kakao">
-                Kakao 계정으로 로그인
-              </button>
-              <button className="login-button naver">
-                Naver 계정으로 로그인
-              </button>
-              <button className="close-button" onClick={toggleModal}>
-                닫기
-              </button>
-            </div>
-          </div>
-        )}
+        <Modal isOpen={isModalOpen} toggleModal={toggleModal} />
       </div>
 
       {/* Footer */}
