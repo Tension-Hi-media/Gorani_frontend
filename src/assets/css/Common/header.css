@@ -41,8 +41,13 @@
 }
 
 .header .right-icons .login {
-  font-size: 1px;
+  font-size: 17px;
   color: white;
+  cursor: pointer;
+}
+
+.header .right-icons .login:hover {
+  text-decoration: underline;
 }
 
 .header .right-icons img {

@@ -1,5 +1,5 @@
 import React from "react";
-import "./../../assets/css/all.css"; 
+import "./../../assets/css/all.css";
 import "./../../assets/css/Common/header.css";
 
 const Header = ({ toggleModal }) => {
@@ -8,10 +8,10 @@ const Header = ({ toggleModal }) => {
       <div className="left-text">WWW.GORANIL.COM</div>
       <div className="title">GORANI</div>
       <div className="right-icons">
-        <button className="login" onClick={toggleModal}>
+        <div className="login" onClick={toggleModal}>
           로그인
-        </button>
-        <img src="/images/icon.jpg" alt="Icon 1" />
+        </div>
+        <img src="/images/icon.jpg" alt="Icon" />
       </div>
     </header>
   );

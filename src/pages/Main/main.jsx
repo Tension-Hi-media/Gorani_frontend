@@ -50,7 +50,7 @@ function Main() {
   const toggleModal = () => {
     setIsModalOpen((prev) => !prev);
   };
-
+  
   return (
     <>
       <div className="translation-container">
