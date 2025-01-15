@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import "./../../assets/css/Translation/translation.css";
+import "../../assets/css/all.css";
+import "../../assets/css/Main/main.css";
+import Footer from "../Common/Footer";
+import Header from "../Common/Header";
 
 function Main() {
   const [inputText, setInputText] = useState("");
@@ -47,21 +50,12 @@ function Main() {
   const toggleModal = () => {
     setIsModalOpen((prev) => !prev);
   };
-
+  
   return (
     <>
       <div className="translation-container">
         {/* Header */}
-        <header className="header">
-          <div className="left-text">WWW.GORANIL.COM</div>
-          <div className="title">GORANI</div>
-          <div className="right-icons">
-            <button className="login" onClick={toggleModal}>
-              로그인
-            </button>
-            <img src="/images/icon.jpg" alt="Icon 1" />
-          </div>
-        </header>
+        <Header toggleModal={toggleModal} />
 
         {/* Main Content */}
         <main className="main-content">
@@ -93,17 +87,15 @@ function Main() {
                 </button>
                 {showSourceDropdown && (
                   <ul className="language-dropdown">
-                    {["한국어", "영어", "일본어"].map(
-                      (lang) => (
-                        <li
-                          key={lang}
-                          className="language-option"
-                          onClick={() => selectSourceLanguage(lang)}
-                        >
-                          {lang}
-                        </li>
-                      )
-                    )}
+                    {["한국어", "영어", "일본어"].map((lang) => (
+                      <li
+                        key={lang}
+                        className="language-option"
+                        onClick={() => selectSourceLanguage(lang)}
+                      >
+                        {lang}
+                      </li>
+                    ))}
                   </ul>
                 )}
               </div>
@@ -169,9 +161,15 @@ function Main() {
               onClick={(e) => e.stopPropagation()} // 부모 클릭 이벤트 차단
             >
               <h2>로그인</h2>
-              <button className="login-button google">Google 계정으로 로그인</button>
-              <button className="login-button kakao">Kakao 계정으로 로그인</button>
-              <button className="login-button naver">Naver 계정으로 로그인</button>
+              <button className="login-button google">
+                Google 계정으로 로그인
+              </button>
+              <button className="login-button kakao">
+                Kakao 계정으로 로그인
+              </button>
+              <button className="login-button naver">
+                Naver 계정으로 로그인
+              </button>
               <button className="close-button" onClick={toggleModal}>
                 닫기
               </button>
@@ -180,9 +178,8 @@ function Main() {
         )}
       </div>
 
-      <footer className="footer">
-        <p>ⓒ WWW.GORANIL.COM</p>
-      </footer>
+      {/* Footer */}
+      <Footer />
     </>
   );
 }

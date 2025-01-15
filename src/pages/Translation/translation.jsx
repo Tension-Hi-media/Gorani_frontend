@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { translateText } from "../../Apis/api";
-import "../../assets/css/Translation/translation.css"; // CSS 파일 import
+import "../../assets/css/Main/main.css"; // CSS 파일 import
 
 
 const Translation = () => {

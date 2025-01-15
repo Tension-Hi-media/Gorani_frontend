@@ -1,0 +1,10 @@
+/* 푸터 스타일 */
+.footer {
+    background-image: url('../../../../public/images/footer.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 20px 0;
+    color: white;
+    text-align: center;
+  }
