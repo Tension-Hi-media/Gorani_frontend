@@ -1,0 +1,41 @@
+.translation-container {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+textarea {
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #cccccc;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+}
+
+.translation-result {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
