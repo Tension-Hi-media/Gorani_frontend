@@ -13,6 +13,7 @@ function Main() {
   const [sourceLanguage, setSourceLanguage] = useState("언어감지");
   const [targetLanguage, setTargetLanguage] = useState("영어");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleTranslate = async () => {
     try {
@@ -52,11 +53,23 @@ function Main() {
     setIsModalOpen((prev) => !prev);
   };
 
+  const handleLogin = () => {
+    setIsLoggedIn(true); // 로그인 상태 변경
+    setIsModalOpen(false); // 모달 닫기
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false); // 로그아웃 상태로 변경
+  };
   return (
     <>
       <div className="translation-container">
         {/* Header */}
-        <Header toggleModal={toggleModal} />
+        <Header
+          isLoggedIn={isLoggedIn}
+          toggleModal={toggleModal}
+          handleLogout={handleLogout}
+        />
 
         {/* Main Content */}
         <main className="main-content">
@@ -155,7 +168,9 @@ function Main() {
         </main>
 
         {/* Modal */}
-        <Modal isOpen={isModalOpen} toggleModal={toggleModal} />
+        <Modal isOpen={isModalOpen} toggleModal={toggleModal}>
+          <button onClick={handleLogin}>로그인 완료</button>
+        </Modal>
       </div>
 
       {/* Footer */}

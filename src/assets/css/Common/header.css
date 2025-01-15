@@ -1,4 +1,4 @@
-/* 헤더 스타일1111 */
+/* 헤더 스타일 */
 .header {
   background-color: #0c0c0e;
   color: white;
@@ -35,21 +35,34 @@
 
 .header .right-icons {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 5px;
+  gap: 15px; /* 버튼과 이미지를 구분 */
 }
 
-.header .right-icons .login {
+/* 계정 및 로그아웃 버튼 스타일 */
+.header .auth-buttons {
+  display: flex;
+  gap: 10px; /* 계정과 로그아웃 버튼 간격 */
+}
+
+.header .auth-buttons .account-button ,
+.header .auth-buttons .logout-button ,
+.header .login{
   font-size: 17px;
   color: white;
   cursor: pointer;
 }
 
-.header .right-icons .login:hover {
+/* 버튼 호버 효과 */
+.header .auth-buttons .account-button:hover ,
+.header .auth-buttons .logout-button:hover,
+.header .login:hover {
   text-decoration: underline;
 }
+/* 로그인 버튼 */
 
+
+/* 오른쪽 이미지 */
 .header .right-icons img {
   width: 140px;
   height: 40px;
