@@ -4,8 +4,8 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import Main from './pages/Main/main';
 import Translation from './pages/Translation/translation';
 import NaverLogin from './pages/Common/naver';
-import NaverSuccess from './pages/Common/naversucsses';
-import MyPage  from './pages/User/myPage';
+import MyPage from './pages/User/myPage';
+import NaverSuccess from './pages/Common/naverSuccess';
 import NaverCallback from './pages/Common/NaverCallback';
 
 import Modal from './pages/Common/Modal';
