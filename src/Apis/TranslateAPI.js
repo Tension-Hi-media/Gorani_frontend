@@ -13,4 +13,4 @@ export async function getTranslationResult(text, sourceLang = "en", targetLang =
         console.error("Translation API Error:", error);
         throw error;
     }
-};
+// };sdasd
