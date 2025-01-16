@@ -13,6 +13,7 @@ const NaverSuccess = () => {
     console.log('Received state:', state); // 토큰 로그 출력
     if (code) {
       naverLogin(code, state);
+      window.location.href = 'http://localhost:3000'
     } 
   }, [location]);
 
