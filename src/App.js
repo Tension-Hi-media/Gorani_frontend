@@ -3,6 +3,7 @@ import Main from './pages/Main/main';
 import Translation from './pages/Translation/translation';
 import NaverLogin from './pages/Common/naver';
 import NaverSuccess from './pages/Common/naversucsses';
+import MyPage  from './pages/User/myPage';
 
 
 function App() {
