@@ -3,7 +3,7 @@ import "./../../assets/css/all.css";
 import "./../../assets/css/Common/header.css";
 
 const Header = ({ toggleModal, handleLogout }) => {
-  const isLoggedIn = true; // 로그인된 상태로 가정
+  const isLoggedIn = false; // 로그인된 상태로 가정
 
   return (
     <header className="header">
