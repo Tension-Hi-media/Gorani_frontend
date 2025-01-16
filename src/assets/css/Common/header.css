@@ -36,29 +36,31 @@
 .header .right-icons {
   display: flex;
   align-items: center;
-  gap: 15px; /* 버튼과 이미지를 구분 */
+  gap: 15px;
 }
 
 /* 계정 및 로그아웃 버튼 스타일 */
 .header .auth-buttons {
   display: flex;
-  gap: 10px; /* 계정과 로그아웃 버튼 간격 */
+  gap: 10px;
+  /* 계정과 로그아웃 버튼 간격 */
 }
 
-.header .auth-buttons .account-button ,
-.header .auth-buttons .logout-button ,
-.header .login{
+.header .auth-buttons .account-button,
+.header .auth-buttons .logout-button,
+.header .login {
   font-size: 17px;
   color: white;
   cursor: pointer;
 }
 
 /* 버튼 호버 효과 */
-.header .auth-buttons .account-button:hover ,
+.header .auth-buttons .account-button:hover,
 .header .auth-buttons .logout-button:hover,
 .header .login:hover {
   text-decoration: underline;
 }
+
 /* 로그인 버튼 */
 
 
@@ -66,4 +68,83 @@
 .header .right-icons img {
   width: 140px;
   height: 40px;
+}
+
+.auth-buttons {
+  position: relative;
+}
+
+.account-box {
+  position: absolute;
+  top: 30px;
+  right: -135px;
+  width: 300px;
+  color: #0c0c0e;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  /* 세로 배치 */
+  align-items: center;
+  /* 가운데 정렬 */
+  gap: 20px;
+  font-size: 16px;
+}
+
+.account-box .email {
+  font-size: 18px;
+  font-weight: bold;
+  /* 텍스트를 굵게 */
+}
+
+.account-box .version {
+  display: flex;
+  justify-content: space-between;
+  /* 번역기와 무료버전을 양쪽 정렬 */
+  align-items: center;
+  /* 세로 정렬 */
+  border: 1px #ccc solid;
+  border-radius: 5px;
+  padding: 8px 10px;
+  width: 230px;
+  /* 너비 설정 */
+}
+
+.account-box .version span:first-child {
+  text-align: left;
+  /* 번역기 오른쪽 정렬 */
+  flex: 1;
+  /* 공간을 균등 분배 */
+}
+
+.account-box .version span:last-child {
+  text-align: right;
+  /* 무료버전 왼쪽 정렬 */
+  color: #4caf50;
+  /* 무료버전 글씨색 */
+  flex: 1;
+  /* 공간을 균등 분배 */
+}
+
+.account-box button {
+  width: 250px;
+  /* 버튼 너비 */
+  padding: 8px 0;
+  /* 버튼 높이 설정 */
+  background-color: #007bff;
+  /* 배경색 */
+  color: #fff;
+  /* 글자색 */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.account-box button:hover {
+  background-color: #0056b3;
+  /* 호버 효과 */
 }
