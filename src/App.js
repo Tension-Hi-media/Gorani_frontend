@@ -4,12 +4,14 @@ import Translation from './pages/Translation/translation';
 import NaverLogin from './pages/Common/naver';
 import NaverSuccess from './pages/Common/naversucsses';
 
+
 function App() {
   return (
     <div>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Main />} />
+          <Route path='/myPage' element={<MyPage />} />
           <Route path='/translation' element={<Translation />} />
           <Route path='/naver' element={<NaverLogin />} />
           <Route path="/naver-success" element={<NaverSuccess />} />
