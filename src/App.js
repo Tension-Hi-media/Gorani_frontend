@@ -2,7 +2,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Main from './pages/Main/main';
 import Translation from './pages/Translation/translation';
 import NaverLogin from './pages/Common/naver';
-import NaverSuccess from './pages/Common/naversucsses';
+import MyPage from './pages/User/myPage';
+import NaverSuccess from './pages/Common/naverSuccess';
 
 
 function App() {
