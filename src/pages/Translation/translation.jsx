@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { translateText } from "../../Apis/api";
 import "../../assets/css/Main/main.css"; // CSS 파일 import
+import { getTranslationResult } from "../../Apis/TranslateAPI";
 
 
 const Translation = () => {
@@ -20,7 +20,7 @@ const Translation = () => {
 
         try {
             console.log("Sending request:", inputText);
-            const result = await translateText(inputText, "ko", "en"); // 한국어 → 영어 번역
+            const result = await getTranslationResult(inputText, "ko", "en"); // 한국어 → 영어 번역
             console.log("Received result:", result);
             setTranslatedText(result);
         } catch (e) {
