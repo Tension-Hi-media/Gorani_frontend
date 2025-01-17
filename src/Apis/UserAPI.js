@@ -43,7 +43,11 @@ export async function googleLogin(code, state) {
     try {
         const response = await withoutTokenRequest('GET', `/auth/google/callback?code=${code}&state=${state}`);
         console.log("response: ", response.data);
-        
+
+        if (!response.data || !response.data.results) {
+            throw new Error("Invalid API response");
+        }
+
         const token = response.data.results.token;
         const userInfo = response.data.results.user;
 
@@ -55,4 +59,4 @@ export async function googleLogin(code, state) {
         console.error('Google Login API error:', error);
         throw error;
     }
-};
+}
