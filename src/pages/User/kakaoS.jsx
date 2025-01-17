@@ -1,12 +1,21 @@
-import React from "react";
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { kakaoLogin, naverLogin } from '../../Apis/UserAPI';
 
 const KakaoSuccessPage = () => {
-    return (
-        <div>
-            <h1>로그인 성공했습니다!</h1>
-            <p>환영합니다! 이제 애플리케이션을 이용하실 수 있습니다.</p>
-        </div>
-    );
+    const location = useLocation();
+
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        const code = params.get('code');
+        console.log('Received code:', code); // 토큰 로그 출력
+        if (code) {
+            kakaoLogin(code);
+            // window.location.href = 'http://localhost:3000'
+        }
+    }, [location]);
+
+    return <div>로그인 성공</div>;
 };
 
 export default KakaoSuccessPage;
