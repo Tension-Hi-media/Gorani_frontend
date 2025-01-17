@@ -15,7 +15,7 @@ const MyPage = () => {
       <h1 className="page-title">내 계정</h1>
       <br></br><br></br>
       <div className="section account-info">
-        <h2>계정 정보</h2>
+        <h2>계정 정보</h2> 
         <p>이메일: GORANI@gmail.com (카카오, 네이버 등)</p>
         <p>이름: 고라니</p>
       </div>
