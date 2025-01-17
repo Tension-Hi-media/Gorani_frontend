@@ -1,29 +1,30 @@
-import React from 'react';
-import { GoogleLogin } from '@react-oauth/google';
+import React from "react";
 
 const GoogleLoginComponent = () => {
-  const responseGoogle = (response) => {
-    console.log(response.credential); // Google에서 받은 JWT 토큰
+  const handleGoogleLogin = () => {
+    const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+    const redirectUri = process.env.REACT_APP_GOOGLE_REDIRECT_URI;
 
-    // 백엔드로 토큰 전달
-    fetch('http://localhost:8080/auth/google/callback', {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token: response.credential }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log('로그인 성공:', data);
-        // 세션 저장 또는 UI 업데이트
-      })
-      .catch((err) => console.error('로그인 실패:', err));
+    if (!clientId || !redirectUri) {
+      console.error("Google Client ID 또는 Redirect URI가 설정되지 않았습니다.");
+      alert("Google 로그인 설정이 잘못되었습니다. 관리자에게 문의하세요.");
+      return;
+    }
+
+    const state = encodeURIComponent(Math.random().toString(36).substring(2)); // 랜덤 state 생성
+    sessionStorage.setItem("google_auth_state", state); // state를 세션 스토리지에 저장
+
+    const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&scope=openid%20profile%20email&state=${state}`;
+    
+    console.log("Google Auth URL:", authUrl); // 디버깅용
+    window.location.href = authUrl; // 구글 로그인 페이지로 리다이렉션
   };
 
   return (
-    <GoogleLogin
-      onSuccess={responseGoogle}
-      onError={() => console.log('Google Login Error')}
-    />
+    <div>
+      <h2>구글 로그인</h2>
+      <button onClick={handleGoogleLogin}>로그인하기</button>
+    </div>
   );
 };
 
