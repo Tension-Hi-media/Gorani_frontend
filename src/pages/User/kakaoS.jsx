@@ -24,7 +24,7 @@ const KakaoSuccessPage = () => {
                     } else {
                         alert('로그인 중 문제가 발생했습니다. 다시 시도해주세요.');
                     }
-                    window.location.href = '/login'; // 로그인 페이지로 리다이렉트
+                    // window.location.href = '/'; // 로그인 페이지로 리다이렉트
                 })
                 .finally(() => setLoading(false)); // 로딩 상태 변경
         } else {
