@@ -7,8 +7,7 @@ import NaverLogin from './pages/Common/naver';
 import MyPage from './pages/User/myPage';
 import NaverSuccess from './pages/Common/naverSuccess';
 import KakaoLogin from './pages/User/kakao';
-import KakaoSuccess from './pages/User/kakaoS';
-import KakaoCallback from './pages/User/kakoCallBack';
+import KakaoSuccessPage from './pages/User/kakaoS';
 
 
 
@@ -25,7 +24,7 @@ function App() {
           <Route path='/naver' element={<NaverLogin />} />
           <Route path="/naver-success" element={<NaverSuccess />} />
           <Route path='/kakao' element={<KakaoLogin/>}/>
-          <Route path='/kakaoSuccess' element={<KakaoSuccess/>} />
+          <Route path='/kakaoSuccess' element={<KakaoSuccessPage/>} />
         </Routes>
       </BrowserRouter>
     </GoogleOAuthProvider>

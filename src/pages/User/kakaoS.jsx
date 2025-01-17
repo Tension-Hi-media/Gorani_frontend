@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { kakaoLogin } from '../../Apis/UserAPI';
 
-const KakaoSuccess = () => {
+const KakaoSuccessPage = () => {
     const location = useLocation();
     const [loading, setLoading] = useState(true);
 
@@ -32,7 +32,7 @@ const KakaoSuccess = () => {
             alert('인증 코드가 없습니다. 다시 로그인해주세요.');
             window.location.href = '/login';
         }
-    }, [location, navigate]);
+    }, [location]);
 
     if (loading) {
         return <div>로그인 처리 중...</div>;
@@ -41,4 +41,4 @@ const KakaoSuccess = () => {
     return null; // 로딩이 끝나면 아무것도 렌더링하지 않음
 };
 
-export default KakaoSuccess;
+export default KakaoSuccessPage;
