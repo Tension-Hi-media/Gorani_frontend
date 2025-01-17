@@ -23,7 +23,7 @@ export async function naverLogin(code, state) {
 export async function kakaoLogin(code) {
     try {
         const response = await withoutTokenRequest('GET',`/auth/kakao/callback?code=${code}`);
-        console.log("response: ",response)
+        console.log("response: ",response.data)
         
         const token = response.data.results.token
         const userInfo = response.data.results.user
