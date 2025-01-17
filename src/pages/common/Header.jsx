@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import "./../../assets/css/all.css";
 import "./../../assets/css/Common/header.css";
 
-
 const Header = ({ toggleModal }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(true); // 로그인 상태 관리
   const [showAccountBox, setShowAccountBox] = useState(false); // 계정 박스 상태
@@ -22,7 +21,6 @@ const Header = ({ toggleModal }) => {
     alert("로그아웃되었습니다."); // 로그아웃 알림
     navigate("/"); // 로그아웃 후 메인 페이지로 이동
   };
-
 
   return (
     <header className="header">
