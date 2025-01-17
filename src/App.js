@@ -7,7 +7,6 @@ import MyPage from './pages/User/myPage';
 import NaverSuccess from './pages/Common/naverSuccess';
 import KakaoLogin from './pages/User/kakao';
 import KakaoSuccessPage from './pages/User/kakaoS';
-import KakaoCallback from './pages/User/kakoCallBack';
 import GoogleSuccess from './pages/Common/GoogleSuccess'; // 구글 로그인 성공 컴포넌트 import
 
 function App() {
