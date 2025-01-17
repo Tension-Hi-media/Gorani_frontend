@@ -9,7 +9,6 @@ import NaverSuccess from './pages/Common/naverSuccess';
 import KakaoLogin from './pages/User/kakao';
 import KakaoSuccess from './pages/User/kakaoS';
 import KakaoCallback from './pages/User/kakoCallBack';
-import Modal from './pages/Common/Modal';
 
 
 
