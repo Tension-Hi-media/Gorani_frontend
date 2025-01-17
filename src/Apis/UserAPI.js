@@ -38,3 +38,25 @@ export async function kakaoLogin(code) {
         throw error;
     }
 };
+
+export async function googleLogin(code, state) {
+    try {
+        const response = await withoutTokenRequest('GET', `/auth/google/callback?code=${code}&state=${state}`);
+        console.log("response: ", response.data);
+
+        if (!response.data || !response.data.results) {
+            throw new Error("Invalid API response");
+        }
+
+        const token = response.data.results.token;
+        const userInfo = response.data.results.user;
+
+        localStorage.setItem('token', token);
+        localStorage.setItem('userInfo', JSON.stringify(userInfo));
+
+        return true;
+    } catch (error) {
+        console.error('Google Login API error:', error);
+        throw error;
+    }
+}

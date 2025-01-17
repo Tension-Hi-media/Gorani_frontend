@@ -86,5 +86,5 @@
 .close-button:hover {
   transform: scale(1.2);
   /* 호버 시 크기 확대 */
-  color: #000;
+  color: #333;
 }
