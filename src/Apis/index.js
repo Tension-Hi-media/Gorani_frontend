@@ -55,3 +55,6 @@ export const fastAPIrequest = async (method, url, data) => {
         throw error; 
     });
 };
+// Axios 기본 설정
+axios.defaults.baseURL = "http://localhost:8080";
+axios.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem("jwtToken")}`;
