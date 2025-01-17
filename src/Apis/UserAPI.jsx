@@ -3,7 +3,7 @@ import { request, withoutTokenRequest, fastAPIrequest } from "./index";
 // ✨✨api 요청 함수 만드는 예시!✨✨
 export async function naverLogin(code, state) {
     try {
-        const response = await withoutTokenRequest('GET',`/auth/naver/callback?code=${code}&state=${state}`);
+        const response = await withoutTokenRequest('GET',`/auth/callback?code=${code}&state=${state}&provider=naver`);
         console.log("response: ",response.data)
         
         const token = response.data.results.token
@@ -22,7 +22,7 @@ export async function naverLogin(code, state) {
 
 export async function kakaoLogin(code) {
     try {
-        const response = await withoutTokenRequest('GET',`/auth/kakao/callback?code=${code}`);
+        const response = await withoutTokenRequest('GET',`/auth/callback?code=${code}&provider=kakao`);
         console.log("response: ",response)
         
         const token = response.data.results.token
@@ -41,7 +41,7 @@ export async function kakaoLogin(code) {
 
 export async function googleLogin(code, state) {
     try {
-        const response = await withoutTokenRequest('GET', `/auth/google/callback?code=${code}&state=${state}`);
+        const response = await withoutTokenRequest('GET', `/auth/callback?code=${code}&state=${state}&provider=google`);
         console.log("response: ", response.data);
 
         if (!response.data || !response.data.results) {
