@@ -21,9 +21,11 @@ const GoogleLoginComponent = () => {
   };
 
   return (
+
     <button className="login-button google" onClick={handleGoogleLogin}>
     Google 계정으로 로그인
   </button>
+
   );
 };
 
