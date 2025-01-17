@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "../../assets/css/all.css";
 import "../../assets/css/Main/main.css";
 import Footer from "../Common/Footer";
@@ -13,13 +13,20 @@ function Main() {
   const [showSourceDropdown, setShowSourceDropdown] = useState(false);
   const [showTargetDropdown, setShowTargetDropdown] = useState(false);
   const [showGlossary, setShowGlossary] = useState(false);
-  const [showGlossaryList, setShowGlossaryList] = useState(false);
   const [sourceLanguage, setSourceLanguage] = useState("한국어");
   const [targetLanguage, setTargetLanguage] = useState("영어");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState("true");
-  const [startText, setStartText] = useState("");
-  const [arrivalText, setArrivalText] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [nickname, setNickname] = useState("GORANI");
+
+  useEffect(() => {
+    const userInfo = localStorage.getItem("userInfo");
+    if (userInfo) {
+      const parsedUserInfo = JSON.parse(userInfo);
+      setNickname(parsedUserInfo.username || "GORANI");
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   const handleTranslate = async () => {
     const response = await getTranslationResult(
@@ -74,20 +81,28 @@ function Main() {
   };
 
   const handleLogin = () => {
+    localStorage.setItem("userInfo", JSON.stringify({ username: "GORANI" }));
+    setNickname("GORANI");
     setIsLoggedIn(true);
-    setIsModalOpen(false);
+    setIsModalOpen(false); // 로그인 모달 닫기
   };
 
   const handleLogout = () => {
+    localStorage.removeItem("userInfo");
     setIsLoggedIn(false);
+    setNickname("GORANI"); // 기본 닉네임으로 초기화
+    alert("로그아웃되었습니다.");
   };
+
+
   console.log("isLoggedIn:", isLoggedIn); // 로그인 상태 확인
   console.log("showGlossary:", showGlossary); // 용어집 표시 상태 확인
 
   return (
     <div className="translation-container">
-      <Header
+        <Header
         isLoggedIn={isLoggedIn}
+        nickname={nickname} // Header에 nickname 전달
         toggleModal={toggleModal}
         handleLogout={handleLogout}
       />
@@ -186,7 +201,14 @@ function Main() {
                 </button>
               </div>
               <div className="right-items">
-                <button className="glossary-button" onClick={toggleGlossary}>
+                <button
+                  className="glossary-button"
+                  onClick={
+                    isLoggedIn
+                      ? toggleGlossary
+                      : () => alert("로그인 후 이용 가능합니다.")
+                  }
+                >
                   용어집
                 </button>
                 {showGlossary && isLoggedIn && <Glossary />}{" "}
