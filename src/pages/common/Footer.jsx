@@ -5,7 +5,7 @@ import "./../../assets/css/Common/footer.css";
 const Footer = () => {
   return (
     <footer className="footer">
-      <p>ⓒ WWW.GORANIL.COM</p>
+      <p>ⓒ WWW.GORANI.COM</p>
     </footer>
   );
 };

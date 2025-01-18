@@ -3,7 +3,7 @@
   margin: 0 auto;
   text-align: center;
   width: 100%;
-  min-height: 860px;
+  min-height: 1000px;
   display: flex;
   flex-direction: column;
 }
@@ -37,11 +37,25 @@
 
 .data-source-language {
   position: relative;
-  /* 드롭다운 위치를 위한 기준 설정 */
-  display: inline-flex;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
+  width: 465px;
+  height: 40px;
+  padding: 5px;
+  border-bottom: 1px solid #ccc;
+}
+
+.left-items {
+  display: flex;
   gap: 5px;
-  /* 버튼 간 간격 */
+  align-items: center;
+}
+
+.right-items {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
 .dropdown-toggle-button {
@@ -59,13 +73,26 @@
   width: 20px;
   height: 20px;
   color: #333;
-  /* 원하는 색상 */
   transition: transform 0.3s ease;
 }
 
+@keyframes rotate-svg {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+.dropdown-icon.clicked {
+  animation: rotate-svg 0.3s forwards;
+}
+
 .dropdown-toggle-button:hover .dropdown-icon {
-  color: #555;
-  /* 호버 시 색상 변화 */
+  color: #2ec4b6;
+  
 }
 
 .dropdown-toggle-button.active .dropdown-icon {
@@ -73,9 +100,10 @@
   /* 드롭다운이 열릴 때 아이콘 회전 */
 }
 
+
 .language-dropdown {
   position: absolute;
-  top: 100%;
+  top: 60%;
   left: 0;
   width: max-content;
   background-color: white;
@@ -100,8 +128,7 @@
 }
 
 .data-source-language-button {
-  width: auto;
-  /* 필요 이상으로 넓어지지 않도록 설정 */
+  width: 65px;
   background-color: #fff;
   color: #0c0c0e;
   border: none;
@@ -110,8 +137,8 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   margin-bottom: 10px;
-  padding: 5px 10px;
-  /* 버튼 크기를 조정 */
+  padding: 5px 0;
+  text-align: center;
 }
 
 .data-source-language-button:hover {
@@ -121,20 +148,16 @@
 .before-translation,
 .translation-result {
   flex: 1;
-  /* 각 요소가 동일한 비율로 공간을 차지 */
   height: 300px;
-  /* 고정된 높이 설정 */
 }
 
 .before-translation {
   position: relative;
-  /* 내부 요소의 절대 위치를 설정하기 위한 기준 */
   border: #ccc 1px solid;
   border-radius: 12px;
   padding: 10px;
   display: flex;
   flex-direction: column;
-  /* 내부 요소를 세로로 정렬 */
 }
 
 /* 텍스트 영역 스타일 */
@@ -188,6 +211,14 @@ textarea {
   color: white;
 }
 
+.translation-output{
+  width: 95%;
+    height: 200px;
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 16px;
+}
+
 button:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
@@ -198,4 +229,254 @@ button:disabled {
   color: red;
   font-weight: bold;
   margin-top: 10px;
+}
+
+.reverse-icon {
+  width: 20px;
+  height: 20px;
+  margin-left: 10px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.reverse-icon:hover {
+  transform: scale(1.2);
+}
+
+
+.glossary-button {
+  font-size: 16px;
+  margin-left: 10px;
+  padding: 5px 10px;
+  color: #fff;
+  background-color: #2ec4b6;
+  border: none;
+  border-radius: 5px;
+  margin-left: 10px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.glossary-button:hover {
+  background-color: #28b2a5;
+}
+
+
+.glossary-box h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.glossary-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: absolute;
+  z-index: 1000;
+  top: 60%;
+  right: 0;
+  margin-top: 10px;
+  padding: 20px;
+  background-color: #3c3c3c;
+  color: #fff;
+  border: #787878 10px solid;
+  border-radius: 10px;
+  width: 800px;
+  text-align: left;
+}
+
+
+.glossary-list {
+  width: calc(100% - 15px);
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  border: 5px solid white;
+}
+
+.glossary-category {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.glossary-category svg {
+  margin-left: 5px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.glossary-category:hover,
+.glossary-category svg:hover {
+  cursor: pointer;
+  color: #2ec4b6;
+}
+
+.glossary-category .dropdown-icon {
+  transition: transform 0.3s ease; /* 회전 애니메이션 추가 */
+}
+
+.glossary-category .dropdown-icon.rotated {
+  transform: rotate(180deg); /* 180도 회전 */
+}
+
+.glossary-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #fff;
+  color: #333;
+  border-bottom: 1px solid #333;
+  font-weight: bolder;
+}
+
+.glossary-item:hover {
+  cursor: pointer;
+  background-color: #ddd;
+}
+
+.glossary-item:last-child {
+  border-bottom: none
+}
+
+.glossary-buttons {
+  display: flex; 
+  margin-left: auto;
+}
+
+.glossary-edit-button,
+.glossary-delete-button {
+  background-color: #2ec4b6;
+  width: 40px;
+  height: 40px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.glossary-edit-button:hover,
+.glossary-delete-button:hover {
+  background-color: #28b2a5;
+}
+
+
+
+.creat-glossary {
+  font-size: 16px;
+  color: #fff;
+  background-color: #2ec4b6;
+  border: none;
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
+  padding: 10px;
+}
+
+.creat-glossary:hover {
+  background-color: #28b2a5;
+}
+
+.save-word {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.start-text,
+.arrive-text {
+  width: calc(50% - 40px);
+  height: 20px;
+  padding: 10px;
+  background-color: #fff;
+  color: #333;
+  border-radius: 10px;
+  font-weight: bolder;
+  margin-bottom: 10px;
+  resize: none;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.add-term-button {
+  width: 40px;
+  height: 40px;
+  margin-right: 5px;
+  border: none;
+  color: white;
+  border-radius: 10px;
+}
+
+.add-term-button:disabled {
+  background-color: #ccc;
+  cursor: default;
+}
+
+.add-term-button:not(:disabled) {
+
+  background-color: #007BFF;
+  cursor: pointer;
+}
+
+.add-term-button:not(:disabled):hover {
+  background-color: #0056b3;
+}
+
+.word-list {
+  width: 100%;
+}
+
+.word-item {
+  display: flex;
+  flex-direction: column;
+  /* 세로 정렬 */
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.word-item-language {
+  text-align: left;
+  font-size: 16px;
+}
+
+.word-item-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.start-word,
+.arrive-word {
+  width: calc(50% - 40px);
+  height: 20px;
+  padding: 10px;
+  background-color: #fff;
+  color: #333;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  resize: none;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.word-edit-button,
+.word-delete-button {
+  background-color: #007BFF;
+  width: 47px;
+  height: 40px;
+  border: none;
+  color: white;
+  border-radius: 10px;
+}
+
+.word-edit-button:hover,
+.word-delete-button:hover {
+  background-color: #0056b3;
 }
