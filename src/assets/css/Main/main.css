@@ -148,20 +148,16 @@
 .before-translation,
 .translation-result {
   flex: 1;
-  /* 각 요소가 동일한 비율로 공간을 차지 */
   height: 300px;
-  /* 고정된 높이 설정 */
 }
 
 .before-translation {
   position: relative;
-  /* 내부 요소의 절대 위치를 설정하기 위한 기준 */
   border: #ccc 1px solid;
   border-radius: 12px;
   padding: 10px;
   display: flex;
   flex-direction: column;
-  /* 내부 요소를 세로로 정렬 */
 }
 
 /* 텍스트 영역 스타일 */
@@ -213,6 +209,14 @@ textarea {
   background-color: #28b2a5;
   /* 호버 효과 */
   color: white;
+}
+
+.translation-output{
+  width: 95%;
+    height: 200px;
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 16px;
 }
 
 button:disabled {

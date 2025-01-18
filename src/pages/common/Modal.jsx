@@ -1,9 +1,9 @@
 import React from "react";
 import "../../assets/css/all.css";
 import "../../assets/css/Common/modal.css";
-import GoogleLoginComponent from "./google_login";
-import NaverLogin from "./naver"; // NaverLogin 컴포넌트 import
-import KakaoLogin from "./../User/kakao"; // NaverLogin 컴포넌트 import
+import GoogleLoginComponent from "../Login/GoogleLogin";
+import NaverLogin from "../Login/Naver"; // NaverLogin 컴포넌트 import
+import KakaoLogin from "../Login/KakaoLogin"; // NaverLogin 컴포넌트 import
 
 const Modal = ({ isOpen, toggleModal }) => {
   if (!isOpen) return null; // 모달이 열리지 않았으면 아무것도 렌더링하지 않음

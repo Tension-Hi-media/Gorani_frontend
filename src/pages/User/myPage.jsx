@@ -22,7 +22,7 @@ const MyPage = () => {
 
       <div className="section company-info">
         <h2>기업 정보</h2>
-        <p>
+        <p>s
           기업명: 입력되지 않음
           <button className="change-button">변경</button>
         </p>

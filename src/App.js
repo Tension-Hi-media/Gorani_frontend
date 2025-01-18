@@ -1,14 +1,14 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route,} from 'react-router-dom';
-import Main from './pages/Main/main';
-import Translation from './pages/Translation/translation';
-import NaverLogin from './pages/Common/naver';
-import MyPage from './pages/User/myPage';
-import NaverSuccess from './pages/Common/naverSuccess';
-import KakaoLogin from './pages/User/kakao';
-import KakaoSuccessPage from './pages/User/kakaoS';
-import KakaoCallback from './pages/User/kakoCallBack';
-import GoogleSuccess from './pages/Common/GoogleSuccess'; // 구글 로그인 성공 컴포넌트 import
+import Main from './pages/Main/Main';
+import Translation from './pages/Translation/Translation';
+import NaverLogin from './pages/Login/Naver';
+import MyPage from './pages/User/MyPage';
+import NaverSuccess from './pages/Login/NaverSuccess';
+import KakaoLogin from './pages/Login/KakaoLogin';
+import KakaoSuccessPage from './pages/Login/KakaoSucess';
+import KakaoCallback from './pages/Login/KakooCallBack';
+import GoogleSuccess from './pages/Login/GoogleSuccess'; // 구글 로그인 성공 컴포넌트 import
 
 function App() {
   return (
