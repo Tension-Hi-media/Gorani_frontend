@@ -4,7 +4,7 @@ import "../../assets/css/Main/main.css";
 import Footer from "../Common/Footer";
 import Header from "../Common/Header";
 import Modal from "../Common/Modal";
-import Glossary from "./../Translation/Glossary"; // Glossary 컴포넌트
+import Glossary from "../Translation/Glossary"; // Glossary 컴포넌트
 import { getTranslationResult } from "../../Apis/TranslateAPI";
 
 function Main() {
@@ -36,19 +36,6 @@ function Main() {
     );
     setTranslatedText(response);
 
-    // try {
-    //   const response = await fetch("http://localhost:8080/api/translate", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({ text: inputText, targetLanguage }),
-    //   });
-    //   const data = await response.json();
-    //   setTranslatedText(data.translatedText);
-    // } catch (error) {
-    //   console.error("Error:", error);
-    // }
   };
 
   const toggleGlossary = () => {
