@@ -17,7 +17,7 @@ const Header = ({ toggleModal, isLoggedIn, nickname, handleLogout }) => {
 
   return (
     <header className="header">
-      <div className="left-text">WWW.GORANIL.COM</div>
+      <div className="left-text">WWW.GORANI.COM</div>
       <div className="title">GORANI</div>
       <div className="right-icons">
         {isLoggedIn ? (
@@ -31,7 +31,7 @@ const Header = ({ toggleModal, isLoggedIn, nickname, handleLogout }) => {
             </div>
             {showAccountBox && (
               <div className="account-box">
-                <div className="email">{nickname}@gmail.com</div>
+                <div className="email">{nickname}</div>
                 <div className="version">
                   <span>번역기</span>
                   <span>무료버전</span>

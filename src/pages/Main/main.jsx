@@ -94,10 +94,6 @@ function Main() {
     alert("로그아웃되었습니다.");
   };
 
-
-  console.log("isLoggedIn:", isLoggedIn); // 로그인 상태 확인
-  console.log("showGlossary:", showGlossary); // 용어집 표시 상태 확인
-
   return (
     <div className="translation-container">
         <Header
