@@ -1,4 +1,4 @@
-import { withoutTokenRequest, } from ".";
+import { request, withoutTokenRequest, fastAPIrequest } from "./index";
 
 // ✨✨api 요청 함수 만드는 예시!✨✨
 export async function getTranslationResult(text, sourceLang = "en", targetLang = "ko") {

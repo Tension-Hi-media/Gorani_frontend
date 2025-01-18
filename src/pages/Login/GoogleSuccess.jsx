@@ -11,13 +11,18 @@ const GoogleSuccess = () => {
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const code = params.get('code');
+    const state = params.get('state');
+
+    console.log('Received code:', code);
+    console.log('Received state:', state);
 
     if (code) {
-      googleLogin(code)
+      googleLogin(code, state)
         .then(() => {
           navigate('/'); // 메인 화면으로 이동
         })
-        .catch(() => {
+        .catch((error) => {
+          console.error('로그인 실패:', error);
           setError('로그인 중 문제가 발생했습니다.');
         })
         .finally(() => {
