@@ -1,13 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route,} from 'react-router-dom';
-import Main from './pages/Main/Main';
-import Translation from './pages/Translation/Translation';
+import Main from './pages/Main/main';
+import Translation from './pages/Translation/translation';
 import NaverLogin from './pages/Login/Naver';
-import MyPage from './pages/User/MyPage';
+import MyPage from './pages/User/myPage';
 import NaverSuccess from './pages/Login/NaverSuccess';
 import KakaoLogin from './pages/Login/KakaoLogin';
 import KakaoSuccessPage from './pages/Login/KakaoSucess';
-import KakaoCallback from './pages/Login/KakooCallBack';
 import GoogleSuccess from './pages/Login/GoogleSuccess'; // 구글 로그인 성공 컴포넌트 import
 
 function App() {
@@ -21,7 +20,6 @@ function App() {
           <Route path="/naver-success" element={<NaverSuccess />} />
           <Route path='/kakao' element={<KakaoLogin/>}/>
           <Route path='/kakaoSuccess' element={<KakaoSuccessPage/>} />
-          <Route path='/kakaoCallback' element={<KakaoCallback/>} />
           <Route path="/google/success" element={<GoogleSuccess />} /> {/* 구글 로그인 성공 라우트 추가 */}
         </Routes>
       </BrowserRouter>
