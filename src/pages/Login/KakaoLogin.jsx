@@ -12,11 +12,9 @@ const KakaoLogin = () => {
     };
 
     return (
-        <div>
-            <button onClick={handleKakaoLogin}>
-                Kakao 계정으로 로그인
-            </button>
-        </div>
+        <button className="login-button kakao" onClick={handleKakaoLogin}>
+        Kakao 계정으로 로그인
+      </button>
     );
 };
 

@@ -17,7 +17,7 @@ const Modal = ({ isOpen, toggleModal }) => {
         <h2>로그인</h2>
         <GoogleLoginComponent />
         <KakaoLogin/>
-        <NaverLogin /> {/* 네이버 로그인 컴포넌트 렌더링 */}
+        <NaverLogin /> 
         <button
           className="close-button"
           onClick={(e) => {
