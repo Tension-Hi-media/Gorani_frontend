@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import "../../assets/css/Translation/glossaryModal.css";
+import "../../assets/css/Translation/GlossaryModal.css";
 
 function GlossaryModal({ isOpen, onClose, onCreate }) {
   const [glossaryName, setGlossaryName] = useState("");
