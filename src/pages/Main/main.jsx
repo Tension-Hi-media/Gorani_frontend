@@ -4,7 +4,7 @@ import "../../assets/css/Main/main.css";
 import Footer from "../Common/Footer";
 import Header from "../Common/Header";
 import Modal from "../Common/Modal";
-import Glossary from "./../Translation/Glossary"; // Glossary 컴포넌트
+import Glossary from "../Translation/Glossary";
 import { getTranslationResult } from "../../Apis/TranslateAPI";
 
 function Main() {

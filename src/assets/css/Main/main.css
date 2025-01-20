@@ -364,7 +364,7 @@ button:disabled {
 
 
 
-.creat-glossary {
+.create-glossary {
   font-size: 16px;
   color: #fff;
   background-color: #2ec4b6;
@@ -379,7 +379,7 @@ button:disabled {
   padding: 10px;
 }
 
-.creat-glossary:hover {
+.create-glossary:hover {
   background-color: #28b2a5;
 }
 
@@ -480,3 +480,4 @@ button:disabled {
 .word-delete-button:hover {
   background-color: #0056b3;
 }
+
