@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "../../assets/css/all.css";
 import "../../assets/css/Main/main.css";
 import Footer from "../Common/Footer";
@@ -18,6 +18,17 @@ function Main() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [nickname, setNickname] = useState("GORANI");
+  const [userInfo, setUserInfo] = useState(null); // ★ userInfo 상태 추가
+
+  useEffect(() => {
+    const stored = localStorage.getItem("userInfo");
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      setNickname(parsed.username || "GORANI");
+      setIsLoggedIn(true);
+      setUserInfo(parsed); // ★ userInfo 세팅
+    }
+  }, []);
 
   useEffect(() => {
     const userInfo = localStorage.getItem("userInfo");
@@ -35,20 +46,6 @@ function Main() {
       targetLanguage
     );
     setTranslatedText(response);
-
-    // try {
-    //   const response = await fetch("http://localhost:8080/api/translate", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({ text: inputText, targetLanguage }),
-    //   });
-    //   const data = await response.json();
-    //   setTranslatedText(data.translatedText);
-    // } catch (error) {
-    //   console.error("Error:", error);
-    // }
   };
 
   const toggleGlossary = () => {
@@ -96,7 +93,7 @@ function Main() {
 
   return (
     <div className="translation-container">
-        <Header
+      <Header
         isLoggedIn={isLoggedIn}
         nickname={nickname} // Header에 nickname 전달
         toggleModal={toggleModal}
@@ -207,7 +204,9 @@ function Main() {
                 >
                   용어집
                 </button>
-                {showGlossary && isLoggedIn && <Glossary />}{" "}
+                {showGlossary && isLoggedIn && userInfo && (
+                  <Glossary userInfo={userInfo} />
+                )}{" "}
                 {/* 로그인 상태에서만 Glossary 표시 */}
               </div>
               {showTargetDropdown && (

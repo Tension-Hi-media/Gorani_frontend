@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import "../../assets/css/Translation/glossaryModal.css";
+import "../../assets/css/Translation/GlossaryModal.css";
 
 function GlossaryModal({ isOpen, onClose, onCreate }) {
   const [glossaryName, setGlossaryName] = useState("");
@@ -11,7 +11,14 @@ function GlossaryModal({ isOpen, onClose, onCreate }) {
     }
   }, [isOpen]);
 
-  if (!isOpen) return null;
+  const handleInputChange = (e) => {
+    const input = e.target.value;
+    if (input.length > 50) {
+      alert("용어집 이름은 최대 50자까지 입력 가능합니다.");
+      return;
+    }
+    setGlossaryName(input);
+  };
 
   const handleCreate = () => {
     if (glossaryName.trim() === "") {
@@ -23,10 +30,9 @@ function GlossaryModal({ isOpen, onClose, onCreate }) {
     onClose();
   };
 
-  return (
-    <div className="modal-overlay">
-      {/* 바깥 클릭 시 닫히지 않도록 onClick 제거 */}
-      <div className="modal-content">
+  return isOpen ? (
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <button className="cancel-button" onClick={onClose}>
           X
         </button>
@@ -36,17 +42,21 @@ function GlossaryModal({ isOpen, onClose, onCreate }) {
           className="glossary-input"
           placeholder="용어집 이름을 입력하세요"
           value={glossaryName}
-          onChange={(e) => setGlossaryName(e.target.value)}
+          onChange={handleInputChange}
           ref={inputRef}
         />
         <div className="modal-buttons">
-          <button className="create-button" onClick={handleCreate}>
+          <button
+            className="create-button"
+            onClick={handleCreate}
+            disabled={!glossaryName.trim()}
+          >
             생성
           </button>
         </div>
       </div>
     </div>
-  );
+  ) : null;
 }
 
 export default GlossaryModal;
