@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../assets/css/Main/main.css"; // CSS 파일 import
+import "../../assets/css/Main/Main.css"; // CSS 파일 import
 import { getTranslationResult } from "../../Apis/TranslateAPI";
 
 
