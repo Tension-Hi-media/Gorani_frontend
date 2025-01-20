@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./../../assets/css/all.css";
-import "./../../assets/css/Common/Header.css";
+import "./../../assets/css/Common/header.css";
 
 const Header = ({ toggleModal, isLoggedIn, nickname, handleLogout }) => {
   const [showAccountBox, setShowAccountBox] = useState(false); // 계정 박스 상태 관리
