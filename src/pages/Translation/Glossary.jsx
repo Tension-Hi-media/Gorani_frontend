@@ -4,26 +4,24 @@ import GlossaryModal from "./GlossaryModal";
 
 function Glossary() {
   const [showGlossaryList, setShowGlossaryList] = useState(false);
-  const [startText, setStartText] = useState("");
-  const [arrivalText, setArrivalText] = useState("");
   const [isGlossaryModalOpen, setIsGlossaryModalOpen] = useState(false);
+  const [glossaryList, setGlossaryList] = useState(["용어집1", "용어집2"]);
 
+  const toggleGlossaryList = () => setShowGlossaryList((prev) => !prev);
 
-  const toggleGlossaryList = () => {
-    setShowGlossaryList((prev) => !prev);
-  };
+  const handleOpenModal = () => setIsGlossaryModalOpen(true);
 
-  const handleOpenModal = () => {
-    setIsGlossaryModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsGlossaryModalOpen(false);
-  };
+  const handleCloseModal = () => setIsGlossaryModalOpen(false);
 
   const handleCreateGlossary = (name) => {
+    setGlossaryList((prev) => [...prev, name]);
     alert(`새 용어집 "${name}"이(가) 생성되었습니다.`);
-    // 여기에 새 용어집 생성 로직 추가
+  };
+
+  const handleDeleteGlossary = (name) => {
+    if (window.confirm(`"${name}" 용어집을 삭제하시겠습니까?`)) {
+      setGlossaryList((prev) => prev.filter((glossary) => glossary !== name));
+    }
   };
 
   return (
@@ -52,42 +50,16 @@ function Glossary() {
 
       {showGlossaryList && (
         <div className="glossary-list">
-          {Array.from({ length: 4 }, (_, i) => (
+          {glossaryList.map((glossary, i) => (
             <div key={i} className="glossary-item">
-              <span>용어집{i + 1}</span>
+              <span>{glossary}</span>
               <div className="glossary-buttons">
-                <button className="glossary-edit-button">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
-                  </svg>
-                </button>
-                <button className="glossary-delete-button">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <polyline points="3 6 5 6 21 6" />
-                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                    <line x1="10" y1="11" x2="10" y2="17" />
-                    <line x1="14" y1="11" x2="14" y2="17" />
-                  </svg>
+                <button className="glossary-edit-button">편집</button>
+                <button
+                  className="glossary-delete-button"
+                  onClick={() => handleDeleteGlossary(glossary)}
+                >
+                  삭제
                 </button>
               </div>
             </div>
@@ -95,40 +67,17 @@ function Glossary() {
         </div>
       )}
 
-      <button className="creat-glossary">용어집 생성</button>
-      <div className="save-word">
-        <textarea
-          className="start-text"
-          placeholder="출발 텍스트"
-          value={startText}
-          onChange={(e) => setStartText(e.target.value)}
-        ></textarea>
-        <span className="arrow">→</span>
-        <textarea
-          className="arrive-text"
-          placeholder="도착 텍스트"
-          value={arrivalText}
-          onChange={(e) => setArrivalText(e.target.value)}
-        ></textarea>
-        <button
-          className="button add-button"
-          disabled={!startText || !arrivalText}
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <polyline points="20 6 9 17 4 12" />
-            <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
-          </svg>
-        </button>
+      <button className="create-glossary" onClick={handleOpenModal}>
+        용어집 생성
+      </button>
 
-        <button className="button delete-button">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <polyline points="3 6 5 6 21 6" />
-            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-            <line x1="10" y1="11" x2="10" y2="17" />
-            <line x1="14" y1="11" x2="14" y2="17" />
-          </svg>
-        </button>
-      </div>
+      {isGlossaryModalOpen && (
+        <GlossaryModal
+          isOpen={isGlossaryModalOpen}
+          onClose={handleCloseModal}
+          onCreate={handleCreateGlossary}
+        />
+      )}
     </div>
   );
 }

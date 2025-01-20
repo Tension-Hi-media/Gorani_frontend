@@ -1,6 +1,6 @@
 import React from "react";
 import "../../assets/css/all.css";
-import "../../assets/css/Common/Modal.css";
+import "../../assets/css/Common/modal.css";
 import GoogleLoginComponent from "../Login/GoogleLogin";
 import NaverLogin from "../Login/Naver"; // NaverLogin 컴포넌트 import
 import KakaoLogin from "../Login/KakaoLogin"; // KakaoLogin 컴포넌트 import
@@ -21,21 +21,9 @@ const Modal = ({ isOpen, toggleModal }) => {
           X
         </button>
         <h2>로그인</h2>
-
-        <button className="login-button google">
-          <img className="logo" src="../../../images/google.png" alt="Google" />
-          Google 계정으로 로그인
-        </button>
-
-        <button className="login-button kakao">
-          <img className="logo" src="../../../images/kakao.jpg" alt="Kakao" />
-          Kakao 계정으로 로그인
-        </button>
-
-        <button className="login-button naver">
-          <img className="logo" src="../../../images/naver.png" alt="Naver" />
-          Naver 계정으로 로그인
-        </button>
+        <GoogleLoginComponent />
+        <KakaoLogin />
+        <NaverLogin />
       </div>
     </div>
   );
