@@ -1,13 +1,29 @@
 import React, { useState } from "react";
 import "../../assets/css/Translation/glossary.css";
+import GlossaryModal from "./GlossaryModal";
 
 function Glossary() {
   const [showGlossaryList, setShowGlossaryList] = useState(false);
   const [startText, setStartText] = useState("");
   const [arrivalText, setArrivalText] = useState("");
+  const [isGlossaryModalOpen, setIsGlossaryModalOpen] = useState(false);
+
 
   const toggleGlossaryList = () => {
     setShowGlossaryList((prev) => !prev);
+  };
+
+  const handleOpenModal = () => {
+    setIsGlossaryModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsGlossaryModalOpen(false);
+  };
+
+  const handleCreateGlossary = (name) => {
+    alert(`새 용어집 "${name}"이(가) 생성되었습니다.`);
+    // 여기에 새 용어집 생성 로직 추가
   };
 
   return (
