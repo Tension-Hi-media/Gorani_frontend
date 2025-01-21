@@ -1,21 +1,31 @@
 import React, { useState, useEffect } from "react";
 import "../../assets/css/Translation/glossary.css";
 import GlossaryModal from "./GlossaryModal";
-import { createGlossary, fetchAllGlossaries } from "../../Apis/TranslateAPI";
+import {
+  createGlossary,
+  fetchAllGlossaries,
+  addWordPair,
+  deleteGlossary,
+  deleteWordPair,
+  updateWordPair,
+} from "../../Apis/TranslateAPI";
 
 function Glossary({ userInfo }) {
   const [showGlossaryList, setShowGlossaryList] = useState(false);
   const [isGlossaryModalOpen, setIsGlossaryModalOpen] = useState(false);
-  const [glossaryList, setGlossaryList] = useState([]); // 초기 데이터 제거
+  const [glossaryList, setGlossaryList] = useState([]);
   const [defaultGlossary, setDefaultGlossary] = useState(null);
   const [selectedGlossary, setSelectedGlossary] = useState({ words: [] });
-  const [editingGlossary, setEditingGlossary] = useState(null); // 현재 편집 중인 용어집 이름
+  const [editingGlossary, setEditingGlossary] = useState(null);
+  const [isGlossaryEnabled, setIsGlossaryEnabled] = useState(true);
+  const [isSaving, setIsSaving] = useState(null); // 저장 중인 단어쌍의 인덱스
+  // 변경감지(저장 필요 여부) flag
+  const [isDirty, setIsDirty] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0); // 리프레시 트리거
 
-  // 기본 용어집 초기화
   useEffect(() => {
     async function loadGlossaries() {
       try {
-        // userInfo.id를 통해 유저 ID를 넘김
         const glossaries = await fetchAllGlossaries(userInfo.id);
         setGlossaryList(glossaries);
       } catch (err) {
@@ -27,30 +37,31 @@ function Glossary({ userInfo }) {
       loadGlossaries();
     }
   }, [userInfo]);
-  // 2) glossaryList가 바뀔 때 defaultGlossary / selectedGlossary 기본값 설정
+
   useEffect(() => {
     if (glossaryList.length > 0) {
       const firstGlossary = glossaryList[0];
-      // words가 없으면 빈 배열로
       const safeFirstGlossary = {
         ...firstGlossary,
         words: firstGlossary.words || [],
       };
-      setDefaultGlossary(safeFirstGlossary.name);
+      setDefaultGlossary(safeFirstGlossary.name || "기본 용어집");
       setSelectedGlossary(safeFirstGlossary);
+    } else {
+      console.log("Glossary list is empty."); // 용어집 리스트가 비어 있는 경우
+      setDefaultGlossary(null);
+      setSelectedGlossary({ words: [] });
     }
-  }, [glossaryList]);
+  }, [glossaryList, refreshKey]);
 
   const toggleGlossaryList = () => setShowGlossaryList((prev) => !prev);
 
   const handleOpenModal = () => setIsGlossaryModalOpen(true);
-
   const handleCloseModal = () => setIsGlossaryModalOpen(false);
 
   const handleCreateGlossary = async (name) => {
     const newGlossary = { name, words: [], userId: userInfo.id };
     try {
-      // createGlossary 함수가 직접 return한 값이 서버 응답 그 자체
       const savedGlossary = await createGlossary(newGlossary);
 
       setGlossaryList((prev) => [...prev, savedGlossary]);
@@ -63,29 +74,26 @@ function Glossary({ userInfo }) {
     }
   };
 
-  const handleDeleteGlossary = (name) => {
-    if (window.confirm(`"${name}" 용어집을 삭제하시겠습니까?`)) {
-      setGlossaryList((prev) =>
-        prev.filter((glossary) => glossary.name !== name)
-      );
-
-      if (defaultGlossary === name) {
-        const remainingGlossaries = glossaryList.filter(
-          (glossary) => glossary.name !== name
-        );
-        setDefaultGlossary(
-          remainingGlossaries.length > 0 ? remainingGlossaries[0].name : null
-        );
-      }
-
-      if (selectedGlossary?.name === name) {
-        setSelectedGlossary(null);
+  const handleDeleteGlossary = async (id) => {
+    if (window.confirm("이 용어집을 삭제하시겠습니까?")) {
+      try {
+        const result = await deleteGlossary(id);
+        setGlossaryList((prev) => prev.filter((item) => item.id !== id));
+        alert("용어집이 성공적으로 삭제되었습니다.");
+      } catch (error) {
+        console.error("용어집 삭제 실패:", error);
+        alert("용어집 삭제에 실패했습니다.");
       }
     }
   };
 
   const handleSelectGlossary = (glossary) => {
+    if (!glossary.id) {
+      alert("해당 용어집에는 ID가 없습니다.");
+      return;
+    }
     setSelectedGlossary(glossary);
+    setIsDirty(false); // 새로 고른 용어집일 때는 저장할 내용이 없으므로 false
   };
 
   const handleSetDefaultGlossary = (name) => {
@@ -126,51 +134,152 @@ function Glossary({ userInfo }) {
   };
 
   const handleAddWordPair = () => {
-    if (!selectedGlossary || !Array.isArray(selectedGlossary.words)) {
-      alert("선택된 용어집이 없습니다.");
+    if (!selectedGlossary || !selectedGlossary.id) {
+      alert("용어집을 선택해주세요.");
       return;
     }
-    if (selectedGlossary.words.length >= 30) {
-      alert("최대 30개의 단어쌍만 추가할 수 있습니다.");
-      return;
-    }
+
     const updatedGlossary = {
       ...selectedGlossary,
-      words: [...selectedGlossary.words, { start: "", arrival: "" }],
+      words: [...selectedGlossary.words, { start: "", arrival: "" }], // 빈 단어쌍 추가
     };
+
     setSelectedGlossary(updatedGlossary);
     setGlossaryList((prev) =>
       prev.map((glossary) =>
-        glossary.name === selectedGlossary.name ? updatedGlossary : glossary
+        glossary.id === selectedGlossary.id ? updatedGlossary : glossary
       )
     );
   };
 
-  const handleUpdateWord = (index, field, value) => {
+  // 저장 후 refreshKey 업데이트
+  const handleSaveWordPair = async (index) => {
+    const newWordPair = selectedGlossary.words[index];
+
+    if (!newWordPair.start || !newWordPair.arrival) {
+      alert("출발 단어와 도착 단어를 모두 입력해주세요.");
+      return;
+    }
+
+    setIsSaving(index);
+
+    try {
+      await addWordPair(selectedGlossary.id, newWordPair);
+
+      // refreshKey 업데이트
+      setRefreshKey((prev) => prev + 1);
+
+      alert("단어쌍이 성공적으로 저장되었습니다.");
+    } catch (error) {
+      console.error("단어쌍 저장 실패:", error);
+      alert("단어쌍 저장에 실패했습니다.");
+    } finally {
+      setIsSaving(null);
+    }
+  };
+
+  const handleUpdateWordPair = async (index) => {
+    const updatedWordPair = selectedGlossary.words[index];
+
+    console.log("Updating word pair:", updatedWordPair);
+
+    if (!updatedWordPair.start || !updatedWordPair.arrival) {
+      alert("출발 단어와 도착 단어를 모두 입력해주세요.");
+      console.error(
+        "Validation failed: Both start and arrival must be provided."
+      );
+      return;
+    }
+
+    try {
+      // 단일 단어쌍 업데이트를 위한 API 호출
+      const response = await updateWordPair(
+        selectedGlossary.id, // glossaryId
+        updatedWordPair._id, // wordPairId
+        {
+          ...updatedWordPair,
+          userId: userInfo.id, // 로그인한 유저의 ID 추가
+        }
+      );
+
+      console.log("Word pair updated successfully:", response);
+
+      // 상태 업데이트 (API에서 전체 데이터를 반환하지 않는다면 로컬에서 업데이트)
+      setGlossaryList((prev) =>
+        prev.map((glossary) =>
+          glossary.id === selectedGlossary.id
+            ? {
+                ...glossary,
+                words: glossary.words.map((word, idx) =>
+                  idx === index ? updatedWordPair : word
+                ),
+              }
+            : glossary
+        )
+      );
+
+      alert("단어쌍 수정이 완료되었습니다.");
+    } catch (error) {
+      console.error("Word pair update failed:", error);
+      alert("단어쌍 수정에 실패했습니다.");
+    }
+  };
+
+  const handleDeleteWord = async (index) => {
+    if (!selectedGlossary || !selectedGlossary.id) {
+      alert("용어집을 선택해주세요.");
+      return;
+    }
+
+    if (window.confirm("이 단어쌍을 삭제하시겠습니까?")) {
+      try {
+        await deleteWordPair(selectedGlossary.id, index);
+
+        // 삭제 후 UI 업데이트
+        const updatedWords = selectedGlossary.words.filter(
+          (_, i) => i !== index
+        );
+        const updatedGlossary = { ...selectedGlossary, words: updatedWords };
+        setSelectedGlossary(updatedGlossary);
+        setGlossaryList((prev) =>
+          prev.map((glossary) =>
+            glossary.id === selectedGlossary.id ? updatedGlossary : glossary
+          )
+        );
+        alert("단어쌍이 성공적으로 삭제되었습니다.");
+      } catch (error) {
+        console.error("단어쌍 삭제 실패:", error);
+        alert("단어쌍 삭제에 실패했습니다.");
+      }
+    }
+  };
+
+  const handleChangeWordPair = (index, field, value) => {
     const updatedWords = [...selectedGlossary.words];
     updatedWords[index][field] = value;
-    const updatedGlossary = { ...selectedGlossary, words: updatedWords };
-    setSelectedGlossary(updatedGlossary);
-    setGlossaryList((prev) =>
-      prev.map((glossary) =>
-        glossary.name === selectedGlossary.name ? updatedGlossary : glossary
-      )
-    );
-  };
 
-  const handleDeleteWord = (index) => {
-    const updatedWords = selectedGlossary.words.filter((_, i) => i !== index);
     const updatedGlossary = { ...selectedGlossary, words: updatedWords };
     setSelectedGlossary(updatedGlossary);
     setGlossaryList((prev) =>
       prev.map((glossary) =>
-        glossary.name === selectedGlossary.name ? updatedGlossary : glossary
+        glossary.id === selectedGlossary.id ? updatedGlossary : glossary
       )
     );
+    setIsDirty(true); // 변경 상태 감지
   };
 
   return (
     <div className="glossary-box">
+      <label style={{ display: "block", marginBottom: "10px" }}>
+        <input
+          type="checkbox"
+          checked={isGlossaryEnabled}
+          onChange={() => {
+            setIsGlossaryEnabled((prev) => !prev);
+          }}
+        />
+        {isGlossaryEnabled ? " 용어집 활성화" : " 용어집 비활성화"}
+      </label>
       <h2>용어집</h2>
       <div
         className={`glossary-category ${showGlossaryList ? "expanded" : ""}`}
@@ -226,7 +335,7 @@ function Glossary({ userInfo }) {
                 </button>
                 <button
                   className="glossary-delete-button"
-                  onClick={() => handleDeleteGlossary(glossary.name)}
+                  onClick={() => handleDeleteGlossary(glossary.id)}
                 >
                   삭제
                 </button>
@@ -249,27 +358,16 @@ function Glossary({ userInfo }) {
 
       {selectedGlossary && (
         <div className="glossary-editor">
-          {selectedGlossary && <h3>{selectedGlossary.name} 편집</h3>}
+          <h3>{selectedGlossary.name} 용어집</h3>
           <div className="word-list">
-            {selectedGlossary?.words?.length === 0 && (
-              <div className="word-pair empty">
-                <input type="text" placeholder="출발 단어" disabled />
-                <span>→</span>
-                <input type="text" placeholder="도착 단어" disabled />
-                <div className="word-actions">
-                  <button disabled>수정</button>
-                  <button disabled>삭제</button>
-                </div>
-              </div>
-            )}
-            {selectedGlossary?.words?.map((wordPair, index) => (
+            {selectedGlossary?.words.map((wordPair, index) => (
               <div key={index} className="word-pair">
                 <input
                   type="text"
                   placeholder="출발 단어"
                   value={wordPair.start}
                   onChange={(e) =>
-                    handleUpdateWord(index, "start", e.target.value)
+                    handleChangeWordPair(index, "start", e.target.value)
                   }
                 />
                 <span>→</span>
@@ -278,16 +376,37 @@ function Glossary({ userInfo }) {
                   placeholder="도착 단어"
                   value={wordPair.arrival}
                   onChange={(e) =>
-                    handleUpdateWord(index, "arrival", e.target.value)
+                    handleChangeWordPair(index, "arrival", e.target.value)
                   }
                 />
                 <div className="word-actions">
-                  <button onClick={() => handleUpdateWord(index)}>수정</button>
+                  {!wordPair._id ? (
+                    <button
+                      onClick={() => handleSaveWordPair(index)}
+                      disabled={isSaving === index} // 저장 중이면 버튼 비활성화
+                    >
+                      {isSaving === index ? "저장 중..." : "저장"}
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => handleUpdateWordPair(index)}
+                      disabled={isSaving === index} // 저장 중이면 버튼 비활성화
+                    >
+                      {isSaving === index ? "수정 중..." : "수정"}
+                    </button>
+                  )}
                   <button onClick={() => handleDeleteWord(index)}>삭제</button>
                 </div>
               </div>
             ))}
           </div>
+
+          {selectedGlossary?.words?.length === 0 && (
+            <div style={{ marginTop: "10px" }}>
+              아직 단어쌍이 없습니다. "단어쌍 추가" 버튼을 눌러 새 단어쌍을
+              만들어보세요!
+            </div>
+          )}
           <button onClick={handleAddWordPair}>단어쌍 추가</button>
         </div>
       )}

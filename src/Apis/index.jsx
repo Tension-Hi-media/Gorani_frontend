@@ -3,6 +3,17 @@ import axios from 'axios';
 const DOMAIN = 'http://localhost:8080';
 const DOMAIN2 = 'http://localhost:8000'
 
+const handleApiError = (error) => {
+    if (error.response) {
+      console.error("API 응답 에러:", error.response.data);
+    } else if (error.request) {
+      console.error("API 요청 미응답:", error.request);
+    } else {
+      console.error("API 요청 설정 에러:", error.message);
+    }
+    throw error;
+  };
+
 export const request = async (method, url, data) => {
 
     return await axios({
@@ -54,6 +65,7 @@ export const fastAPIrequest = async (method, url, data) => {
         throw error; 
     });
 };
+
 
 // // Axios 기본 설정
 // axios.defaults.baseURL = "http://localhost:8080";
