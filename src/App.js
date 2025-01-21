@@ -12,19 +12,19 @@ import GoogleSuccess from './pages/Login/GoogleSuccess'; // 구글 로그인 성
 
 function App() {
   return (
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Main />} />
-          <Route path='/myPage' element={<MyPage />} />
-          <Route path='/translation' element={<Translation />} />
-          <Route path='/naver' element={<NaverLogin />} />
-          <Route path="/naver-success" element={<NaverSuccess />} />
-          <Route path='/kakao' element={<KakaoLogin/>}/>
-          <Route path='/kakaoSuccess' element={<KakaoSuccessPage/>} />
-          <Route path='/kakaoCallback' element={<KakaoCallback/>} />
-          <Route path="/google/success" element={<GoogleSuccess />} /> {/* 구글 로그인 성공 라우트 추가 */}
-        </Routes>
-      </BrowserRouter>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/myPage" element={<MyPage />} />
+        <Route path="/translation" element={<Translation />} />
+        <Route path="/naver" element={<NaverLogin />} />
+        <Route path="/naver-success" element={<NaverSuccess />} />
+        <Route path="/kakao" element={<KakaoLogin />} />
+        <Route path="/kakaoSuccess" element={<KakaoSuccessPage />} />
+        <Route path="/kakaoCallback" element={<KakaoCallback />} />
+        <Route path="/google/success" element={<GoogleSuccess />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
