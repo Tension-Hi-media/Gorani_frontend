@@ -60,15 +60,15 @@ const MyPage = () => {
       <div className="section company-info">
         <h2>기업 정보</h2>
         <p>
-          기업명: 입력되지 않음
+          기업명: {user?.companyName || '입력되지 않음'}
           <button className="change-button">변경</button>
         </p>
         <p>
-          사업자 등록번호: 입력되지 않음
+          사업자 {user?.registrationNumber || '입력되지 않음'}
           <button className="attach-button">첨부</button>
         </p>
         <p>
-          대표자명: 입력되지 않음
+          대표자명: {user?.representativeName || '입력되지 않음'}
           <button className="change-button">변경</button>
         </p>
       </div>
