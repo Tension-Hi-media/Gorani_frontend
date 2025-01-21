@@ -1,32 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // useNavigate 임포트
+import { useNavigate } from "react-router-dom"; 
 import "../../assets/css/User/myPage.css";
-import axios from "axios"; // axios 임포트
 
 const MyPage = () => {
-  const [user, setUser] = useState(null); // 사용자 상태 추가
-  const navigate = useNavigate(); // useNavigate 훅 사용
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await axios.get("/api/v1/user/mypage", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`, // JWT 토큰을 헤더에 추가
-          },
-        });
-        setUser(response.data); // 사용자 정보 상태 업데이트
-      } catch (error) {
-        console.error("사용자 정보를 가져오는 데 실패했습니다.", error);
-        navigate("/login"); // 로그인 페이지로 리디렉션
-      }
-    };
-
-    fetchUserData(); // 사용자 정보 가져오기
-  }, [navigate]);
+  const parsedUserInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const [user] = useState(parsedUserInfo); 
+  console.log("user: ",user)
+  const navigate = useNavigate(); 
 
   const handleButtonClick = () => {
-    navigate("/"); // 메인 페이지로 이동 (루트 경로)
+    navigate("/"); 
   };
 
   const getProviderLogo = (provider) => {
@@ -54,23 +37,23 @@ const MyPage = () => {
       <div className="section account-info">
         <h2>계정 정보</h2> 
         <p>이메일: {user?.email} {getProviderLogo(user?.provider)}</p> {/* 사용자 이메일과 로고 표시 */}
-        <p>이름: {user?.name}</p> {/* 사용자 이름 표시 */}
+        <p>이름: {user?.username}</p> {/* 사용자 이름 표시 */}
       </div>
 
       <div className="section company-info">
         <h2>기업 정보</h2>
         <p>
-          기업명: {user?.companyName || '입력되지 않음'}
+          기업명: {user.company ? user.company.name : '입력되지 않음'}
           <button className="change-button">변경</button>
         </p>
         <p>
-          사업자 {user?.registrationNumber || '입력되지 않음'}
+          사업자 등록번호: {user.company ? user.company.registrationNumber : '입력되지 않음'}
           <button className="attach-button">첨부</button>
         </p>
         <p>
-          대표자명: {user?.representativeName || '입력되지 않음'}
+          대표자명: {user.company ? user.company.representativeName : '입력되지 않음'}
           <button className="change-button">변경</button>
-        </p>
+        </p>  
       </div>
 
       <div className="section language-info">
