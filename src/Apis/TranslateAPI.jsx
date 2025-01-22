@@ -22,35 +22,34 @@ export async function getTranslationResult(
 // 용어집 생성 API 호출 함수
 export async function createGlossary(glossary) {
   try {
-    const response = await withoutTokenRequest(
-      "POST",
-      `/api/v1/translation/glossary`,
-      glossary
-    );
+    const response = await withoutTokenRequest("POST", `/api/v1/glossary`, glossary);
+    console.log("Created glossary response:", response.data); // `_id` 확인
     return response.data;
   } catch (error) {
-    if (error.response && error.response.data) {
-      console.error("API 에러 응답:", error.response.data);
-    } else {
-      console.error("네트워크 또는 기타 에러:", error.message);
-    }
+    console.error("API 에러:", error.message);
     throw error;
   }
 }
 
 export async function fetchAllGlossaries(userId) {
   try {
+    console.log(`fetchAllGlossaries for user: ${userId}`);
     const response = await withoutTokenRequest(
       "GET",
-      `/api/v1/translation/glossary?userId=${userId}`
+      `/api/v1/glossary?userId=${userId}`
     );
 
-    // `_id`를 `id`로 변환
+    console.log("API Response Data:", response.data); // API 응답 확인
+    if (!response.data || response.data.length === 0) {
+      console.warn("No glossaries returned from API");
+    }
+
     const glossaries = response.data.map((glossary) => ({
       ...glossary,
       id: glossary._id, // `_id`를 `id`로 복사
     }));
 
+    console.log("Processed Glossaries:", glossaries); // 처리된 용어집 데이터
     return glossaries;
   } catch (error) {
     console.error("Failed to fetch glossaries:", error);
@@ -58,11 +57,12 @@ export async function fetchAllGlossaries(userId) {
   }
 }
 
+
 export async function updateGlossary(id, glossary) {
   try {
     const response = await withoutTokenRequest(
       "PUT",
-      `/api/v1/translation/glossary/${id}`,
+      `/api/v1/glossary/${id}`,
       glossary
     );
     return response.data; // Axios로 응답 데이터 반환
@@ -81,7 +81,7 @@ export async function deleteGlossary(id) {
   try {
     const response = await withoutTokenRequest(
       "DELETE",
-      `/api/v1/translation/glossary/${id}`
+      `/api/v1/glossary/${id}`
     );
     return response.data;
   } catch (error) {
@@ -95,7 +95,7 @@ export async function addWordPair(glossaryId, wordPair) {
   try {
     const response = await withoutTokenRequest(
       "POST",
-      `/api/v1/translation/glossary/${glossaryId}/word-pair`,
+      `/api/v1/glossary/${glossaryId}/word-pair`,
       wordPair
     );
 
@@ -111,7 +111,7 @@ export const deleteWordPair = async (glossaryId, index) => {
   try {
     const response = await withoutTokenRequest(
       "DELETE",
-      `/api/v1/translation/glossary/${glossaryId}/word-pair/${index}`
+      `/api/v1/glossary/${glossaryId}/word-pair/${index}`
     );
     return response.data;
   } catch (error) {
@@ -126,7 +126,7 @@ export async function updateWordPair(glossaryId, wordPairId, updatedWordPair) {
     const token = localStorage.getItem("authToken");
     const response = await request(
       "PUT",
-      `/api/v1/translation/glossary/${glossaryId}/word-pair/${wordPairId}`,
+      `/api/v1/glossary/${glossaryId}/word-pair/${wordPairId}`,
       updatedWordPair,
       {
         headers: {
