@@ -57,21 +57,15 @@ export async function fetchAllGlossaries(userId) {
   }
 }
 
-
-export async function updateGlossary(id, glossary) {
+//용어집 이름 변경
+export async function updateGlossaryName(id, newName) {
   try {
-    const response = await withoutTokenRequest(
-      "PUT",
-      `/api/v1/glossary/${id}`,
-      glossary
-    );
-    return response.data; // Axios로 응답 데이터 반환
+    const response = await withoutTokenRequest("PUT", `/api/v1/glossary/${id}`, {
+      name: newName, // Request Body로 전달
+    });
+    return response.data;
   } catch (error) {
-    if (error.response && error.response.data) {
-      console.error("API 에러 응답:", error.response.data);
-    } else {
-      console.error("네트워크 또는 기타 에러:", error.message);
-    }
+    console.error("용어집 이름 수정 에러:", error);
     throw error;
   }
 }

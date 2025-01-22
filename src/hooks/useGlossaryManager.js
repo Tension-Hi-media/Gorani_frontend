@@ -7,6 +7,7 @@ import {
   deleteGlossary,
   deleteWordPair,
   updateWordPair,
+  updateGlossaryName,
 } from "../Apis/TranslateAPI";
 
 export default function useGlossaryManager(userInfo) {
@@ -69,7 +70,7 @@ export default function useGlossaryManager(userInfo) {
     try {
       const glossaryData = { name, userId: userInfo.id, words: [] };
       const createdGlossary = await createGlossary(glossaryData);
-  
+
       if (createdGlossary && createdGlossary._id) {
         setGlossaryList((prevList) => [...prevList, createdGlossary]);
         alert(`"${createdGlossary.name}" 용어집이 생성되었습니다.`);
@@ -80,7 +81,7 @@ export default function useGlossaryManager(userInfo) {
       alert("용어집 생성에 실패했습니다.");
     }
   };
-  
+
   const handleDeleteGlossary = async (id) => {
     if (!id) {
       console.error("용어집 ID가 없습니다.");
@@ -111,36 +112,63 @@ export default function useGlossaryManager(userInfo) {
   };
 
   const handleEditGlossaryName = (glossary) => {
-    setEditingGlossary(glossary.name);
+    setEditingGlossary(glossary._id); // 편집 중인 용어집의 ID를 설정
   };
 
+  const handleFinishEditGlossaryName = async (glossary) => {
+    try {
+      await updateGlossaryName(glossary._id, glossary.name); // API 호출
+      setEditingGlossary(null); // 편집 모드 해제
+      alert("용어집 이름이 수정되었습니다.");
+    } catch (error) {
+      console.error("용어집 이름 수정 실패:", error);
+      alert("이름 수정에 실패했습니다.");
+    }
+  };
+  
   const handleChangeGlossaryName = (event, glossary) => {
     const newName = event.target.value.trim();
+    
     if (!newName) {
       alert("용어집 이름은 비어 있을 수 없습니다.");
       return;
     }
+  
+    // 중복 이름 확인
     if (glossaryList.some((item) => item.name === newName)) {
       alert("중복된 이름은 허용되지 않습니다.");
       return;
     }
-
+  
+    // 상태 업데이트
     setGlossaryList((prev) =>
       prev.map((item) =>
-        item.name === glossary.name ? { ...item, name: newName } : item
+        item._id === glossary._id ? { ...item, name: newName } : item
       )
     );
-    if (defaultGlossary === glossary.name) {
-      setDefaultGlossary(newName);
-    }
-    if (selectedGlossary?.name === glossary.name) {
-      setSelectedGlossary({ ...selectedGlossary, name: newName });
+  
+    // 현재 선택된 용어집 이름 동기화
+    if (selectedGlossary?._id === glossary._id) {
+      setSelectedGlossary((prev) => ({ ...prev, name: newName }));
     }
   };
+  
 
-  const handleBlurGlossaryName = () => {
-    setEditingGlossary(null);
+  const handleBlurGlossaryName = async (glossary) => {
+    try {
+      if (!glossary.name.trim()) {
+        alert("용어집 이름은 비어 있을 수 없습니다.");
+        return;
+      }
+      await updateGlossaryName(glossary._id, glossary.name); // FastAPI에 업데이트 요청
+      alert("용어집 이름이 업데이트되었습니다.");
+      setEditingGlossary(null);
+    } catch (error) {
+      console.error("용어집 이름 업데이트 실패:", error);
+      alert("업데이트 실패");
+    }
   };
+  
 
   // WordPairEditor 관련 핸들러
   const handleAddWordPair = () => {
@@ -280,6 +308,7 @@ export default function useGlossaryManager(userInfo) {
     handleEditGlossaryName,
     handleChangeGlossaryName,
     handleBlurGlossaryName,
+    handleFinishEditGlossaryName,
 
     // WordPairEditor 핸들러
     handleAddWordPair,

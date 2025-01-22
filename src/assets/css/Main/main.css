@@ -2,11 +2,12 @@
 .translation-container {
   margin: 0 auto;
   text-align: center;
-  width: 100%;
-  min-height: 1000px;
+  width: 100vw; /* 뷰포트 너비 전체 */
+  height: 100vh; /* 뷰포트 높이 전체 */
   display: flex;
   flex-direction: column;
 }
+
 
 /* 메인 콘텐츠 스타일 */
 .main-content {
@@ -14,9 +15,11 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  width: 100%; /* 전체 너비 */
   flex: 1;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start; /* 상단에 정렬 */
   align-items: center;
   padding: 20px;
 }

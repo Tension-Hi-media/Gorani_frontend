@@ -33,6 +33,7 @@ function Glossary({ userInfo = {} }) {
     handleEditGlossaryName,
     handleChangeGlossaryName,
     handleBlurGlossaryName,
+    handleFinishEditGlossaryName, // 추가된 핸들러
 
     // WordPairEditor 핸들러
     handleAddWordPair,
@@ -90,6 +91,7 @@ function Glossary({ userInfo = {} }) {
           onSelectGlossary={handleSelectGlossary}
           onSetDefaultGlossary={handleSetDefaultGlossary}
           onDeleteGlossary={handleDeleteGlossary}
+          onFinishEditGlossaryName={handleFinishEditGlossaryName} // 핸들러 전달
         />
       )}
 
