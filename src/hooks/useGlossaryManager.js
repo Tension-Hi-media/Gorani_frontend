@@ -1,4 +1,3 @@
-// src/hooks/useGlossaryManager.js
 import { useState, useEffect } from "react";
 import {
   createGlossary,
@@ -8,6 +7,7 @@ import {
   deleteWordPair,
   updateWordPair,
   updateGlossaryName,
+  setDefaultGlossary as setDefaultGlossaryAPI, // 기본 용어집 설정 API
 } from "../Apis/TranslateAPI";
 
 export default function useGlossaryManager(userInfo) {
@@ -28,38 +28,47 @@ export default function useGlossaryManager(userInfo) {
   // glossaryList가 변경될 때 기본 용어집과 선택된 용어집 초기화
   useEffect(() => {
     if (glossaryList.length > 0) {
+      // isDefault가 true인 용어집을 찾기
       const defaultGlossaryItem = glossaryList.find(
-        (glossary) => glossary.name === "기본"
+        (glossary) => glossary.isDefault === true
       );
+
+      // 기본 용어집이 없으면 첫 번째 용어집을 선택
       const glossaryToSelect = defaultGlossaryItem || glossaryList[0];
+
       const safeGlossary = {
         ...glossaryToSelect,
         words: glossaryToSelect.words || [],
       };
+
+      // 기본 용어집 설정
       setDefaultGlossary(safeGlossary.name || "기본");
+
+      // 선택된 용어집 설정 (기본 용어집으로 설정 후 UI 반영)
       setSelectedGlossary(safeGlossary);
     } else {
       setDefaultGlossary(null);
       setSelectedGlossary({ name: "", words: [] });
     }
-  }, [glossaryList]);
+  }, [glossaryList]); // glossaryList가 변경될 때마다 실행
 
   // 컴포넌트 마운트 시 용어집 목록 로드
   useEffect(() => {
     async function loadGlossaries() {
       try {
-        const glossaries = await fetchAllGlossaries(userInfo.id);
-        setGlossaryList(glossaries);
+        const glossaries = await fetchAllGlossaries(userInfo.id); // API 호출
+        setGlossaryList(glossaries); // 목록 업데이트
       } catch (err) {
-        console.error("용어집 로드 실패:", err);
+        console.error("용어집 로드 실패:", err); // 에러 로그
       } finally {
-        setIsLoading(false);
+        setIsLoading(false); // 로딩 상태 종료
       }
     }
+
     if (userInfo && userInfo.id) {
       loadGlossaries();
     }
-  }, [userInfo]);
+  }, [userInfo]); // userInfo가 변경될 때마다 실행
 
   // GlossaryList 관련 핸들러
   const toggleGlossaryList = () => setShowGlossaryList((prev) => !prev);
@@ -106,9 +115,64 @@ export default function useGlossaryManager(userInfo) {
     setIsDirty(false);
   };
 
-  const handleSetDefaultGlossary = (name) => {
-    setDefaultGlossary(name);
-    alert(`"${name}"이(가) 기본 용어집으로 설정되었습니다.`);
+  // useGlossaryManager.js
+
+  const handleSetDefaultGlossaryAPI = async (glossaryId) => {
+    try {
+      // 기본 용어집 설정을 위한 API 호출
+      const response = await setDefaultGlossaryAPI(userInfo.id, glossaryId);
+
+      if (response && response.glossary) {
+        const updatedGlossary = response.glossary;
+
+        // 용어집 리스트에서 기본 용어집을 업데이트
+        setGlossaryList((prevList) => {
+          const updatedList = prevList.map((item) =>
+            item._id === updatedGlossary._id ? updatedGlossary : item
+          );
+
+          // 상태 업데이트 후, setSelectedGlossary를 호출하여 화면에서 기본 용어집 선택
+          setSelectedGlossary(updatedGlossary); // 화면에 기본 용어집이 즉시 반영되도록 설정
+
+          return updatedList; // 상태 한 번만 업데이트
+        });
+
+        // 기본 용어집 상태 업데이트
+        setDefaultGlossary(updatedGlossary.name || null); // 기본 용어집 상태 설정
+        
+      } else {
+        throw new Error("API 응답이 올바르지 않습니다.");
+      }
+    } catch (error) {
+      console.error("기본 용어집 설정 API 실패:", error);
+      alert("기본 용어집 설정에 실패했습니다.");
+    }
+  };
+
+  // GlossaryList에서 onSetDefaultGlossaryAPI로 직접 호출하는 대신
+  // useGlossaryManager에서 처리되도록 `onSetDefaultGlossary`를 넘기지 않도록 수정
+  const handleSetDefaultGlossary = async (glossaryId) => {
+    const glossary = glossaryList.find((g) => g._id === glossaryId); // 선택된 용어집
+
+    // 기존 기본 용어집을 모두 false로 설정
+    const updatedGlossaries = glossaryList.map((g) => {
+      if (g._id !== glossaryId) {
+        return { ...g, isDefault: false }; // 기존 기본 용어집을 false로 변경
+      }
+      return g; // 현재 선택된 용어집은 그대로 유지
+    });
+
+    // 상태 업데이트
+    setGlossaryList(updatedGlossaries);
+
+    // API 호출: 기본 용어집 설정
+    try {
+      await handleSetDefaultGlossaryAPI(glossaryId); // API 호출
+      // 알림은 여기서 한 번만 호출
+    } catch (error) {
+      console.error("기본 용어집 설정 실패:", error);
+      alert("기본 용어집 설정에 실패했습니다.");
+    }
   };
 
   const handleEditGlossaryName = (glossary) => {
@@ -125,34 +189,33 @@ export default function useGlossaryManager(userInfo) {
       alert("이름 수정에 실패했습니다.");
     }
   };
-  
+
   const handleChangeGlossaryName = (event, glossary) => {
     const newName = event.target.value.trim();
-    
+
     if (!newName) {
       alert("용어집 이름은 비어 있을 수 없습니다.");
       return;
     }
-  
+
     // 중복 이름 확인
     if (glossaryList.some((item) => item.name === newName)) {
       alert("중복된 이름은 허용되지 않습니다.");
       return;
     }
-  
+
     // 상태 업데이트
     setGlossaryList((prev) =>
       prev.map((item) =>
         item._id === glossary._id ? { ...item, name: newName } : item
       )
     );
-  
+
     // 현재 선택된 용어집 이름 동기화
     if (selectedGlossary?._id === glossary._id) {
       setSelectedGlossary((prev) => ({ ...prev, name: newName }));
     }
   };
-  
 
   const handleBlurGlossaryName = async (glossary) => {
     try {
@@ -168,7 +231,6 @@ export default function useGlossaryManager(userInfo) {
       alert("업데이트 실패");
     }
   };
-  
 
   // WordPairEditor 관련 핸들러
   const handleAddWordPair = () => {
@@ -309,6 +371,7 @@ export default function useGlossaryManager(userInfo) {
     handleChangeGlossaryName,
     handleBlurGlossaryName,
     handleFinishEditGlossaryName,
+    handleSetDefaultGlossaryAPI,
 
     // WordPairEditor 핸들러
     handleAddWordPair,

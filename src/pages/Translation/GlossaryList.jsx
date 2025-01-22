@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../assets/css/Translation/glossary.css";
 
 function GlossaryList({
@@ -6,17 +6,42 @@ function GlossaryList({
   defaultGlossary,
   editingGlossary,
   onChangeGlossaryName,
+  onBlurGlossaryName,
   onEditGlossaryName,
-  onFinishEditGlossaryName,
   onSelectGlossary,
-  onSetDefaultGlossary,
+  onSetDefaultGlossary, // 기본 설정 API 호출 핸들러
+  onSetDefaultGlossaryAPI, // API 핸들러
   onDeleteGlossary,
+  onFinishEditGlossaryName,
 }) {
+  const [loadingStates, setLoadingStates] = useState({}); // 각 용어집의 로딩 상태를 관리
+
+  // GlossaryList.js (수정)
+  const handleSetDefaultGlossary = async (glossary) => {
+    const glossaryId = glossary._id || glossary.id;
+
+    // 로딩 상태 관리
+    setLoadingStates((prev) => ({ ...prev, [glossaryId]: true }));
+
+    try {
+      // onSetDefaultGlossaryAPI를 호출하여 기본 용어집 설정을 처리
+      await onSetDefaultGlossary(glossaryId);
+
+      // 기본 용어집 설정 후 UI에 반영
+     
+    } catch (error) {
+      console.error("기본 용어집 설정 실패:", error);
+      alert("기본 용어집 설정에 실패했습니다.");
+    } finally {
+      setLoadingStates((prev) => ({ ...prev, [glossaryId]: false }));
+    }
+  };
+
   return (
     <div className="glossary-list">
       {glossaryList.map((glossary, i) => (
         <div key={glossary._id || glossary.id || i} className="glossary-item">
-          {editingGlossary === glossary._id ? ( // 현재 편집 중인 용어집인지 확인
+          {editingGlossary === glossary._id ? (
             <div className="editing-mode">
               <input
                 type="text"
@@ -38,7 +63,7 @@ function GlossaryList({
             </span>
           )}
           <div className="glossary-buttons">
-            {editingGlossary !== glossary._id && ( // 편집 중이 아닐 때만 표시
+            {editingGlossary !== glossary._id && (
               <button
                 className="glossary-edit-button"
                 onClick={() => onEditGlossaryName(glossary)}
@@ -48,9 +73,12 @@ function GlossaryList({
             )}
             <button
               className="glossary-default-button"
-              onClick={() => onSetDefaultGlossary(glossary.name)}
+              onClick={() => handleSetDefaultGlossary(glossary)} // 버튼 클릭 시 기본 설정
+              disabled={loadingStates[glossary._id || glossary.id]} // 로딩 상태에 따라 버튼 비활성화
             >
-              기본 설정
+              {loadingStates[glossary._id || glossary.id]
+                ? "설정 중..."
+                : "기본 설정"}
             </button>
             <button
               className="glossary-delete-button"

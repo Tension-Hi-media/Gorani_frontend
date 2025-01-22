@@ -22,7 +22,11 @@ export async function getTranslationResult(
 // 용어집 생성 API 호출 함수
 export async function createGlossary(glossary) {
   try {
-    const response = await withoutTokenRequest("POST", `/api/v1/glossary`, glossary);
+    const response = await withoutTokenRequest(
+      "POST",
+      `/api/v1/glossary`,
+      glossary
+    );
     console.log("Created glossary response:", response.data); // `_id` 확인
     return response.data;
   } catch (error) {
@@ -31,6 +35,7 @@ export async function createGlossary(glossary) {
   }
 }
 
+//용어집 조회
 export async function fetchAllGlossaries(userId) {
   try {
     console.log(`fetchAllGlossaries for user: ${userId}`);
@@ -60,9 +65,13 @@ export async function fetchAllGlossaries(userId) {
 //용어집 이름 변경
 export async function updateGlossaryName(id, newName) {
   try {
-    const response = await withoutTokenRequest("PUT", `/api/v1/glossary/${id}`, {
-      name: newName, // Request Body로 전달
-    });
+    const response = await withoutTokenRequest(
+      "PUT",
+      `/api/v1/glossary/${id}`,
+      {
+        name: newName, // Request Body로 전달
+      }
+    );
     return response.data;
   } catch (error) {
     console.error("용어집 이름 수정 에러:", error);
@@ -84,6 +93,30 @@ export async function deleteGlossary(id) {
   }
 }
 
+//용어집 기본 설정
+// 용어집 기본 설정
+export async function setDefaultGlossary(userId, glossaryId) {
+  try {
+    console.log("Sending Request to set Default Glossary:");
+    console.log("URL:", `/api/v1/glossary/${userId}/default`);
+    console.log("Request Body:", { glossaryId });
+
+    // API 요청
+    const response = await request("PUT", `/api/v1/glossary/${userId}/default`, { glossaryId });
+
+    // FastAPI 응답 데이터 확인
+    console.log("Raw Response:", response);
+
+    // 데이터가 이미 JSON 형식이라면 파싱 없이 그대로 반환
+    return response; // 그대로 반환
+
+  } catch (error) {
+    console.error("기본 용어집 설정 실패:", error);
+    throw error;
+  }
+}
+
+
 // 단어쌍 추가 API 호출 함수
 export async function addWordPair(glossaryId, wordPair) {
   try {
@@ -101,6 +134,7 @@ export async function addWordPair(glossaryId, wordPair) {
   }
 }
 
+//단어쌍 삭제
 export const deleteWordPair = async (glossaryId, index) => {
   try {
     const response = await withoutTokenRequest(

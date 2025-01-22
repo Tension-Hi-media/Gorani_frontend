@@ -7,7 +7,6 @@ import useGlossaryManager from "../../hooks/useGlossaryManager";
 
 function Glossary({ userInfo = {} }) {
   const {
-    // 상태
     showGlossaryList,
     isGlossaryModalOpen,
     glossaryList,
@@ -18,24 +17,19 @@ function Glossary({ userInfo = {} }) {
     isSaving,
     isDirty,
     isLoading,
-
-    // setter
     setIsGlossaryEnabled,
-
-    // GlossaryList 핸들러
     toggleGlossaryList,
     handleOpenModal,
     handleCloseModal,
     handleCreateGlossary,
     handleDeleteGlossary,
     handleSelectGlossary,
-    handleSetDefaultGlossary,
+    handleSetDefaultGlossary, // 기본 용어집 설정 핸들러
+    handleSetDefaultGlossaryAPI, // 기본 설정 API 핸들러
     handleEditGlossaryName,
     handleChangeGlossaryName,
     handleBlurGlossaryName,
-    handleFinishEditGlossaryName, // 추가된 핸들러
-
-    // WordPairEditor 핸들러
+    handleFinishEditGlossaryName,
     handleAddWordPair,
     handleSaveWordPair,
     handleUpdateWordPair,
@@ -49,6 +43,7 @@ function Glossary({ userInfo = {} }) {
 
   return (
     <div className="glossary-box">
+      {/* 용어집 활성화/비활성화 토글 */}
       <label style={{ display: "block", marginBottom: "10px" }}>
         <input
           type="checkbox"
@@ -59,6 +54,7 @@ function Glossary({ userInfo = {} }) {
       </label>
 
       <h2>용어집</h2>
+      {/* 용어집 리스트 토글 */}
       <div
         className={`glossary-category ${showGlossaryList ? "expanded" : ""}`}
         onClick={toggleGlossaryList}
@@ -80,6 +76,7 @@ function Glossary({ userInfo = {} }) {
         </svg>
       </div>
 
+      {/* 용어집 리스트 컴포넌트 */}
       {showGlossaryList && (
         <GlossaryList
           glossaryList={glossaryList}
@@ -89,15 +86,18 @@ function Glossary({ userInfo = {} }) {
           onBlurGlossaryName={handleBlurGlossaryName}
           onEditGlossaryName={handleEditGlossaryName}
           onSelectGlossary={handleSelectGlossary}
-          onSetDefaultGlossary={handleSetDefaultGlossary}
+          onSetDefaultGlossary={handleSetDefaultGlossary} // 수정된 부분
+          onSetDefaultGlossaryAPI={handleSetDefaultGlossaryAPI} // API 핸들러 전달
           onDeleteGlossary={handleDeleteGlossary}
-          onFinishEditGlossaryName={handleFinishEditGlossaryName} // 핸들러 전달
+          onFinishEditGlossaryName={handleFinishEditGlossaryName}
         />
       )}
 
+      {/* 용어집 생성 버튼 */}
       <button className="create-glossary" onClick={handleOpenModal}>
         용어집 생성
       </button>
+      {/* 용어집 생성 모달 */}
       {isGlossaryModalOpen && (
         <GlossaryModal
           isOpen={isGlossaryModalOpen}
@@ -106,7 +106,7 @@ function Glossary({ userInfo = {} }) {
         />
       )}
 
-      {/* selectedGlossary와 words가 존재할 때만 WordPairEditor 렌더링 */}
+      {/* 단어쌍 에디터 */}
       {selectedGlossary && Array.isArray(selectedGlossary.words) && (
         <WordPairEditor
           selectedGlossary={selectedGlossary}
