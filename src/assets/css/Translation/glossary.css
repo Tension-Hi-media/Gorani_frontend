@@ -1,0 +1,389 @@
+/* 공통 버튼 스타일 */
+.button {
+  background-color: #007bff; /* 파란색 배경 */
+  border: none;
+  border-radius: 8px; /* 둥근 모서리 */
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button svg {
+  width: 20px;
+  height: 20px;
+  stroke: white; /* 흰색 아이콘 */
+}
+
+.button:disabled {
+  background-color: #d3d3d3; /* 비활성화 상태의 회색 */
+  cursor: not-allowed;
+}
+
+.button:hover:not(:disabled) {
+  background-color: #0056b3; /* 호버 시 더 짙은 파란색 */
+}
+
+/* 추가 버튼과 삭제 버튼을 구분 */
+.add-button {
+  background-color: #007bff; /* 파란색 */
+}
+
+.delete-button {
+  background-color: #ff4d4f; /* 빨간색 */
+}
+
+.delete-button:hover {
+  background-color: #b30000; /* 호버 시 더 짙은 빨간색 */
+}
+
+/* 단어쌍 리스트 전체 박스 */
+.word-list {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  max-height: 300px;
+  overflow-y: auto; /* 스크롤 활성화 */
+}
+
+/* 단일 단어쌍 항목 */
+.word-pair {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* 입력 필드 스타일 */
+.word-pair input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  flex: 1;
+  margin: 0 5px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+  color: #000;
+}
+
+.word-pair input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.4);
+}
+
+/* → 아이콘 스타일 */
+.word-pair span {
+  margin: 0 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 삭제 버튼 스타일 */
+.word-pair button {
+  padding: 6px 10px;
+  background-color: #ff6b6b;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.word-pair button:hover {
+  background-color: #ff4c4c;
+}
+
+/* 단어쌍 추가 버튼 */
+.glossary-editor button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.glossary-editor button:hover {
+  background-color: #0056b3;
+}
+
+/* 스크롤바 스타일 (선택 사항, 브라우저 호환성 주의) */
+.word-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.word-list::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+.word-list::-webkit-scrollbar-thumb:hover {
+  background-color: #aaa;
+}
+
+
+.glossary-button {
+  font-size: 16px;
+  margin-left: 10px;
+  padding: 5px 10px;
+  color: #fff;
+  background-color: #2ec4b6;
+  border: none;
+  border-radius: 5px;
+  margin-left: 10px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.glossary-button:hover {
+  background-color: #28b2a5;
+}
+
+
+.glossary-box h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.glossary-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: absolute;
+  z-index: 1000;
+  top: 60%;
+  right: 0;
+  margin-top: 10px;
+  padding: 20px;
+  background-color: #3c3c3c;
+  color: #fff;
+  border: #787878 10px solid;
+  border-radius: 10px;
+  width: 800px;
+  text-align: left;
+}
+
+
+.glossary-list {
+  width: calc(100% - 15px);
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  border: 5px solid white;
+}
+
+.glossary-category {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.glossary-category svg {
+  margin-left: 5px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.glossary-category:hover,
+.glossary-category svg:hover {
+  cursor: pointer;
+  color: #2ec4b6;
+}
+
+.glossary-category .dropdown-icon {
+  transition: transform 0.3s ease; /* 회전 애니메이션 추가 */
+}
+
+.glossary-category .dropdown-icon.rotated {
+  transform: rotate(180deg); /* 180도 회전 */
+}
+
+.glossary-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #fff;
+  color: #333;
+  border-bottom: 1px solid #333;
+  font-weight: bolder;
+}
+
+.glossary-item:hover {
+  cursor: pointer;
+  background-color: #ddd;
+}
+
+.glossary-item:last-child {
+  border-bottom: none
+}
+
+.glossary-buttons {
+  display: flex; 
+  margin-left: auto;
+}
+
+.glossary-edit-button,
+.glossary-delete-button {
+  background-color: #2ec4b6;
+  width: 40px;
+  height: 40px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.glossary-edit-button:hover,
+.glossary-delete-button:hover {
+  background-color: #28b2a5;
+}
+
+
+
+.create-glossary {
+  font-size: 16px;
+  color: #fff;
+  background-color: #2ec4b6;
+  border: none;
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
+  padding: 10px;
+}
+
+.create-glossary:hover {
+  background-color: #28b2a5;
+}
+
+.save-word {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.start-text,
+.arrive-text {
+  width: calc(50% - 40px);
+  height: 20px;
+  padding: 10px;
+  background-color: #fff;
+  color: #333;
+  border-radius: 10px;
+  font-weight: bolder;
+  margin-bottom: 10px;
+  resize: none;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.add-term-button {
+  width: 40px;
+  height: 40px;
+  margin-right: 5px;
+  border: none;
+  color: white;
+  border-radius: 10px;
+}
+
+.add-term-button:disabled {
+  background-color: #ccc;
+  cursor: default;
+}
+
+.add-term-button:not(:disabled) {
+
+  background-color: #007BFF;
+  cursor: pointer;
+}
+
+.add-term-button:not(:disabled):hover {
+  background-color: #0056b3;
+}
+
+.word-list {
+  width: 100%;
+}
+
+.word-item {
+  display: flex;
+  flex-direction: column;
+  /* 세로 정렬 */
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.word-item-language {
+  text-align: left;
+  font-size: 16px;
+}
+
+.word-item-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.start-word,
+.arrive-word {
+  width: calc(50% - 40px);
+  height: 20px;
+  padding: 10px;
+  background-color: #fff;
+  color: #333;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  resize: none;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.word-edit-button,
+.word-delete-button {
+  background-color: #007BFF;
+  width: 47px;
+  height: 40px;
+  border: none;
+  color: white;
+  border-radius: 10px;
+}
+
+.word-edit-button:hover,
+.word-delete-button:hover {
+  background-color: #0056b3;
+}
+
+/* glossary.css */
+.word-actions.button{
+  /* 저장 버튼의 기본 스타일 */
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+/* 비활성화된 상태일 때 */
+.word-actions.button:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
