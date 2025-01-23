@@ -16,7 +16,6 @@ function GlossaryList({
 }) {
   const [loadingStates, setLoadingStates] = useState({}); // 각 용어집의 로딩 상태를 관리
 
-  // GlossaryList.js (수정)
   const handleSetDefaultGlossary = async (glossary) => {
     const glossaryId = glossary._id || glossary.id;
 
@@ -26,9 +25,7 @@ function GlossaryList({
     try {
       // onSetDefaultGlossaryAPI를 호출하여 기본 용어집 설정을 처리
       await onSetDefaultGlossary(glossaryId);
-
-      // 기본 용어집 설정 후 UI에 반영
-     
+      // 기본 용어집 설정 후 UI에 반영 (필요시 상태 업데이트 호출)
     } catch (error) {
       console.error("기본 용어집 설정 실패:", error);
       alert("기본 용어집 설정에 실패했습니다.");
@@ -40,7 +37,7 @@ function GlossaryList({
   return (
     <div className="glossary-list">
       {glossaryList.map((glossary, i) => (
-        <div key={glossary._id || glossary.id || i} className="glossary-item">
+        <div key={glossary._id || glossary.id || i} className="glossary-item" onClick={() => onSelectGlossary(glossary)}>
           {editingGlossary === glossary._id ? (
             <div className="editing-mode">
               <input
@@ -57,7 +54,7 @@ function GlossaryList({
               </button>
             </div>
           ) : (
-            <span onClick={() => onSelectGlossary(glossary)}>
+            <span>
               {glossary.name}{" "}
               {defaultGlossary === glossary.name && <strong>(기본)</strong>}
             </span>
