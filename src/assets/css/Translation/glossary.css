@@ -306,14 +306,7 @@ textarea:focus {
   @extend .button--primary;
 }
 
-.glossary-edit-button:hover {
-  background-color: var(--primary-hover);
-}
-
-.glossary-delete-button {
-  @extend .button--secondary;
-}
-
+.glossary-edit-button:hover,
 .glossary-delete-button:hover {
   background-color: var(--secondary-hover);
 }

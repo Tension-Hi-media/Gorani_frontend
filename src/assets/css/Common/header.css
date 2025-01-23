@@ -1,3 +1,10 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,400i,700");
+@font-face {
+  font-family: 'SmoochSans';
+  src: url('../../font/SmoochSans-VariableFont_wght.ttf') format('truetype');
+}
+
+
 /* 헤더 스타일 */
 .header {
   background-color: #0c0c0e;
@@ -10,61 +17,81 @@
 }
 
 .header .left-text {
-  font-size: 16px;
+  font-family: 'SmoochSans', Arial, Helvetica, sans-serif;
+  width: 300px;
+  font-size: 18pt;
   color: #ccc;
 }
 
-.header .title {
-  font-size: 36px;
-  font-weight: bold;
-  text-transform: uppercase;
-  color: white;
+.changing-title {
+  font-family: 'SmoochSans', Arial, Helvetica, sans-serif;
+  font-size: 65pt;
+  height: 1.5em; /* 텍스트가 중앙에 위치하도록 높이 조정 */
+  position: relative;
+  width: 50%; /* 전체 폭으로 확장 */
+  text-align: center; /* 텍스트 가운데 정렬 */
+  overflow: hidden; /* 초과 부분 숨김 */
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
+  justify-content: center; /* 수평 정렬 */
+  align-items: center; /* 수직 정렬 */
+  transform: translate3d(0, 0, 0);
 }
 
-.header .title::before,
-.header .title::after {
-  content: "";
-  flex-grow: 1;
-  height: 1px;
-  background-color: white;
+.changing-title h1 {
+  font-size: 1em;
+  position: relative;
+  margin: 0;
 }
 
+.letter {
+  position: relative;
+  display: inline-block;
+  top: 1.2em; /* 초기 위치 */
+  opacity: 0; /* 초기 투명도 */
+}
+
+.letter.in {
+  animation: letter-in 0.5s forwards ease-out;
+}
+
+@keyframes letter-in {
+  0% {
+    top: 1.2em;
+    opacity: 0;
+  }
+  100% {
+    top: 0em;
+    opacity: 1;
+  }
+}
+
+/* 오른쪽 아이콘 */
 .header .right-icons {
+  width: 300px;
   display: flex;
   align-items: center;
-  gap: 15px;
 }
 
-/* 계정 및 로그아웃 버튼 스타일 */
 .header .auth-buttons {
   display: flex;
   gap: 10px;
-  /* 계정과 로그아웃 버튼 간격 */
 }
 
 .header .auth-buttons .account-button,
 .header .auth-buttons .logout-button,
 .header .login {
+  width: 100px;
   font-size: 17px;
   color: white;
   cursor: pointer;
 }
 
-/* 버튼 호버 효과 */
 .header .auth-buttons .account-button:hover,
 .header .auth-buttons .logout-button:hover,
 .header .login:hover {
   text-decoration: underline;
 }
 
-/* 로그인 버튼 */
-
-
-/* 오른쪽 이미지 */
 .header .right-icons img {
   width: 140px;
   height: 40px;
@@ -88,9 +115,7 @@
   z-index: 10;
   display: flex;
   flex-direction: column;
-  /* 세로 배치 */
   align-items: center;
-  /* 가운데 정렬 */
   gap: 20px;
   font-size: 16px;
 }
@@ -98,47 +123,34 @@
 .account-box .email {
   font-size: 18px;
   font-weight: bold;
-  /* 텍스트를 굵게 */
 }
 
 .account-box .version {
   display: flex;
   justify-content: space-between;
-  /* 번역기와 무료버전을 양쪽 정렬 */
   align-items: center;
-  /* 세로 정렬 */
   border: 1px #ccc solid;
   border-radius: 5px;
   padding: 8px 10px;
   width: 230px;
-  /* 너비 설정 */
 }
 
 .account-box .version span:first-child {
   text-align: left;
-  /* 번역기 오른쪽 정렬 */
   flex: 1;
-  /* 공간을 균등 분배 */
 }
 
 .account-box .version span:last-child {
   text-align: right;
-  /* 무료버전 왼쪽 정렬 */
   color: #4caf50;
-  /* 무료버전 글씨색 */
   flex: 1;
-  /* 공간을 균등 분배 */
 }
 
 .account-box button {
   width: 250px;
-  /* 버튼 너비 */
   padding: 8px 0;
-  /* 버튼 높이 설정 */
   background-color: #007bff;
-  /* 배경색 */
   color: #fff;
-  /* 글자색 */
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -146,5 +158,4 @@
 
 .account-box button:hover {
   background-color: #0056b3;
-  /* 호버 효과 */
 }
