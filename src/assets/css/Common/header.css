@@ -22,7 +22,7 @@
   font-size: 64px;
   height: 1.5em; /* 텍스트가 중앙에 위치하도록 높이 조정 */
   position: relative;
-  width: 100%; /* 전체 폭으로 확장 */
+  width: 50%; /* 전체 폭으로 확장 */
   text-align: center; /* 텍스트 가운데 정렬 */
   overflow: hidden; /* 초과 부분 숨김 */
   display: flex;
