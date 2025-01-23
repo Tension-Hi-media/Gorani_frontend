@@ -18,6 +18,7 @@ export default function useGlossaryManager(userInfo) {
   const [selectedGlossary, setSelectedGlossary] = useState({
     name: "",
     words: [],
+    _id: ""
   });
   const [editingGlossary, setEditingGlossary] = useState(null);
   const [isGlossaryEnabled, setIsGlossaryEnabled] = useState(true);
@@ -54,7 +55,7 @@ useEffect(() => {
       setDefaultGlossary(null);
       setSelectedGlossary({ name: "", words: [] });
     }
-  }, [glossaryList, selectedGlossary]); // glossaryList와 selectedGlossary가 변경될 때만 실행
+  }, [glossaryList]); // glossaryList와 selectedGlossary가 변경될 때만 실행
   
 
   // 컴포넌트 마운트 시 용어집 목록 로드
@@ -272,7 +273,7 @@ useEffect(() => {
 
     setIsSaving(index);
     try {
-      const savedWordPair = await addWordPair(selectedGlossary.id, newWordPair);
+      const savedWordPair = await addWordPair(selectedGlossary._id, newWordPair);
       setGlossaryList((prev) =>
         prev.map((g) =>
           g.id === selectedGlossary.id
@@ -298,13 +299,13 @@ useEffect(() => {
 
     try {
       await updateWordPair(
-        selectedGlossary.id,
-        updatedWordPair._id,
+        selectedGlossary._id,
+        updatedWordPair.id,
         updatedWordPair
       );
       setGlossaryList((prev) =>
         prev.map((g) =>
-          g.id === selectedGlossary.id
+          g._id === selectedGlossary._id
             ? {
                 ...g,
                 words: g.words.map((word, idx) =>
@@ -322,20 +323,20 @@ useEffect(() => {
   };
 
   const handleDeleteWord = async (index) => {
-    if (!selectedGlossary || !selectedGlossary.id) {
+    if (!selectedGlossary || !selectedGlossary._id) {
       alert("용어집을 선택해주세요.");
       return;
     }
     if (window.confirm("이 단어쌍을 삭제하시겠습니까?")) {
       try {
-        await deleteWordPair(selectedGlossary.id, index);
+        await deleteWordPair(selectedGlossary._id, index);
         const updatedWords = selectedGlossary.words.filter(
           (_, i) => i !== index
         );
         const updatedGlossary = { ...selectedGlossary, words: updatedWords };
         setSelectedGlossary(updatedGlossary);
         setGlossaryList((prev) =>
-          prev.map((g) => (g.id === selectedGlossary.id ? updatedGlossary : g))
+          prev.map((g) => (g._id === selectedGlossary._id ? updatedGlossary : g))
         );
         alert("단어쌍이 성공적으로 삭제되었습니다.");
       } catch (error) {
@@ -352,7 +353,7 @@ useEffect(() => {
     const updatedGlossary = { ...selectedGlossary, words: updatedWords };
     setSelectedGlossary(updatedGlossary);
     setGlossaryList((prev) =>
-      prev.map((g) => (g.id === selectedGlossary.id ? updatedGlossary : g))
+      prev.map((g) => (g._id === selectedGlossary._id ? updatedGlossary : g))
     );
     setIsDirty(true);
   };

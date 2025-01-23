@@ -10,6 +10,7 @@ import KakaoSuccessPage from './pages/Login/KakaoSucess';
 import KakaoCallback from './pages/Login/KakooCallBack';
 import GoogleSuccess from './pages/Login/GoogleSuccess'; // 구글 로그인 성공 컴포넌트 import
 
+
 function App() {
   return (
     <BrowserRouter>

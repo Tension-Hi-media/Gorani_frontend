@@ -16,7 +16,6 @@ function GlossaryList({
 }) {
   const [loadingStates, setLoadingStates] = useState({}); // 각 용어집의 로딩 상태를 관리
 
-  // GlossaryList.js (수정)
   const handleSetDefaultGlossary = async (glossary) => {
     const glossaryId = glossary._id || glossary.id;
 
@@ -28,7 +27,7 @@ function GlossaryList({
       await onSetDefaultGlossary(glossaryId);
 
       // 기본 용어집 설정 후 UI에 반영
-
+     
     } catch (error) {
       console.error("기본 용어집 설정 실패:", error);
       alert("기본 용어집 설정에 실패했습니다.");
