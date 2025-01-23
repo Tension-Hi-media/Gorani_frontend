@@ -75,7 +75,7 @@ const Header = ({ toggleModal, isLoggedIn, nickname, handleLogout }) => {
             로그인
           </div>
         )}
-        <img className="header-icon" src="/images/icon.jpg" alt="Icon" />
+   
       </div>
     </header>
   );

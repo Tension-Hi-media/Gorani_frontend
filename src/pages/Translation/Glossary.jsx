@@ -1,3 +1,4 @@
+// src/components/Glossary.js
 import React from "react";
 import "../../assets/css/Translation/glossary.css";
 import GlossaryModal from "./GlossaryModal";
@@ -24,8 +25,8 @@ function Glossary({ userInfo = {} }) {
     handleCreateGlossary,
     handleDeleteGlossary,
     handleSelectGlossary,
-    handleSetDefaultGlossary, // 기본 용어집 설정 핸들러
-    handleSetDefaultGlossaryAPI, // 기본 설정 API 핸들러
+    handleSetDefaultGlossary,
+    handleSetDefaultGlossaryAPI,
     handleEditGlossaryName,
     handleChangeGlossaryName,
     handleBlurGlossaryName,
@@ -38,13 +39,13 @@ function Glossary({ userInfo = {} }) {
   } = useGlossaryManager(userInfo);
 
   if (isLoading) {
-    return <div>로딩 중...</div>;
+    return <div className="loading">로딩 중...</div>;
   }
 
   return (
     <div className="glossary-box">
       {/* 용어집 활성화/비활성화 토글 */}
-      <label style={{ display: "block", marginBottom: "10px" }}>
+      <label className="glossary-toggle">
         <input
           type="checkbox"
           checked={isGlossaryEnabled}
@@ -53,7 +54,6 @@ function Glossary({ userInfo = {} }) {
         {isGlossaryEnabled ? " 용어집 활성화" : " 용어집 비활성화"}
       </label>
 
-      <h2>용어집</h2>
       {/* 용어집 리스트 토글 */}
       <div
         className={`glossary-category ${showGlossaryList ? "expanded" : ""}`}
@@ -86,17 +86,24 @@ function Glossary({ userInfo = {} }) {
           onBlurGlossaryName={handleBlurGlossaryName}
           onEditGlossaryName={handleEditGlossaryName}
           onSelectGlossary={handleSelectGlossary}
-          onSetDefaultGlossary={handleSetDefaultGlossary} // 수정된 부분
-          onSetDefaultGlossaryAPI={handleSetDefaultGlossaryAPI} // API 핸들러 전달
+          onSetDefaultGlossary={handleSetDefaultGlossary}
+          onSetDefaultGlossaryAPI={handleSetDefaultGlossaryAPI}
           onDeleteGlossary={handleDeleteGlossary}
           onFinishEditGlossaryName={handleFinishEditGlossaryName}
         />
       )}
 
       {/* 용어집 생성 버튼 */}
-      <button className="create-glossary" onClick={handleOpenModal}>
+      <button
+        className="button button--primary create-glossary"
+        onClick={handleOpenModal}
+        aria-label="용어집 생성"
+      >
         용어집 생성
       </button>
+      {/* 구분선 */}
+      <div className="divider"></div>
+
       {/* 용어집 생성 모달 */}
       {isGlossaryModalOpen && (
         <GlossaryModal
