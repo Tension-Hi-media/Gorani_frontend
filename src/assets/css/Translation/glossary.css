@@ -36,16 +36,18 @@
   transition: background-color var(--transition-speed) ease,
     box-shadow var(--transition-speed) ease, transform 0.2s ease;
   box-shadow: var(--box-shadow);
-  white-space: nowrap; /* 버튼 텍스트 줄바꿈 방지 */
-  padding: 5px 10px; /* 버튼 내부 여백 */
-  font-size: 14px; /* 버튼 글씨 크기 */
+  white-space: nowrap;
+  /* 버튼 텍스트 줄바꿈 방지 */
+  padding: 5px 10px;
+  /* 버튼 내부 여백 */
+  font-size: 14px;
+  /* 버튼 글씨 크기 */
 }
 
 .button svg {
   width: var(--icon-size);
   height: var(--icon-size);
   stroke: var(--white);
-  margin-right: 8px;
 }
 
 .button:disabled {
@@ -70,48 +72,17 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* 수정자 클래스 */
-.button--primary {
-  background-color: var(--primary-color);
-}
 
-.button--primary:hover {
-  background-color: var(--primary-hover);
-}
-
-.button--secondary {
+.glossary-edit-button,
+.glossary-delete-button,
+.glossary-default-button {
   background-color: var(--secondary-color);
 }
 
-.button--secondary:hover {
+.glossary-edit-button:hover,
+.glossary-delete-button:hover,
+.glossary-default-button:hover{
   background-color: var(--secondary-hover);
-}
-
-.button--icon {
-  width: var(--button-size);
-  height: var(--button-size);
-  padding: 0;
-}
-
-.button--icon svg {
-  margin: 0;
-}
-
-.button--icon.button--primary {
-  background-color: var(--primary-color);
-}
-
-.button--icon.button--secondary {
-  background-color: var(--secondary-color);
-}
-
-.button--icon:disabled {
-  background-color: var(--disabled-color);
-}
-
-.button--icon:not(:disabled):hover {
-  background-color: var(--primary-hover);
-  transform: translateY(-2px);
 }
 
 /* 추가 버튼 */
@@ -148,6 +119,7 @@ textarea:focus {
 .add-term-button {
   margin-top: 10px;
 }
+
 /* 단어 아이템 스타일 */
 .word-item {
   display: flex;
@@ -181,19 +153,6 @@ textarea:focus {
   font-weight: 600;
 }
 
-/* 용어집 버튼 */
-.glossary-button,
-.create-glossary,
-.modal-content button {
-  @extend .button--primary;
-}
-
-.glossary-button:hover,
-.create-glossary:hover,
-.modal-content button:hover {
-  background-color: var(--primary-hover);
-}
-
 .create-glossary {
   margin-top: 10px;
   margin-right: 5px;
@@ -201,9 +160,12 @@ textarea:focus {
 }
 
 .divider {
-  margin: 20px 0; /* 위아래 간격 */
-  border-bottom: 1px solid black !important; /* 검정색 구분선 */
+  margin: 20px 0;
+  /* 위아래 간격 */
+  border-bottom: 1px solid black !important;
+  /* 검정색 구분선 */
 }
+
 /* 용어집 박스 */
 .glossary-box {
   display: flex;
@@ -255,7 +217,6 @@ textarea:focus {
 .glossary-category svg {
   margin-left: 5px;
   cursor: pointer;
-  color: #555;
   transition: transform 0.3s ease, color var(--transition-speed) ease;
 }
 
@@ -278,15 +239,11 @@ textarea:focus {
   border-bottom: 1px solid var(--border-color);
   font-weight: 600;
   transition: background-color var(--transition-speed) ease;
-}
-
-.glossary-item:hover {
-  background-color: #f0f0f5;
   cursor: pointer;
 }
 
-.glossary-item:last-child {
-  border-bottom: none;
+.glossary-item:hover {
+  border: 2px solid var(--primary-color);
 }
 
 .glossary-buttons {
@@ -297,18 +254,8 @@ textarea:focus {
 
 .glossary-edit-button,
 .glossary-delete-button {
-  @extend .button;
   width: var(--button-size);
   height: var(--button-size);
-}
-
-.glossary-edit-button {
-  @extend .button--primary;
-}
-
-.glossary-edit-button:hover,
-.glossary-delete-button:hover {
-  background-color: var(--secondary-hover);
 }
 
 /* 단어쌍 리스트 전체 박스 */
@@ -341,24 +288,31 @@ textarea:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px; /* 입력 필드와 버튼 간 간격 */
-  width: 100%; /* 부모 요소에 맞게 늘어남 */
-  max-width: 100%; /* 부모 요소 크기를 초과하지 않음 */
-  box-sizing: border-box; /* 패딩 포함 크기 계산 */
-  overflow: hidden; /* 넘치는 내용을 숨김 */
+  gap: 10px;
+  /* 입력 필드와 버튼 간 간격 */
+  width: 100%;
+  /* 부모 요소에 맞게 늘어남 */
+  max-width: 100%;
+  /* 부모 요소 크기를 초과하지 않음 */
+  box-sizing: border-box;
+  /* 패딩 포함 크기 계산 */
+  overflow: hidden;
+  /* 넘치는 내용을 숨김 */
 }
 
 /* 버튼 스타일 조정 */
 .word-actions button {
-  flex-shrink: 0; /* 버튼 크기가 축소되지 않도록 설정 */
-  max-width: calc(
-    50% - 5px
-  ); /* 버튼 크기를 부모 요소 절반으로 제한 (간격 제외) */
+  flex-shrink: 0;
+  /* 버튼 크기가 축소되지 않도록 설정 */
+  max-width: calc(50% - 5px);
+  /* 버튼 크기를 부모 요소 절반으로 제한 (간격 제외) */
 }
 
 .word-pair input {
-  flex: 1; /* 남은 공간을 차지 */
-  min-width: 0; /* 크기를 줄일 때 줄바꿈 방지 */
+  flex: 1;
+  /* 남은 공간을 차지 */
+  min-width: 0;
+  /* 크기를 줄일 때 줄바꿈 방지 */
 }
 
 .word-pair input:focus {
@@ -509,13 +463,18 @@ textarea:focus {
 /* 수정 및 삭제 버튼 정렬 */
 .word-actions {
   display: flex !important;
-  gap: 5px; /* 버튼 간 간격 */
-  justify-content: flex-start; /* 좌측 정렬 */
-  align-items: center; /* 수직 정렬 */
+  gap: 5px;
+  /* 버튼 간 간격 */
+  justify-content: flex-start;
+  /* 좌측 정렬 */
+  align-items: center;
+  /* 수직 정렬 */
   flex-wrap: wrap !important;
   max-width: 100% !important;
-  box-sizing: border-box; /* 패딩 포함 크기 계산 */
+  box-sizing: border-box;
+  /* 패딩 포함 크기 계산 */
 }
+
 /* 화살표 스타일 */
 .arrow {
   margin: 0 8px;
