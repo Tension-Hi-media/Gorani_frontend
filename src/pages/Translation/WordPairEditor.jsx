@@ -16,7 +16,7 @@ function WordPairEditor({
   return (
     <div className="glossary-editor">
       {/* selectedGlossary.name이 undefined일 경우 기본 문자열 사용 */}
-      <h3>{selectedGlossary?.name || "용어집"} 용어집</h3>
+      <h3>{selectedGlossary?.name || "용어집"}</h3>
       <div className="word-list">
         {words.map((wordPair, index) => (
           <div key={index} className="word-pair">
