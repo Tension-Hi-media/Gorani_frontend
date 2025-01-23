@@ -6,14 +6,14 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
   background-color: #f5f5f7; /* 애플의 연한 회색 배경 */
 }
 
-
 /* 메인 콘텐츠 스타일 */
 .main-content {
-  background-color: #555555;
+  background-color: #0c0a0a;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -30,12 +30,13 @@
 .translation-box {
   display: flex;
   gap: 20px; /* 좌우 간격 */
-  width: 90%; /* 화면 너비의 90% */
-  max-width: 1000px; /* 최대 너비 */
+  width: 70%; /* 화면 너비의 90% */
+  height: 75%; /* 최대 너비 */
   background-color: #ffffff;
   padding: 30px;
   border-radius: 15px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  z-index: 100;
 }
 
 /* 데이터 소스 언어 섹션 */
@@ -168,7 +169,7 @@ textarea,
 }
 
 textarea {
-  height: 150px;
+  height: 65%;
   margin: 10px 0;
   border: 1px solid #e0e0e0;
 }
@@ -179,7 +180,7 @@ textarea:focus {
 }
 
 .translation-output {
-  height: 150px; /* 입력 박스와 동일한 높이 */
+  height: 65%; /* 입력 박스와 동일한 높이 */
   margin: 10px 0;
   border: 1px solid #e0e0e0;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -261,7 +262,8 @@ textarea:focus {
   max-width: 500px;
   margin: auto;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
 }
 
 .modal-content button {
@@ -279,20 +281,215 @@ textarea:focus {
   background-color: #28b2a5;
 }
 
-/* 푸터 스타일 */
-footer {
-  width: 100%;
-  padding: 20px 40px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  color: #888888;
-  font-size: 14px;
-}
-
 /* 에러 메시지 스타일 */
 .error {
   color: #d93025; /* 애플의 에러 색상 */
   font-weight: 500;
   margin-top: 10px;
+}
+
+:root {
+  --color-fur: #ffb141;
+  --color-fur-dark: #f5832c;
+  --color-spot: #f9584c;
+  --color-snout: #544258;
+  --color-collar: #3eab6c;
+  --duration: 0.7s;
+  --semi-duration: calc(var(--duration) / 2);
+  --easing: cubic-bezier(0.5, 0, 0.5, 1);
+  --stagger: calc(-1 * var(--semi-duration) / 2);
+}
+
+*,
+*:before,
+*:after {
+  -webkit-animation-timing-function: var(--easing) !important;
+  animation-timing-function: var(--easing) !important;
+}
+
+.shooting_star {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 2px;
+  background: linear-gradient(
+    -45deg,
+    rgba(95, 145, 255, 0.35),
+    rgba(0, 0, 255, 0)
+  );
+  border-radius: 999px;
+  filter: drop-shadow(0 0 6px #699bff);
+  -webkit-animation: tail 4000ms linear infinite,
+    shooting 4000ms linear infinite;
+  animation: tail 4000ms linear infinite, shooting 4000ms linear infinite;
+}
+.shooting_star:nth-child(1) {
+  top: 58%;
+  left: 0;
+  -webkit-animation-delay: 250ms;
+  animation-delay: 250ms;
+}
+.shooting_star:nth-child(2) {
+  top: 79%;
+  left: 0;
+  -webkit-animation-delay: 9126ms;
+  animation-delay: 9126ms;
+}
+.shooting_star:nth-child(3) {
+  top: 93%;
+  left: 0;
+  -webkit-animation-delay: 8849ms;
+  animation-delay: 8849ms;
+}
+.shooting_star:nth-child(4) {
+  top: 78%;
+  left: 0;
+  -webkit-animation-delay: 4081ms;
+  animation-delay: 4081ms;
+}
+.shooting_star:nth-child(5) {
+  top: 10%;
+  left: 0;
+  -webkit-animation-delay: 5587ms;
+  animation-delay: 5587ms;
+}
+.shooting_star:nth-child(6) {
+  top: 41%;
+  left: 0;
+  -webkit-animation-delay: 8722ms;
+  animation-delay: 8722ms;
+}
+.shooting_star:nth-child(7) {
+  top: 41%;
+  left: 0;
+  -webkit-animation-delay: 533ms;
+  animation-delay: 533ms;
+}
+.shooting_star:nth-child(8) {
+  top: 69%;
+  left: 0;
+  -webkit-animation-delay: 3524ms;
+  animation-delay: 3524ms;
+}
+.shooting_star:nth-child(9) {
+  top: 48%;
+  left: 0;
+  -webkit-animation-delay: 3570ms;
+  animation-delay: 3570ms;
+}
+.shooting_star:nth-child(10) {
+  top: 35%;
+  left: 0;
+  -webkit-animation-delay: 9934ms;
+  animation-delay: 9934ms;
+}
+.shooting_star:nth-child(11) {
+  top: 27%;
+  left: 0;
+  -webkit-animation-delay: 6888ms;
+  animation-delay: 6888ms;
+}
+.shooting_star:nth-child(12) {
+  top: 9%;
+  left: 0;
+  -webkit-animation-delay: 169ms;
+  animation-delay: 169ms;
+}
+.shooting_star:nth-child(13) {
+  top: 10%;
+  left: 0;
+  -webkit-animation-delay: 2459ms;
+  animation-delay: 2459ms;
+}
+.shooting_star:nth-child(14) {
+  top: 90%;
+  left: 0;
+  -webkit-animation-delay: 5253ms;
+  animation-delay: 5253ms;
+}
+.shooting_star:nth-child(15) {
+  top: 37%;
+  left: 0;
+  -webkit-animation-delay: 2524ms;
+  animation-delay: 2524ms;
+}
+.shooting_star:nth-child(16) {
+  top: 83%;
+  left: 0;
+  -webkit-animation-delay: 6732ms;
+  animation-delay: 6732ms;
+}
+.shooting_star:nth-child(17) {
+  top: 78%;
+  left: 0;
+  -webkit-animation-delay: 9199ms;
+  animation-delay: 9199ms;
+}
+.shooting_star:nth-child(18) {
+  top: 9%;
+  left: 0;
+  -webkit-animation-delay: 6289ms;
+  animation-delay: 6289ms;
+}
+.shooting_star:nth-child(19) {
+  top: 38%;
+  left: 0;
+  -webkit-animation-delay: 3914ms;
+  animation-delay: 3914ms;
+}
+.shooting_star:nth-child(20) {
+  top: 60%;
+  left: 0;
+  -webkit-animation-delay: 801ms;
+  animation-delay: 801ms;
+}
+
+@-webkit-keyframes tail {
+  0% {
+    width: 0;
+    opacity: 0;
+  }
+  25% {
+    opacity: 100%;
+  }
+  75% {
+    opacity: 100%;
+  }
+  100% {
+    width: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes tail {
+  0% {
+    width: 0;
+    opacity: 0;
+  }
+  25% {
+    opacity: 100%;
+  }
+  75% {
+    opacity: 100%;
+  }
+  100% {
+    width: 100%;
+    opacity: 0;
+  }
+}
+@-webkit-keyframes shooting {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+@keyframes shooting {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }

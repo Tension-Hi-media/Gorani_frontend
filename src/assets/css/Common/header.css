@@ -7,15 +7,16 @@
 
 /* 헤더 스타일 */
 .header {
-  background-color: #0c0c0e;
+  background-color: #000000;
   color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
   border-bottom: 1px solid #333;
-}
+  z-index: 1001;
 
+}
 .header .left-text {
   font-family: 'SmoochSans', Arial, Helvetica, sans-serif;
   width: 300px;
