@@ -1,4 +1,9 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,400i,700");
+@font-face {
+  font-family: 'SmoochSans';
+  src: url('../../font/SmoochSans-VariableFont_wght.ttf') format('truetype');
+}
+
 
 /* 헤더 스타일 */
 .header {
@@ -12,14 +17,15 @@
 }
 
 .header .left-text {
+  font-family: 'SmoochSans', Arial, Helvetica, sans-serif;
   width: 300px;
-  font-size: 16px;
+  font-size: 18pt;
   color: #ccc;
 }
 
 .changing-title {
-  font-family: "Londrina Solid", sans-serif;
-  font-size: 64px;
+  font-family: 'SmoochSans', Arial, Helvetica, sans-serif;
+  font-size: 65pt;
   height: 1.5em; /* 텍스트가 중앙에 위치하도록 높이 조정 */
   position: relative;
   width: 50%; /* 전체 폭으로 확장 */
