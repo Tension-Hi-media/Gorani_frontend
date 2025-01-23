@@ -1,24 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./../../assets/css/all.css";
 import "./../../assets/css/Common/header.css";
 
 const Header = ({ toggleModal, isLoggedIn, nickname, handleLogout }) => {
-  const [showAccountBox, setShowAccountBox] = useState(false); // 계정 박스 상태 관리
-  const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate
+  const [showAccountBox, setShowAccountBox] = useState(false);
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const navigate = useNavigate();
+
+  // 텍스트 목록
+  const texts = ["GORANI", "TRANSLATION", "WELCOME"];
+
+  useEffect(() => {
+    // 텍스트 변경 로직
+    const interval = setInterval(() => {
+      setCurrentTextIndex((prevIndex) => (prevIndex + 1) % texts.length);
+    }, 5000); // 5초마다 텍스트 변경
+
+    return () => clearInterval(interval); // 컴포넌트 언마운트 시 정리
+  }, [texts.length]);
 
   const toggleAccountBox = () => {
-    setShowAccountBox((prev) => !prev); // 계정 박스 열기/닫기
+    setShowAccountBox((prev) => !prev);
   };
 
   const goToMyPage = () => {
-    navigate("/myPage"); // 마이페이지로 이동
+    navigate("/myPage");
   };
 
   return (
     <header className="header">
       <div className="left-text">WWW.GORANI.COM</div>
-      <div className="title">GORANI</div>
+      <div className="changing-title">
+        <h1 key={texts[currentTextIndex]}>
+          {texts[currentTextIndex].split("").map((char, index) => (
+            <span
+              key={index}
+              className="letter in"
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
+              {char}
+            </span>
+          ))}
+        </h1>
+      </div>
       <div className="right-icons">
         {isLoggedIn ? (
           <div className="auth-buttons">

@@ -244,6 +244,18 @@
   cursor: pointer;
 }
 
+.glossary-default-button{
+  background-color: #2ec4b6;
+  width: 80px;
+  height: 40px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bolder;
+}
+
+.glossary-default-button:hover,
 .glossary-edit-button:hover,
 .glossary-delete-button:hover {
   background-color: #28b2a5;

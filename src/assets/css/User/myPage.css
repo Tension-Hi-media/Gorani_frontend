@@ -94,4 +94,5 @@
     object-fit: contain; /* 이미지 비율 유지 */
     margin-right: auto; /* 텍스트와 이미지 사이의 간격 */
     vertical-align: middle; /* 텍스트와 이미지 수직 정렬 */
+    margin-left: 10px;
 }
