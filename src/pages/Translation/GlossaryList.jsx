@@ -61,16 +61,8 @@ function GlossaryList({
             </span>
           )}
           <div className="glossary-buttons">
-            {editingGlossary !== glossary._id && (
-              <button
-                className="glossary-edit-button"
-                onClick={() => onEditGlossaryName(glossary)}
-              >
-                이름 편집
-              </button>
-            )}
             <button
-              className="glossary-default-button"
+              className="button glossary-default-button"
               onClick={() => handleSetDefaultGlossary(glossary)} // 버튼 클릭 시 기본 설정
               disabled={loadingStates[glossary._id || glossary.id]} // 로딩 상태에 따라 버튼 비활성화
             >
@@ -79,10 +71,11 @@ function GlossaryList({
 
             {editingGlossary !== glossary._id && (
               <button
-                className="glossary-edit-button"
+                className="button glossary-edit-button"
                 onClick={() => onEditGlossaryName(glossary)}
               >
-                <svg fill="#000000"
+                <svg 
+                  fill="#ffffff"
                   width="25px"
                   height="25px"
                   viewBox="0 0 24 24"
@@ -91,20 +84,22 @@ function GlossaryList({
                 </svg>
               </button>
             )}
-            
+
             <button
-              className="button button--learn-more button--secondary glossary-delete-button"
+              className="button glossary-delete-button"
               onClick={() => onDeleteGlossary(glossary._id || glossary.id)}
               aria-label={`${glossary.name} 삭제`}
             >
-              <svg width="25px"
+              <svg
+                fill="#ffffff"
+                width="25px"
                 height="25px"
                 viewBox="0 0 16 16"
                 xmlns="http://www.w3.org/2000/svg"
-                fill="#000000">
-                <path fill-rule="evenodd" 
-                clip-rule="evenodd" 
-                d="M10 3h3v1h-1v9l-1 1H4l-1-1V4H2V3h3V2a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v1zM9 2H6v1h3V2zM4 13h7V4H4v9zm2-8H5v7h1V5zm1 0h1v7H7V5zm2 0h1v7H9V5z" />
+              >
+                <path fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M10 3h3v1h-1v9l-1 1H4l-1-1V4H2V3h3V2a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v1zM9 2H6v1h3V2zM4 13h7V4H4v9zm2-8H5v7h1V5zm1 0h1v7H7V5zm2 0h1v7H9V5z" />
               </svg>
             </button>
           </div>
