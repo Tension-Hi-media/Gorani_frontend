@@ -49,6 +49,7 @@ function Glossary({ userInfo }) {
 
   const handleCreateGlossary = async (name) => {
     const newGlossary = { name, words: [], userId: userInfo.id };
+    console.log("들어간 용어집: ",newGlossary)
     try {
       // createGlossary 함수가 직접 return한 값이 서버 응답 그 자체
       const savedGlossary = await createGlossary(newGlossary);
