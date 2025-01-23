@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../assets/css/all.css";
 import "../../assets/css/Main/main.css";
+import "../../assets/css/Translation/translation.css";
 import Footer from "../Common/Footer";
 import Header from "../Common/Header";
 import Modal from "../Common/Modal";
