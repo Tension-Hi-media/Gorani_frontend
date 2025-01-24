@@ -16,7 +16,6 @@
   --modal-box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   --button-size: 40px;
   --icon-size: 20px;
-  --font-family: "Helvetica Neue", Arial, sans-serif;
   --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -27,7 +26,6 @@
   justify-content: center;
   padding: 10px 20px;
   font-size: 16px;
-  font-family: var(--font-family);
   color: var(--white);
   background-color: var(--primary-color);
   border: none;
@@ -72,7 +70,6 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-
 .glossary-edit-button,
 .glossary-delete-button,
 .glossary-default-button {
@@ -81,7 +78,7 @@
 
 .glossary-edit-button:hover,
 .glossary-delete-button:hover,
-.glossary-default-button:hover{
+.glossary-default-button:hover {
   background-color: var(--secondary-hover);
 }
 
@@ -104,7 +101,6 @@ textarea {
   background-color: var(--background-light);
   transition: border-color var(--transition-speed) ease,
     box-shadow var(--transition-speed) ease;
-  font-family: var(--font-family);
 }
 
 input[type="text"]:focus,
@@ -361,7 +357,6 @@ textarea:focus {
   max-width: 500px;
   width: 90%;
   box-shadow: var(--modal-box-shadow);
-  font-family: var(--font-family);
 }
 
 .modal-content button {
