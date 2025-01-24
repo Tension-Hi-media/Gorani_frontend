@@ -44,7 +44,6 @@ const Header = ({ toggleModal, isLoggedIn, nickname, handleLogout }) => {
           ))}
         </h1>
       </div>
-      <div className="right-icons">
         {isLoggedIn ? (
           <div className="auth-buttons">
             <div
@@ -75,8 +74,6 @@ const Header = ({ toggleModal, isLoggedIn, nickname, handleLogout }) => {
             로그인
           </div>
         )}
-   
-      </div>
     </header>
   );
 };
