@@ -41,12 +41,21 @@ function Main() {
   }, []);
 
   const handleTranslate = async () => {
-    const response = await getTranslationResult(
-      inputText,
-      sourceLanguage,
-      targetLanguage
-    );
-    setTranslatedText(response);
+    // 선택된 언어를 매핑 테이블에서 코드로 변환
+    const sourceCode = languageCodeMap[sourceLanguage];
+    const targetCode = languageCodeMap[targetLanguage];
+
+    try {
+      const response = await getTranslationResult(
+        inputText,
+        sourceCode,
+        targetCode
+      );
+      setTranslatedText(response);
+    } catch (error) {
+      console.error("번역 요청 중 오류 발생:", error);
+      alert("번역 요청 중 문제가 발생했습니다. 다시 시도해 주세요.");
+    }
   };
 
   const toggleGlossary = () => {
@@ -90,6 +99,19 @@ function Main() {
     setIsLoggedIn(false);
     setNickname("GORANI"); // 기본 닉네임으로 초기화
     alert("로그아웃되었습니다.");
+  };
+
+  const reverseLanguages = () => {
+    setSourceLanguage(targetLanguage);
+    setTargetLanguage(sourceLanguage);
+    setInputText(translatedText); // 입력창 내용을 번역 결과로 변경
+    setTranslatedText(inputText); // 번역 결과를 입력창 내용으로 변경
+  };
+
+  const languageCodeMap = {
+    한국어: "ko",
+    영어: "en",
+    일본어: "ja",
   };
 
   return (
@@ -138,6 +160,7 @@ function Main() {
                   src="../../../images/revers.jpg"
                   alt="Reverse Icon"
                   className="reverse-icon"
+                  onClick={reverseLanguages} // 리버스 기능 추가
                 />
               </div>
               {showSourceDropdown && (
@@ -145,8 +168,12 @@ function Main() {
                   {["한국어", "영어", "일본어"].map((lang) => (
                     <li
                       key={lang}
-                      className="language-option"
-                      onClick={() => selectSourceLanguage(lang)}
+                      className={`language-option ${
+                        lang === targetLanguage ? "disabled" : ""
+                      }`}
+                      onClick={() =>
+                        lang !== targetLanguage && selectSourceLanguage(lang)
+                      }
                     >
                       {lang}
                     </li>
@@ -215,8 +242,12 @@ function Main() {
                   {["한국어", "영어", "일본어"].map((lang) => (
                     <li
                       key={lang}
-                      className="language-option"
-                      onClick={() => selectTargetLanguage(lang)}
+                      className={`language-option ${
+                        lang === sourceLanguage ? "disabled" : ""
+                      }`}
+                      onClick={() =>
+                        lang !== sourceLanguage && selectTargetLanguage(lang)
+                      }
                     >
                       {lang}
                     </li>
