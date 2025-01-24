@@ -1,10 +1,11 @@
 /* 푸터 스타일 */
 .footer {
-  background-color: #0c0c0e;
+  background-color: #000000;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   padding: 20px 0;
   color: white;
   text-align: center;
+  z-index: 1001;
 }

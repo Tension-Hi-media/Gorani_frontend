@@ -1,106 +1,244 @@
+/* 공통 스타일 */
+
 .my-page {
-    padding: 20px;
-    background-color: #282828;
-    color: #fff;
-    font-family: Arial, sans-serif;
-    min-height: 950px;
+    display: flex;
+    height: 100vh;
+    background-color: var(--bg); /* 배경 색상 변수 */
+    color: #E0E0E0; /* 기본 텍스트 색상 */
+    font-family: 'Roboto', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    overflow: hidden;
 }
 
-.page-title {
-    font-size: 32px;
-    margin-bottom: 10px;
+:root {
+    --bg: #000000; /* 배경색 */
+    --primary: #3949AB; /* 기본 파란색 */
+    --secondary: #FFC107; /* 강조 노란색 */
+    --dark-gray: #0c0a0a; /* 어두운 회색 */
+    --light-gray: #E0E0E0; /* 연한 회색 */
 }
 
-.tab-button {
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    display: block;
-    /* 블록 요소로 변경 */
-    margin: 20px auto 0;
-    /* 상단 20px 간격, 좌우 가운데 정렬 */
-    text-align: center;
+/* 로고 스타일 */
+.provider-logo {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    margin-right: 10px;
+    vertical-align: middle;
 }
 
-.section {
-    position: relative;
-    background-color: #f5f5f5;
-    color: #0c0c0e;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 20px;
+/* 왼쪽 메뉴 스타일 */
+.menu {
+    width: 25%;
+    background-color: var(--dark-gray);
+    padding: 25px;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    /* 기본적으로 세로 배치 */
-    gap: 10px;
-    /* 요소 간격 10px */
+    gap: 20px;
+    border-right: 2px solid var(--primary);
 }
 
-.section h2 {
-    font-size: 18px;
-    font-weight: bolder;
-    margin-bottom: 10px;
-}
-
-.section p {
+.menu-item {
+    padding: 15px 20px;
+    border-radius: 8px;
+    background-color: var(--primary);
+    color: var(--light-gray);
+    cursor: pointer;
     display: flex;
-    justify-content: space-between;
-    /* 텍스트와 버튼을 양쪽으로 배치 */
     align-items: center;
-    /* 세로 중앙 정렬 */
+    font-size: 16px;
+    font-weight: 500;
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
-.buttons {
-    display: flex;
-    gap: 10px;
+.menu-item:hover {
+    color: var(--secondary);
+    font-weight: bold;
 }
 
+.menu-item.active {
+    color: var(--secondary);
+    font-weight: bold;
+}
+
+.menu-item svg {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+/* 오른쪽 콘텐츠 스타일 */
+.content {
+    flex: 1;
+    padding: 30px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    background-color: var(--bg);
+}
+
+.content h2 {
+    font-size: 26px;
+    margin-bottom: 20px;
+    color: var(--secondary);
+}
+
+.content p {
+    line-height: 1.8;
+    font-size: 16px;
+    color: var(--light-gray);
+}
+
+.card {
+    background-color: rgba(58, 68, 145, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    color: var(--light-gray);
+}
+
+/* 버튼 스타일 */
 .company-button,
 .change-button,
 .compare-button {
-    background-color: #2ec4b6;
-    /* 색상 통일 */
-    color: #fff;
+    background-color: var(--secondary);
+    color: var(--primary);
     border: none;
     border-radius: 5px;
-    padding: 5px 10px;
+    padding: 10px 16px;
     cursor: pointer;
-}
-
-.company-button{
-    position: absolute;
-    top: 20px;
-    right: 20px;
-}
-
-.compare-button {
-    width: 100px;
-    /* 너비 지정 */
-    height: 40px;
-    /* 높이 지정 */
-    text-align: center;
-    margin: 0 auto;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-size: 14px;
+    margin-top: 10px;
 }
 
 .company-button:hover,
 .compare-button:hover,
-.change-button:hover,
-.attach-button:hover {
-    background-color: #28b2a5;
+.change-button:hover {
+    background-color: #FFB300;
+    transform: scale(1.05);
 }
 
-.tab-button:hover {
-    background-color: #0056b3;
+/* 뒤로 가기 버튼 */
+.back-button {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--secondary);
+    color: var(--primary);
+    border: none;
+    border-radius: 25px;
+    padding: 12px 24px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4);
 }
 
-.provider-logo {
-    width: 30px; /* 원하는 너비 */
-    height: 30px; /* 원하는 높이 */
-    object-fit: contain; /* 이미지 비율 유지 */
-    margin-right: auto; /* 텍스트와 이미지 사이의 간격 */
-    vertical-align: middle; /* 텍스트와 이미지 수직 정렬 */
-    margin-left: 10px;
+.back-button:hover {
+    background-color: #FFB300;
+    transform: translateX(-50%) scale(1.05);
+    box-shadow: 0 6px 18px rgba(255, 179, 0, 0.6);
 }
+
+/* 하단 네비게이션 스타일 */
+ul.nav-menu {
+    position: relative;
+    display: flex;
+    gap: 50px;
+    justify-content: center;
+    background: var(--bg);
+    padding: 15px 0;
+}
+
+ul.nav-menu li {
+    position: relative;
+    list-style: none;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+ul.nav-menu li::before {
+    content: '';
+    position: absolute;
+    inset: 30px;
+    box-shadow: 0 0 0 10px var(--clr),
+                0 0 0 20px var(--bg),
+                0 0 0 22px var(--clr);
+    transition: 0.5s;
+}
+
+ul.nav-menu li:hover::before {
+    inset: 15px;
+}
+
+ul.nav-menu li::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--bg);
+    transform: rotate(45deg);
+    transition: 0.5s;
+}
+
+ul.nav-menu li:hover::after {
+    inset: 0px;
+    transform: rotate(0deg);
+}
+
+/* 버튼 스타일 */
+ul.nav-menu li button {
+    position: relative;
+    background: none;
+    border: none;
+    text-decoration: none;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+ul.nav-menu li button:hover {
+    transform: scale(1.1);
+}
+
+/* 아이콘 스타일 */
+ul.nav-menu li button i {
+    font-size: 2em;
+    color: var(--clr);
+    transition: color 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+    filter: drop-shadow(0 0 5px var(--clr));
+}
+
+ul.nav-menu li:hover button i {
+    color: var(--clr);
+    transform: translateY(-10%);
+    filter: drop-shadow(0 0 10px var(--clr)) 
+            drop-shadow(0 0 20px var(--clr)) 
+            drop-shadow(0 0 40px var(--clr));
+}
+
+/* 텍스트 스타일 */
+ul.nav-menu li button span {
+    position: absolute;
+    top: 100%;
+    font-family: sans-serif;
+    font-size: 14px;
+    color: var(--clr);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateY(10px);
+}
+
+ul.nav-menu li:hover button span {
+    opacity: 1;
+    transform: translateY(0);
+}
+
