@@ -121,7 +121,7 @@ const MyPage = () => {
             }`}
           >
             <i className="fa-solid fa-user"></i>
-            <span>계정 정보</span>
+            <span>Account</span>
           </button>
         </li>
 
@@ -134,7 +134,7 @@ const MyPage = () => {
             }`}
           >
             <i className="fa-solid fa-building"></i>
-            <span>기업 정보</span>
+            <span>Company</span>
           </button>
         </li>
 
@@ -147,7 +147,7 @@ const MyPage = () => {
             }`}
           >
             <i className="fa-solid fa-language"></i>
-            <span>언어 설정</span>
+            <span>Language</span>
           </button>
         </li>
 
@@ -160,7 +160,7 @@ const MyPage = () => {
             }`}
           >
             <i className="fa-solid fa-level-up-alt"></i>
-            <span>계정 업그레이드</span>
+            <span>Upgrade</span>
           </button>
         </li>
       </ul>
