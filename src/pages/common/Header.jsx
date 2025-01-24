@@ -30,7 +30,9 @@ const Header = ({ toggleModal, isLoggedIn, nickname, handleLogout }) => {
 
   return (
     <header className="header">
-      <div className="left-text">WWW.GORANI.COM</div>
+      <div className="left-text">
+        <img src="/images/logo_white.png" alt="GORANI Logo" className="logo" />
+      </div>
       <div className="changing-title">
         <h1 key={texts[currentTextIndex]}>
           {texts[currentTextIndex].split("").map((char, index) => (
@@ -44,36 +46,36 @@ const Header = ({ toggleModal, isLoggedIn, nickname, handleLogout }) => {
           ))}
         </h1>
       </div>
-        {isLoggedIn ? (
-          <div className="auth-buttons">
-            <div
-              className="account-button"
-              onClick={toggleAccountBox}
-              role="button"
-            >
-              {nickname}
-            </div>
-            {showAccountBox && (
-              <div className="account-box">
-                <div className="email">{nickname}</div>
-                <div className="version">
-                  <span>번역기</span>
-                  <span>무료버전</span>
-                </div>
-                <button className="myPage" onClick={goToMyPage}>
-                  계정
-                </button>
-                <button className="logOut" onClick={handleLogout}>
-                  로그아웃
-                </button>
+      {isLoggedIn ? (
+        <div className="auth-buttons">
+          <div
+            className="account-button"
+            onClick={toggleAccountBox}
+            role="button"
+          >
+            {nickname}
+          </div>
+          {showAccountBox && (
+            <div className="account-box">
+              <div className="email">{nickname}</div>
+              <div className="version">
+                <span>번역기</span>
+                <span>무료버전</span>
               </div>
-            )}
-          </div>
-        ) : (
-          <div className="login" onClick={toggleModal} role="button">
-            로그인
-          </div>
-        )}
+              <button className="myPage" onClick={goToMyPage}>
+                계정
+              </button>
+              <button className="logOut" onClick={handleLogout}>
+                로그아웃
+              </button>
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="login" onClick={toggleModal} role="button">
+          로그인
+        </div>
+      )}
     </header>
   );
 };

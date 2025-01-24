@@ -1,5 +1,5 @@
 // src/components/Glossary.js
-import React from "react";
+import React, { useState } from "react";
 import "../../assets/css/Translation/glossary.css";
 import GlossaryModal from "./GlossaryModal";
 import GlossaryList from "./GlossaryList";
@@ -7,6 +7,7 @@ import WordPairEditor from "./WordPairEditor";
 import useGlossaryManager from "../../hooks/useGlossaryManager";
 
 function Glossary({ userInfo = {} }) {
+  const [isVisible, setIsVisible] = useState(true); // 용어집 표시 여부 관리
   const {
     showGlossaryList,
     isGlossaryModalOpen,
@@ -51,9 +52,9 @@ function Glossary({ userInfo = {} }) {
           checked={isGlossaryEnabled}
           onChange={() => setIsGlossaryEnabled((prev) => !prev)}
         />
+        <span></span>
         {isGlossaryEnabled ? " 용어집 활성화" : " 용어집 비활성화"}
       </label>
-
       {/* 용어집 리스트 토글 */}
       <div
         className={`glossary-category ${showGlossaryList ? "expanded" : ""}`}

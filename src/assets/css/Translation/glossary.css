@@ -322,7 +322,6 @@ textarea:focus {
   flex: 1;
   margin: 5px;
   min-width: 0;
-
 }
 
 .word-pair input:focus {
@@ -431,10 +430,46 @@ textarea:focus {
 
 /* 용어집 활성화/비활성화 토글 */
 .glossary-toggle {
-  display: block;
-  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-size: 16px;
-  color: var(--text-color);
+  margin-bottom: 20px;
+}
+
+.glossary-toggle input[type="checkbox"] {
+  display: none;
+}
+
+.glossary-toggle input[type="checkbox"] + span {
+  width: 50px;
+  height: 25px;
+  background-color: #ccc;
+  border-radius: 15px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.glossary-toggle input[type="checkbox"] + span::before {
+  content: "";
+  width: 21px;
+  height: 21px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.glossary-toggle input[type="checkbox"]:checked + span {
+  background-color: #4caf50; /* 활성화 색상 */
+}
+
+.glossary-toggle input[type="checkbox"]:checked + span::before {
+  transform: translateX(25px); /* 스위치 이동 */
 }
 
 .loading {

@@ -14,21 +14,24 @@
   padding: 10px 20px;
   border-bottom: 1px solid #333;
   z-index: 1001;
+  width: 100%; /* 헤더가 화면 전체를 채움 */
+}
+.left-text {
+  width: 300px;
 }
 
-.header .left-text {
-  font-family: "SmoochSans", Arial, Helvetica, sans-serif;
-  width: 300px;
-  font-size: 18pt;
-  color: #ccc;
+.left-text .logo {
+  width: 50px; /* 원하는 크기로 조정 */
+  height: auto;
+  display: block;
 }
 
 .changing-title {
+  flex: 1;
   font-family: "SmoochSans", Arial, Helvetica, sans-serif;
   font-size: 65pt;
   height: 120px; /* 텍스트가 중앙에 위치하도록 높이 조정 */
   position: relative;
-  width: 50%; /* 전체 폭으로 확장 */
   text-align: center; /* 텍스트 가운데 정렬 */
   overflow: hidden; /* 초과 부분 숨김 */
   display: flex;
@@ -65,13 +68,6 @@
   }
 }
 
-/* 오른쪽 아이콘 */
-
-.header .auth-buttons {
-  display: flex;
-  gap: 10px;
-}
-
 .header .auth-buttons .account-button,
 .header .auth-buttons .logout-button,
 .header .login {
@@ -86,7 +82,6 @@
 .header .login:hover {
   text-decoration: underline;
 }
-
 
 .auth-buttons {
   position: relative;
