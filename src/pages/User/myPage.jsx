@@ -2,13 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../assets/css/User/myPage.css";
 import MyPageModal from "./MyPageModal";
-import {
-  FaUser,
-  FaBuilding,
-  FaLanguage,
-  FaLevelUpAlt,
-  FaArrowLeft,
-} from "react-icons/fa";
 
 const MyPage = () => {
   const parsedUserInfo = JSON.parse(localStorage.getItem("userInfo"));
@@ -18,10 +11,6 @@ const MyPage = () => {
 
   // 메뉴와 콘텐츠 상태 관리
   const [activeMenu, setActiveMenu] = useState("accountInfo");
-
-  const handleBackClick = () => {
-    navigate(-1); // 뒤로 가기
-  };
 
   const handleCompanyButtonClick = () => {
     setModalOpen(true); // 모달 열기
@@ -98,7 +87,7 @@ const MyPage = () => {
   return (
     <div className="my-page">
       {/* 상단 메뉴 */}
-      <div class="left-side"></div>
+      <div className="left-side"></div>
       <ul className="nav-menu">
         {/* Home 버튼 */}
         <li style={{ "--clr": "#2483ff" }}>
@@ -171,7 +160,7 @@ const MyPage = () => {
       {isModalOpen && (
         <MyPageModal company={user.company} onClose={handleModalClose} />
       )}
-      <div class="right-side"></div>
+      <div className="right-side"></div>
     </div>
   );
 };
