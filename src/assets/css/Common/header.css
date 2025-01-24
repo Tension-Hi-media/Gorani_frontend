@@ -66,11 +66,6 @@
 }
 
 /* 오른쪽 아이콘 */
-.header .right-icons {
-  width: 300px;
-  display: flex;
-  align-items: center;
-}
 
 .header .auth-buttons {
   display: flex;
@@ -80,8 +75,8 @@
 .header .auth-buttons .account-button,
 .header .auth-buttons .logout-button,
 .header .login {
-  width: 100px;
-  font-size: 17px;
+  width: 300px;
+  font-size: 18px;
   color: white;
   cursor: pointer;
 }
@@ -92,10 +87,6 @@
   text-decoration: underline;
 }
 
-.header .right-icons img {
-  width: 140px;
-  height: 40px;
-}
 
 .auth-buttons {
   position: relative;
@@ -104,7 +95,7 @@
 .account-box {
   position: absolute;
   top: 30px;
-  right: -135px;
+  right: -20px;
   width: 300px;
   color: #0c0c0e;
   background-color: white;
