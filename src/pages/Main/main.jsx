@@ -231,12 +231,12 @@ function Main() {
       <Modal isOpen={isModalOpen} toggleModal={toggleModal}>
         <button onClick={handleLogin}>로그인 완료</button>
       </Modal>
-      <div class="shooting_star"></div>
-      <div class="shooting_star"></div>
-      <div class="shooting_star"></div>
-      <div class="shooting_star"></div>
-      <div class="shooting_star"></div>
-      <div class="shooting_star"></div>
+      <div className="shooting_star"></div>
+      <div className="shooting_star"></div>
+      <div className="shooting_star"></div>
+      <div className="shooting_star"></div>
+      <div className="shooting_star"></div>
+      <div className="shooting_star"></div>
       <Footer />
     </div>
   );
