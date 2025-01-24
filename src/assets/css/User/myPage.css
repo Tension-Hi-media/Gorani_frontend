@@ -1,106 +1,218 @@
+/* 공통 스타일 */
 .my-page {
-    padding: 20px;
-    background-color: #282828;
-    color: #fff;
-    font-family: Arial, sans-serif;
-    min-height: 950px;
+  display: grid;
+  grid-template-rows: auto 1fr; /* 첫 번째 행은 nav-menu, 두 번째 행은 content */
+  grid-template-columns: 1fr 1.5fr 1fr; /* 가운데 열을 다른 열보다 2배 크게 설정 */
+  height: 100vh; /* 화면 전체 높이 */
+  background-color: var(--background-light);
 }
 
-.page-title {
-    font-size: 32px;
-    margin-bottom: 10px;
+.left-side {
+  grid-row: 1 / span 2; /* 전체 행에 걸치도록 설정 */
+  grid-column: 1; /* 첫 번째 열 */
+  background-color: #0c0a0a;
 }
 
-.tab-button {
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    display: block;
-    /* 블록 요소로 변경 */
-    margin: 20px auto 0;
-    /* 상단 20px 간격, 좌우 가운데 정렬 */
-    text-align: center;
+.right-side {
+  grid-row: 1 / span 2; /* 전체 행에 걸치도록 설정 */
+  grid-column: 3; /* 세 번째 열 */
+  background-color: #0c0a0a;
 }
 
-.section {
-    position: relative;
-    background-color: #f5f5f5;
-    color: #0c0c0e;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    /* 기본적으로 세로 배치 */
-    gap: 10px;
-    /* 요소 간격 10px */
+:root {
+  --bg: #000000; /* 배경색 */
+  --primary: #2ec4b6; /* 기본 파란색 */
+  --secondary: #2ec4b6; /* 강조 노란색 */
+  --dark-gray: #0c0a0a; /* 어두운 회색 */
+  --light-gray: #e0e0e0; /* 연한 회색 */
 }
 
-.section h2 {
-    font-size: 18px;
-    font-weight: bolder;
-    margin-bottom: 10px;
+/* 네비게이션 스타일 */
+ul.nav-menu {
+  grid-row: 1; /* 첫 번째 행에 위치 */
+  grid-column: 2; /* 가운데 열에 배치 */
+  position: relative;
+  display: flex;
+  gap: 50px;
+  justify-content: center;
+  background: var(--bg);
+  padding: 15px 0;
+  box-sizing: border-box;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5),
+    -10px -10px 20px rgba(60, 60, 60, 0.1);
 }
 
-.section p {
-    display: flex;
-    justify-content: space-between;
-    /* 텍스트와 버튼을 양쪽으로 배치 */
-    align-items: center;
-    /* 세로 중앙 정렬 */
+ul.nav-menu li {
+  position: relative;
+  list-style: none;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.5s;
 }
 
-.buttons {
-    display: flex;
-    gap: 10px;
+ul.nav-menu li::before {
+  content: "";
+  position: absolute;
+  inset: 30px;
+  box-shadow: 0 0 0 10px var(--clr), 0 0 0 20px var(--bg), 0 0 0 22px var(--clr);
+  transition: 0.5s;
 }
 
+ul.nav-menu li:hover::before {
+  inset: 15px;
+}
+
+ul.nav-menu li::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--bg);
+  transform: rotate(45deg);
+  transition: 0.5s;
+}
+
+ul.nav-menu li:hover::after {
+  inset: 0px;
+  transform: rotate(0deg);
+}
+
+/* 버튼 스타일 */
+ul.nav-menu li button {
+  position: relative;
+  background: none;
+  border: none;
+  text-decoration: none;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+ul.nav-menu li button:hover {
+  transform: scale(1.1);
+}
+
+/* 아이콘 스타일 */
+ul.nav-menu li button i {
+  font-size: 2em;
+  color: var(--clr);
+  transition: color 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+  filter: drop-shadow(0 0 5px var(--clr));
+}
+
+ul.nav-menu li:hover button i {
+  color: var(--clr);
+  transform: translateY(-10%);
+  filter: drop-shadow(0 0 10px var(--clr)) drop-shadow(0 0 20px var(--clr))
+    drop-shadow(0 0 40px var(--clr));
+}
+
+/* 텍스트 스타일 */
+ul.nav-menu li button span {
+  position: absolute;
+  top: 100%;
+  font-family: sans-serif;
+  font-size: 14px;
+  color: var(--clr);
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(10px);
+}
+
+ul.nav-menu li:hover button span {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 로고 스타일 */
+.provider-logo {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+/* 콘텐츠 스타일 */
+.content {
+  grid-row: 2; /* 두 번째 행 */
+  grid-column: 2; /* 가운데 열 */
+  padding: 40px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  background: linear-gradient(
+    145deg,
+    #111111,
+    #0c0a0a
+  ); /* 부드러운 그라데이션 */
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5),
+    -10px -10px 20px rgba(60, 60, 60, 0.1);
+  text-align: center;
+}
+
+.content h2 {
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: var(--secondary);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.content p {
+  line-height: 1.8;
+  font-size: 16px;
+  color: var(--light-gray);
+  margin-bottom: 20px;
+}
+/* 버튼 스타일 */
 .company-button,
 .change-button,
 .compare-button {
-    background-color: #2ec4b6;
-    /* 색상 통일 */
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-.company-button{
-    position: absolute;
-    top: 20px;
-    right: 20px;
-}
-
-.compare-button {
-    width: 100px;
-    /* 너비 지정 */
-    height: 40px;
-    /* 높이 지정 */
-    text-align: center;
-    margin: 0 auto;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: 14px;
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+  margin: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .company-button:hover,
-.compare-button:hover,
 .change-button:hover,
-.attach-button:hover {
-    background-color: #28b2a5;
+.compare-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
 }
 
-.tab-button:hover {
-    background-color: #0056b3;
+/* 뒤로 가기 버튼 */
+.back-button {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--secondary);
+  color: var(--primary);
+  border: none;
+  border-radius: 25px;
+  padding: 12px 24px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.3s ease,
+    box-shadow 0.3s ease;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(255, 193, 7, 0.4);
 }
 
-.provider-logo {
-    width: 30px; /* 원하는 너비 */
-    height: 30px; /* 원하는 높이 */
-    object-fit: contain; /* 이미지 비율 유지 */
-    margin-right: auto; /* 텍스트와 이미지 사이의 간격 */
-    vertical-align: middle; /* 텍스트와 이미지 수직 정렬 */
-    margin-left: 10px;
+.back-button:hover {
+  background-color: #ffb300;
+  transform: translateX(-50%) scale(1.05);
+  box-shadow: 0 6px 18px rgba(255, 179, 0, 0.6);
 }
