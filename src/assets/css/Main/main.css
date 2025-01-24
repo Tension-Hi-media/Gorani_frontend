@@ -284,6 +284,12 @@ textarea:focus {
   margin-top: 10px;
 }
 
+.language-option.disabled {
+  color: #aaa;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
 :root {
   --color-fur: #ffb141;
   --color-fur-dark: #f5832c;
