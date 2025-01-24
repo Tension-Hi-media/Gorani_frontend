@@ -98,7 +98,7 @@ const MyPage = () => {
   return (
     <div className="my-page">
       {/* 상단 메뉴 */}
-      <div class="left-side"></div>
+      <div className="left-side"></div>
       <ul className="nav-menu">
         {/* Home 버튼 */}
         <li style={{ "--clr": "#2483ff" }}>
@@ -171,7 +171,7 @@ const MyPage = () => {
       {isModalOpen && (
         <MyPageModal company={user.company} onClose={handleModalClose} />
       )}
-      <div class="right-side"></div>
+      <div className="right-side"></div>
     </div>
   );
 };
