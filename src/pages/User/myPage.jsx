@@ -89,16 +89,7 @@ const MyPage = () => {
       {/* 상단 메뉴 */}
       <div className="left-side"></div>
       <ul className="nav-menu">
-        {/* Home 버튼 */}
-        <li style={{ "--clr": "#2483ff" }}>
-          <button
-            onClick={() => navigate("/")}
-            className={`nav-button ${activeMenu === "home" ? "active" : ""}`}
-          >
-            <i className="fa-solid fa-house"></i>
-            <span>Home</span>
-          </button>
-        </li>
+        
 
         {/* 계정 정보 */}
         <li style={{ "--clr": "#ff253f" }}>
@@ -149,6 +140,17 @@ const MyPage = () => {
           >
             <i className="fa-solid fa-level-up-alt"></i>
             <span>Upgrade</span>
+          </button>
+        </li>
+
+        {/* Home 버튼 */}
+        <li style={{ "--clr": "#2483ff" }}>
+          <button
+            onClick={() => navigate("/")}
+            className={`nav-button ${activeMenu === "home" ? "active" : ""}`}
+          >
+            <i className="fa-solid fa-house"></i>
+            <span>Home</span>
           </button>
         </li>
       </ul>

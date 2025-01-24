@@ -50,7 +50,7 @@
 }
 
 /* 로그인 버튼 스타일 */
-.login-button {
+.modal-content .login-button {
   display: flex;
   align-items: center; /* 세로 정렬 */
   justify-content: left;
@@ -60,8 +60,8 @@
   margin-bottom: 15px;
   padding: 5px 20px;
   font-size: 16px;
-  color: #333;
-  background-color: #ffffff;
+  color: #333 !important;
+  background-color: #ffffff !important;
   font-weight: bold;
   border: 1px solid #333;
   border-radius: 10px;
