@@ -97,50 +97,73 @@ const MyPage = () => {
 
   return (
     <div className="my-page">
-      {/* 왼쪽 메뉴 */}
-      <div className="menu">
-        <div
-          className={`menu-item ${
-            activeMenu === "accountInfo" ? "active" : ""
-          }`}
-          onClick={() => setActiveMenu("accountInfo")}
-        >
-          <FaUser style={{ marginRight: "10px" }} />
-          계정 정보
-        </div>
-        <div
-          className={`menu-item ${
-            activeMenu === "companyInfo" ? "active" : ""
-          }`}
-          onClick={() => setActiveMenu("companyInfo")}
-        >
-          <FaBuilding style={{ marginRight: "10px" }} />
-          기업 정보
-        </div>
-        <div
-          className={`menu-item ${
-            activeMenu === "languageInfo" ? "active" : ""
-          }`}
-          onClick={() => setActiveMenu("languageInfo")}
-        >
-          <FaLanguage style={{ marginRight: "10px" }} />
-          언어 설정
-        </div>
-        <div
-          className={`menu-item ${
-            activeMenu === "upgradeInfo" ? "active" : ""
-          }`}
-          onClick={() => setActiveMenu("upgradeInfo")}
-        >
-          <FaLevelUpAlt style={{ marginRight: "10px" }} />
-          계정 업그레이드
-        </div>
-        {/* 뒤로 가기 버튼 */}
-        <button className="back-button" onClick={handleBackClick}>
-          <FaArrowLeft style={{ marginRight: "8px" }} />
-          뒤로 가기
-        </button>
-      </div>
+      {/* 상단 메뉴 */}
+      {/* 상단 메뉴 */}
+      {/* 상단 메뉴 */}
+      <ul className="nav-menu">
+        {/* Home 버튼 */}
+        <li style={{ "--clr": "#2483ff" }}>
+          <button
+            onClick={() => navigate("/")}
+            className={`nav-button ${activeMenu === "home" ? "active" : ""}`}
+          >
+            <i className="fa-solid fa-house"></i>
+            <span>Home</span>
+          </button>
+        </li>
+
+        {/* 계정 정보 */}
+        <li style={{ "--clr": "#ff253f" }}>
+          <button
+            onClick={() => setActiveMenu("accountInfo")}
+            className={`nav-button ${
+              activeMenu === "accountInfo" ? "active" : ""
+            }`}
+          >
+            <i className="fa-solid fa-user"></i>
+            <span>계정 정보</span>
+          </button>
+        </li>
+
+        {/* 기업 정보 */}
+        <li style={{ "--clr": "#fff200" }}>
+          <button
+            onClick={() => setActiveMenu("companyInfo")}
+            className={`nav-button ${
+              activeMenu === "companyInfo" ? "active" : ""
+            }`}
+          >
+            <i className="fa-solid fa-building"></i>
+            <span>기업 정보</span>
+          </button>
+        </li>
+
+        {/* 언어 설정 */}
+        <li style={{ "--clr": "#25d366" }}>
+          <button
+            onClick={() => setActiveMenu("languageInfo")}
+            className={`nav-button ${
+              activeMenu === "languageInfo" ? "active" : ""
+            }`}
+          >
+            <i className="fa-solid fa-language"></i>
+            <span>언어 설정</span>
+          </button>
+        </li>
+
+        {/* 계정 업그레이드 */}
+        <li style={{ "--clr": "#f32ec8" }}>
+          <button
+            onClick={() => setActiveMenu("upgradeInfo")}
+            className={`nav-button ${
+              activeMenu === "upgradeInfo" ? "active" : ""
+            }`}
+          >
+            <i className="fa-solid fa-level-up-alt"></i>
+            <span>계정 업그레이드</span>
+          </button>
+        </li>
+      </ul>
 
       {/* 오른쪽 콘텐츠 */}
       <div className="content">{contentData[activeMenu]}</div>
