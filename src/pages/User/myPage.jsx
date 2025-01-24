@@ -98,8 +98,7 @@ const MyPage = () => {
   return (
     <div className="my-page">
       {/* 상단 메뉴 */}
-      {/* 상단 메뉴 */}
-      {/* 상단 메뉴 */}
+      <div class="left-side"></div>
       <ul className="nav-menu">
         {/* Home 버튼 */}
         <li style={{ "--clr": "#2483ff" }}>
@@ -165,13 +164,14 @@ const MyPage = () => {
         </li>
       </ul>
 
-      {/* 오른쪽 콘텐츠 */}
+      {/* 콘텐츠 */}
       <div className="content">{contentData[activeMenu]}</div>
 
       {/* 모달 */}
       {isModalOpen && (
         <MyPageModal company={user.company} onClose={handleModalClose} />
       )}
+      <div class="right-side"></div>
     </div>
   );
 };
