@@ -1,58 +1,168 @@
-import React from "react";
-import { useNavigate } from "react-router-dom"; // useNavigate 임포트
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../../assets/css/User/myPage.css";
+import MyPageModal from "./MyPageModal";
 
 const MyPage = () => {
-  const navigate = useNavigate(); // useNavigate 훅 사용
+  const parsedUserInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const [user, setUser] = useState(parsedUserInfo);
+  const navigate = useNavigate();
+  const [isModalOpen, setModalOpen] = useState(false);
 
-  const handleButtonClick = () => {
-    navigate("/"); // 메인 페이지로 이동 (루트 경로)
+  // 메뉴와 콘텐츠 상태 관리
+  const [activeMenu, setActiveMenu] = useState("accountInfo");
+
+  const handleCompanyButtonClick = () => {
+    setModalOpen(true); // 모달 열기
   };
 
-  return (
-    <div className="my-page">
-      <br></br>
-      <h1 className="page-title">내 계정</h1>
-      <br></br><br></br>
-      <div className="section account-info">
-        <h2>계정 정보</h2> 
-        <p>이메일: GORANI@gmail.com (카카오, 네이버 등)</p>
-        <p>이름: 고라니</p>
-      </div>
+  const handleModalClose = (updatedCompany) => {
+    if (updatedCompany) {
+      setUser((prevUser) => ({
+        ...prevUser,
+        company: updatedCompany,
+      }));
+    }
+    setModalOpen(false); // 모달 닫기
+  };
 
-      <div className="section company-info">
+  const contentData = {
+    accountInfo: (
+      <div className="card">
+        <h2>계정 정보</h2>
+        <p>
+          이메일: {user?.email}{" "}
+          {user?.provider && (
+            <img
+              src={`${process.env.PUBLIC_URL}/images/${user.provider}.png`}
+              alt={`${user.provider} Logo`}
+              className="provider-logo"
+            />
+          )}
+        </p>
+        <p>이름: {user?.username}</p>
+      </div>
+    ),
+    companyInfo: (
+      <div className="card">
         <h2>기업 정보</h2>
-        <p>s
-          기업명: 입력되지 않음
-          <button className="change-button">변경</button>
+        <p>기업명: {user.company ? user.company.name : "입력되지 않음"}</p>
+        <p>
+          사업자 등록번호:{" "}
+          {user.company ? user.company.registrationNumber : "입력되지 않음"}
         </p>
         <p>
-          사업자 등록번호: 입력되지 않음
-          <button className="attach-button">첨부</button>
+          대표자명:{" "}
+          {user.company ? user.company.representativeName : "입력되지 않음"}
         </p>
+        <button className="company-button" onClick={handleCompanyButtonClick}>
+          {user.company ? "변경" : "입력"}
+        </button>
+      </div>
+    ),
+    languageInfo: (
+      <div className="card">
+        <h2>언어 설정</h2>
         <p>
-          대표자명: 입력되지 않음
-          <button className="change-button">변경</button>
+          한국어{" "}
+          <button className="change-button" onClick={() => alert("언어 변경")}>
+            변경
+          </button>
         </p>
       </div>
-
-      <div className="section language-info">
-        <h2>언어</h2>
-        <p>
-          한국어
-          <button className="change-button">변경</button>
-        </p>
-      </div>
-
-      <div className="section upgrade-info">
+    ),
+    upgradeInfo: (
+      <div className="card">
         <h2>계정 업그레이드</h2>
         <p>Pro로 업그레이드하여 더욱 편리하게 번역할 수 있습니다.</p>
         <button className="compare-button">플랜 비교</button>
       </div>
+    ),
+  };
 
-      <button className="tab-button" onClick={handleButtonClick}>
-        확인
-      </button>
+  if (!user) {
+    return <div className="card">로딩 중...</div>;
+  }
+
+  return (
+    <div className="my-page">
+      {/* 상단 메뉴 */}
+      <div className="left-side"></div>
+      <ul className="nav-menu">
+        
+
+        {/* 계정 정보 */}
+        <li style={{ "--clr": "#ff253f" }}>
+          <button
+            onClick={() => setActiveMenu("accountInfo")}
+            className={`nav-button ${
+              activeMenu === "accountInfo" ? "active" : ""
+            }`}
+          >
+            <i className="fa-solid fa-user"></i>
+            <span>Account</span>
+          </button>
+        </li>
+
+        {/* 기업 정보 */}
+        <li style={{ "--clr": "#fff200" }}>
+          <button
+            onClick={() => setActiveMenu("companyInfo")}
+            className={`nav-button ${
+              activeMenu === "companyInfo" ? "active" : ""
+            }`}
+          >
+            <i className="fa-solid fa-building"></i>
+            <span>Company</span>
+          </button>
+        </li>
+
+        {/* 언어 설정 */}
+        <li style={{ "--clr": "#25d366" }}>
+          <button
+            onClick={() => setActiveMenu("languageInfo")}
+            className={`nav-button ${
+              activeMenu === "languageInfo" ? "active" : ""
+            }`}
+          >
+            <i className="fa-solid fa-language"></i>
+            <span>Language</span>
+          </button>
+        </li>
+
+        {/* 계정 업그레이드 */}
+        <li style={{ "--clr": "#f32ec8" }}>
+          <button
+            onClick={() => setActiveMenu("upgradeInfo")}
+            className={`nav-button ${
+              activeMenu === "upgradeInfo" ? "active" : ""
+            }`}
+          >
+            <i className="fa-solid fa-level-up-alt"></i>
+            <span>Upgrade</span>
+          </button>
+        </li>
+
+        {/* Home 버튼 */}
+        <li style={{ "--clr": "#2483ff" }}>
+          <button
+            onClick={() => navigate("/")}
+            className={`nav-button ${activeMenu === "home" ? "active" : ""}`}
+          >
+            <i className="fa-solid fa-house"></i>
+            <span>Home</span>
+          </button>
+        </li>
+      </ul>
+
+      {/* 콘텐츠 */}
+      <div className="content">{contentData[activeMenu]}</div>
+
+      {/* 모달 */}
+      {isModalOpen && (
+        <MyPageModal company={user.company} onClose={handleModalClose} />
+      )}
+      <div className="right-side"></div>
     </div>
   );
 };

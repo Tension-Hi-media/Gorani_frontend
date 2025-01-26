@@ -11,6 +11,7 @@ const NaverLogin = () => {
 
   return (
     <button className="login-button naver" onClick={handleNaverLogin}>
+      <img className="logo" src="../../images/naver.png" alt="naver" />
       Naver 계정으로 로그인
     </button>
   );
