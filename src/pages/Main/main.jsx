@@ -41,7 +41,7 @@ function Main() {
   }, []);
 
   const handleTranslate = async () => {
-    const model = "chat-gpt"
+    const model = "llama"
     const response = await getTranslationResult(
       inputText,
       sourceLanguage,
