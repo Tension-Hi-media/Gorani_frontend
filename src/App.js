@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Main from "./pages/Main/main";
 import Translation from "./pages/Translation/Translation";
 import NaverLogin from "./pages/Login/Naver";
-import MyPage from "./pages/User/MyPage";
+import MyPage from "./pages/User/myPage";
 import NaverSuccess from "./pages/Login/NaverSuccess";
 import KakaoLogin from "./pages/Login/KakaoLogin";
 import KakaoSuccessPage from "./pages/Login/KakaoSucess";
