@@ -22,38 +22,48 @@ function Main() {
   const [userInfo, setUserInfo] = useState(null); // ★ userInfo 상태 추가
 
   useEffect(() => {
-    const stored = localStorage.getItem("userInfo");
-    if (stored) {
-      const parsed = JSON.parse(stored);
-      setNickname(parsed.username || "GORANI");
+    const storedUserInfo = localStorage.getItem('userInfo');
+    const storedToken = localStorage.getItem('token');
+    console.log("Stored User Info:", storedUserInfo);
+    console.log("Stored Token:", storedToken);
+
+    if (storedUserInfo && storedToken) {
+      const parsedUserInfo = JSON.parse(storedUserInfo);
+      console.log("Parsed User Info:", parsedUserInfo);
+      setNickname(parsedUserInfo.username || "GORANI");
       setIsLoggedIn(true);
-      setUserInfo(parsed); // ★ userInfo 세팅
+      setUserInfo(parsedUserInfo);
+    } else {
+      console.log("No user info or token found in localStorage");
+      setIsLoggedIn(false);
+      setNickname("GORANI");
+      setUserInfo(null);
     }
   }, []);
 
   useEffect(() => {
-    const userInfo = localStorage.getItem("userInfo");
-    if (userInfo) {
-      const parsedUserInfo = JSON.parse(userInfo);
-      setNickname(parsedUserInfo.username || "GORANI");
+    const stored = localStorage.getItem("userInfo");
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      console.log("User Info Loaded:", parsed); // 로드된 사용자 정보 확인
+      setNickname(parsed.username || "GORANI");
       setIsLoggedIn(true);
+      setUserInfo(parsed); // 상태 업데이트
     }
   }, []);
 
   const handleTranslate = async () => {
-    // 선택된 언어를 매핑 테이블에서 코드로 변환
     const sourceCode = languageCodeMap[sourceLanguage];
     const targetCode = languageCodeMap[targetLanguage];
 
+    console.log("Translating from:", sourceCode, "to:", targetCode);
+
     try {
-      const response = await getTranslationResult(
-        inputText,
-        sourceCode,
-        targetCode
-      );
+      const response = await getTranslationResult(inputText, sourceCode, targetCode);
+      console.log("Translation Response:", response);
       setTranslatedText(response);
     } catch (error) {
-      console.error("번역 요청 중 오류 발생:", error);
+      console.error("Error during translation request:", error);
       alert("번역 요청 중 문제가 발생했습니다. 다시 시도해 주세요.");
     }
   };
@@ -88,16 +98,19 @@ function Main() {
   };
 
   const handleLogin = () => {
-    localStorage.setItem("userInfo", JSON.stringify({ username: "GORANI" }));
-    setNickname("GORANI");
+    const userInfo = { username: "GORANI" }; // 로그인 시 서버에서 받은 사용자 정보
+    localStorage.setItem("userInfo", JSON.stringify(userInfo));
+    setUserInfo(userInfo);
+    setNickname(userInfo.username);
     setIsLoggedIn(true);
-    setIsModalOpen(false); // 로그인 모달 닫기
+    setIsModalOpen(false);
   };
 
   const handleLogout = () => {
     localStorage.removeItem("userInfo");
+    setUserInfo(null);
     setIsLoggedIn(false);
-    setNickname("GORANI"); // 기본 닉네임으로 초기화
+    setNickname("GORANI");
     alert("로그아웃되었습니다.");
   };
 
@@ -117,10 +130,10 @@ function Main() {
   return (
     <div className="translation-container">
       <Header
-        isLoggedIn={isLoggedIn}
-        nickname={nickname} // Header에 nickname 전달
-        toggleModal={toggleModal}
-        handleLogout={handleLogout}
+          isLoggedIn={isLoggedIn}
+          nickname={nickname} // nickname 전달
+          toggleModal={toggleModal}
+          handleLogout={handleLogout}
       />
       <main className="main-content">
         <div className="translation-box">
