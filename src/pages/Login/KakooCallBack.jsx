@@ -14,7 +14,7 @@ const KakaoCallback = () => {
         console.log("URL에서 가져온 code:", code);  // 코드가 잘 나오나 확인
 
         if (code) {
-            fetch(`http://localhost:8080/auth/kakao/callback?code=${code}`, {
+            fetch(`http://3.38.113.109:8080/auth/kakao/callback?code=${code}`, {
                 method: "GET",
                 headers: { "Content-Type": "application/json" },
             })

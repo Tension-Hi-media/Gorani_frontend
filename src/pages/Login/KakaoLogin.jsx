@@ -3,7 +3,7 @@ import React from 'react';
 const KakaoLogin = () => {
     const handleKakaoLogin = () => {
         const clientId = process.env.REACT_APP_KAKAO_ID;
-        const redirectUri = 'http://localhost:3000/kakaoSuccess';
+        const redirectUri = 'http://3.38.113.109:8080/kakaoSuccess';
         const scope = 'profile_nickname,account_email,name';
         const authUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=${scope}`;
 
