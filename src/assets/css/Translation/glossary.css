@@ -102,7 +102,7 @@ textarea {
   padding: 10px 12px;
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
-  font-size: 14px;
+  font-size: 16px;
   color: var(--text-color);
   background-color: var(--background-light);
   transition: border-color var(--transition-speed) ease,
@@ -252,6 +252,10 @@ textarea:focus {
   font-weight: 600;
   transition: background-color var(--transition-speed) ease;
   cursor: pointer;
+}
+
+.glossary-item span {
+  margin: 0 12px;
 }
 
 .glossary-item:first-child {
