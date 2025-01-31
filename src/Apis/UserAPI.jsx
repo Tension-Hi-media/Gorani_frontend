@@ -20,34 +20,49 @@ export const naverLogin = async (code, state) => {
 
 export async function kakaoLogin(code) {
     try {
-        const response = await withoutTokenRequest('GET',`/auth/callback?code=${code}&provider=kakao`);
-        console.log("response: ",response)
-        
-        const token = response.data.results.token
-        const userInfo = response.data.results.user
+        const response = await withoutTokenRequest('POST', `/api/v1/auth/kakao`, { code });
+        console.log("Kakao Login Response:", response);
 
-        // localStorage에 token과 userInfo 저장
+        if (!response.data || !response.data.results) {
+            throw new Error("Invalid API response: Missing results");
+        }
+
+        const token = response.data.results.token;
+        const userInfo = response.data.results.user; // ✅ user 확인
+
+        console.log("Received Token:", token);
+        console.log("Received User Info:", userInfo);
+
+        if (!token || !userInfo) {
+            throw new Error("Invalid login response: Missing token or userInfo");
+        }
+
         localStorage.setItem('token', token);
         localStorage.setItem('userInfo', JSON.stringify(userInfo));
 
         return true;
     } catch (error) {
-        console.error('Login API error:', error);
+        console.error('Kakao Login API error:', error);
         throw error;
     }
 };
 
-export async function googleLogin(code, state) {
+
+export async function googleLogin(code) {
     try {
-        const response = await withoutTokenRequest('GET', `/auth/callback?code=${code}&state=${state}&provider=google`);
-        console.log("response: ", response.data);
+        const response = await withoutTokenRequest('POST', `/api/v1/auth/google`, { code });
+        console.log("Google Login Response:", response);
 
         if (!response.data || !response.data.results) {
-            throw new Error("Invalid API response");
+            throw new Error("Invalid API response: Missing results");
         }
 
         const token = response.data.results.token;
         const userInfo = response.data.results.user;
+
+        if (!token || !userInfo) {
+            throw new Error("Invalid login response: Missing token or userInfo");
+        }
 
         localStorage.setItem('token', token);
         localStorage.setItem('userInfo', JSON.stringify(userInfo));
@@ -57,4 +72,4 @@ export async function googleLogin(code, state) {
         console.error('Google Login API error:', error);
         throw error;
     }
-}
+};
