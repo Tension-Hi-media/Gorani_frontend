@@ -373,10 +373,6 @@ textarea:focus {
   box-shadow: var(--modal-box-shadow);
 }
 
-.modal-content button {
-  @extend .button--primary;
-}
-
 .modal-content button:hover {
   background-color: var(--primary-hover);
 }
