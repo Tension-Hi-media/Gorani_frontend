@@ -67,8 +67,18 @@
 
 .glossary-edit-button,
 .glossary-delete-button,
-.glossary-default-button {
+.glossary-default-button,
+.glossary-save-button,
+.glossary-cancel-button {
   background-color: var(--secondary-color);
+  width: 40px;
+  height: 40px;
+}
+
+.glossary-save-button,
+.glossary-cancel-button{
+  display: none;
+  
 }
 
 .glossary-edit-button:hover,
@@ -258,7 +268,6 @@ textarea:focus {
 
 .glossary-buttons {
   display: flex;
-  margin-left: auto;
   gap: 10px;
 }
 

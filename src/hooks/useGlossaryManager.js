@@ -27,8 +27,8 @@ export default function useGlossaryManager(userInfo) {
   const [isLoading, setIsLoading] = useState(true);
 
   // glossaryList가 변경될 때 기본 용어집과 선택된 용어집 초기화
-// glossaryList가 변경될 때 기본 용어집과 선택된 용어집 초기화
-useEffect(() => {
+  // glossaryList가 변경될 때 기본 용어집과 선택된 용어집 초기화
+  useEffect(() => {
     if (glossaryList.length > 0) {
       // 선택된 용어집이 없는 경우에만 초기화 로직 실행
       if (!selectedGlossary || !selectedGlossary._id) {
@@ -36,18 +36,18 @@ useEffect(() => {
         const defaultGlossaryItem = glossaryList.find(
           (glossary) => glossary.isDefault === true
         );
-  
+
         // 기본 용어집이 없으면 첫 번째 용어집을 선택
         const glossaryToSelect = defaultGlossaryItem || glossaryList[0];
-  
+
         const safeGlossary = {
           ...glossaryToSelect,
           words: glossaryToSelect.words || [],
         };
-  
+
         // 기본 용어집 설정
         setDefaultGlossary(safeGlossary.name || "기본");
-  
+
         // 선택된 용어집 설정 (기본 용어집으로 설정 후 UI 반영)
         setSelectedGlossary(safeGlossary);
       }
@@ -56,7 +56,7 @@ useEffect(() => {
       setSelectedGlossary({ name: "", words: [] });
     }
   }, [glossaryList]); // glossaryList와 selectedGlossary가 변경될 때만 실행
-  
+
 
   // 컴포넌트 마운트 시 용어집 목록 로드
   useEffect(() => {
@@ -264,6 +264,10 @@ useEffect(() => {
     );
   };
 
+  const handleCancelEditGlossaryName = () => {
+    setEditingGlossary(null); // 편집 모드를 해제
+  };
+
   const handleSaveWordPair = async (index) => {
     const newWordPair = selectedGlossary.words[index];
     if (!newWordPair.start || !newWordPair.arrival) {
@@ -307,11 +311,11 @@ useEffect(() => {
         prev.map((g) =>
           g._id === selectedGlossary._id
             ? {
-                ...g,
-                words: g.words.map((word, idx) =>
-                  idx === index ? updatedWordPair : word
-                ),
-              }
+              ...g,
+              words: g.words.map((word, idx) =>
+                idx === index ? updatedWordPair : word
+              ),
+            }
             : g
         )
       );
@@ -388,6 +392,7 @@ useEffect(() => {
     handleBlurGlossaryName,
     handleFinishEditGlossaryName,
     handleSetDefaultGlossaryAPI,
+    handleCancelEditGlossaryName,
 
     // WordPairEditor 핸들러
     handleAddWordPair,
