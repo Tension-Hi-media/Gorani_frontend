@@ -146,8 +146,8 @@
 /* 번역 및 결과 영역 */
 .before-translation,
 .translation-result {
+  position: relative;
   flex: 1;
-  /* 동일한 비율로 나눔 */
   display: flex;
   flex-direction: column;
   background-color: #fafafa;
@@ -209,25 +209,34 @@ textarea:focus {
 
 .output-button{
   position: absolute;
-  bottom: 100px;
-  right: 10px;
+  bottom: 12px;
+  right: 15px;
 }
 
 .output-edit,
 .output-copy {
+  width: 40px;
+  height: 40px;
   padding: 10px;
   margin: 5px;
   font-size: 16px;
   border: none;
   border-radius: 8px;
-  background-color: #fff;
+  background-color: #2ec4b6;
   color: #000;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
+button svg {
+  width: var(--icon-size);
+  height: var(--icon-size);
+}
+
+.glossary-button:hover,
 .translation-button:hover,
 .output-modify:hover,
+.output-edit:hover,
 .output-copy:hover {
   background-color: #28b2a5;
   transform: translateY(-2px);
@@ -255,10 +264,6 @@ textarea:focus {
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
-}
-
-.glossary-button:hover {
-  background-color: #28b2a5;
 }
 
 .glossary-button:disabled {
