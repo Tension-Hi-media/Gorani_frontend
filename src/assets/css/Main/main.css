@@ -29,7 +29,7 @@
   display: flex;
   gap: 20px; /* 좌우 간격 */
   width: 70%; /* 화면 너비의 90% */
-  height: 75%; /* 최대 너비 */
+  height: 80%; /* 최대 너비 */
   background-color: #ffffff;
   padding: 30px;
   border-radius: 15px;
