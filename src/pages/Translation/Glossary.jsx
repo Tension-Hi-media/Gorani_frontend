@@ -36,6 +36,7 @@ function Glossary({ userInfo = {} }) {
     handleUpdateWordPair,
     handleDeleteWord,
     handleChangeWordPair,
+    handleCancelEditGlossaryName,
   } = useGlossaryManager(userInfo);
 
   if (isLoading) {
@@ -90,6 +91,7 @@ function Glossary({ userInfo = {} }) {
           onSetDefaultGlossaryAPI={handleSetDefaultGlossaryAPI}
           onDeleteGlossary={handleDeleteGlossary}
           onFinishEditGlossaryName={handleFinishEditGlossaryName}
+          onCancelEditGlossaryName={handleCancelEditGlossaryName}
         />
       )}
 

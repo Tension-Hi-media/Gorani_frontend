@@ -67,8 +67,18 @@
 
 .glossary-edit-button,
 .glossary-delete-button,
-.glossary-default-button {
+.glossary-default-button,
+.glossary-save-button,
+.glossary-cancel-button {
   background-color: var(--secondary-color);
+  width: 40px;
+  height: 40px;
+}
+
+.glossary-save-button,
+.glossary-cancel-button{
+  display: none;
+  
 }
 
 .glossary-edit-button:hover,
@@ -92,7 +102,7 @@ textarea {
   padding: 10px 12px;
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
-  font-size: 14px;
+  font-size: 16px;
   color: var(--text-color);
   background-color: var(--background-light);
   transition: border-color var(--transition-speed) ease,
@@ -244,6 +254,10 @@ textarea:focus {
   cursor: pointer;
 }
 
+.glossary-item span {
+  margin: 0 12px;
+}
+
 .glossary-item:first-child {
   border-radius: 8px 8px 0 0;
 }
@@ -258,7 +272,6 @@ textarea:focus {
 
 .glossary-buttons {
   display: flex;
-  margin-left: auto;
   gap: 10px;
 }
 
@@ -371,10 +384,6 @@ textarea:focus {
   max-width: 500px;
   width: 90%;
   box-shadow: var(--modal-box-shadow);
-}
-
-.modal-content button {
-  @extend .button--primary;
 }
 
 .modal-content button:hover {
