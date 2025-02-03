@@ -146,7 +146,6 @@
 /* 번역 및 결과 영역 */
 .before-translation,
 .translation-result {
-  position: relative;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -184,14 +183,6 @@ textarea:focus {
   box-shadow: 0 0 5px rgba(46, 196, 182, 0.5);
 }
 
-.translation-output {
-  height: 65%;
-  /* 입력 박스와 동일한 높이 */
-  margin: 10px 0;
-  border: 1px solid #e0e0e0;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
 /* 번역 버튼 */
 .translation-button {
   margin-top: auto;
@@ -208,9 +199,7 @@ textarea:focus {
 }
 
 .output-button{
-  position: absolute;
-  bottom: 12px;
-  right: 15px;
+  margin: 0 0 0 auto;
 }
 
 .output-edit,
