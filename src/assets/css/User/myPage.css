@@ -340,5 +340,9 @@ ul.nav-menu li:hover button span {
     height: 20px;
   }
 
+  .card{
+    width: 85%;
+    margin: 0 auto;
+  }
 
 }
