@@ -22,6 +22,9 @@ function Main() {
   const [nickname, setNickname] = useState("GORANI");
   const [userInfo, setUserInfo] = useState(null);
   const translationOutputRef = useRef(null);
+  const [selectedModel, setSelectedModel] = useState("OpenAI"); // 기본값 OpenAI
+  const [showModelDropdown, setShowModelDropdown] = useState(false);
+  const availableModels = ["OpenAI", "Gorani"];
 
   useEffect(() => {
     const storedUserInfo = localStorage.getItem("userInfo");
@@ -50,17 +53,30 @@ function Main() {
     }
   }, [userInfo]); // ✅ userInfo가 변경될 때마다 닉네임 업데이트
 
+  const toggleModelDropdown = (e) => {
+    e.stopPropagation();
+    setShowModelDropdown((prev) => !prev);
+  };
+
+  const selectModel = (model) => {
+    setSelectedModel(model);
+    setShowModelDropdown(false);
+  };
+
   const handleTranslate = async () => {
     const sourceCode = languageCodeMap[sourceLanguage];
     const targetCode = languageCodeMap[targetLanguage];
 
-    console.log("Translating from:", sourceCode, "to:", targetCode);
+    console.log(
+      `Translating from: ${sourceCode} to: ${targetCode} using ${selectedModel}`
+    );
 
     try {
       const response = await getTranslationResult(
         inputText,
         sourceCode,
-        targetCode
+        targetCode,
+        selectedModel
       );
       console.log("Translation Response:", response);
       setTranslatedText(response);
@@ -130,9 +146,10 @@ function Main() {
   };
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(translatedText)
+    navigator.clipboard
+      .writeText(translatedText)
       .then(() => alert("번역 결과가 복사되었습니다."))
-      .catch(err => console.error("복사 실패:", err));
+      .catch((err) => console.error("복사 실패:", err));
   };
 
   const toggleEdit = () => {
@@ -182,13 +199,32 @@ function Main() {
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className={`dropdown-icon ${showSourceDropdown ? "clicked" : ""
-                      }`}
+                    className={`dropdown-icon ${
+                      showSourceDropdown ? "clicked" : ""
+                    }`}
                   >
                     <polyline points="6 9 12 15 18 9" />
                   </svg>
                 </button>
               </div>
+              <div className="model-selection">
+                <button
+                  className="model-button"
+                  onClick={(e) => toggleModelDropdown(e)}
+                >
+                  <span>{selectedModel}</span>
+                </button>
+                {showModelDropdown && (
+                  <ul className="model-dropdown">
+                    {availableModels.map((model) => (
+                      <li key={model} onClick={() => selectModel(model)}>
+                        {model}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+
               <div className="right-items">
                 <img
                   src="../../../images/revers.jpg"
@@ -202,8 +238,9 @@ function Main() {
                   {["한국어", "영어", "일본어"].map((lang) => (
                     <li
                       key={lang}
-                      className={`language-option ${lang === targetLanguage ? "disabled" : ""
-                        }`}
+                      className={`language-option ${
+                        lang === targetLanguage ? "disabled" : ""
+                      }`}
                       onClick={() =>
                         lang !== targetLanguage && selectSourceLanguage(lang)
                       }
@@ -246,8 +283,9 @@ function Main() {
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className={`dropdown-icon ${showTargetDropdown ? "clicked" : ""
-                      }`}
+                    className={`dropdown-icon ${
+                      showTargetDropdown ? "clicked" : ""
+                    }`}
                   >
                     <polyline points="6 9 12 15 18 9" />
                   </svg>
@@ -274,8 +312,9 @@ function Main() {
                   {["한국어", "영어", "일본어"].map((lang) => (
                     <li
                       key={lang}
-                      className={`language-option ${lang === sourceLanguage ? "disabled" : ""
-                        }`}
+                      className={`language-option ${
+                        lang === sourceLanguage ? "disabled" : ""
+                      }`}
                       onClick={() =>
                         lang !== sourceLanguage && selectTargetLanguage(lang)
                       }
@@ -300,22 +339,26 @@ function Main() {
                   width="25px"
                   height="25px"
                   viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg">
+                  xmlns="http://www.w3.org/2000/svg"
+                >
                   <path d="M22,7.24a1,1,0,0,0-.29-.71L17.47,2.29A1,1,0,0,0,16.76,2a1,1,0,0,0-.71.29L13.22,5.12h0L2.29,16.05a1,1,0,0,0-.29.71V21a1,1,0,0,0,1,1H7.24A1,1,0,0,0,8,21.71L18.87,10.78h0L21.71,8a1.19,1.19,0,0,0,.22-.33,1,1,0,0,0,0-.24.7.7,0,0,0,0-.14ZM6.83,20H4V17.17l9.93-9.93,2.83,2.83ZM18.17,8.66,15.34,5.83l1.42-1.41,2.82,2.82Z" />
                 </svg>
               </button>
               <button className="output-copy" onClick={handleCopy}>
-                <svg fill="#fff"
+                <svg
+                  fill="#fff"
                   width="25px"
                   height="25px"
                   viewBox="0 0 1920 1920"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path d="M0 1919.887h1467.88V452.008H0v1467.88ZM1354.965 564.922v1242.051H112.914V564.922h1242.051ZM1920 0v1467.992h-338.741v-113.027h225.827V112.914H565.035V338.74H452.008V0H1920ZM338.741 1016.93h790.397V904.016H338.74v112.914Zm0 451.062h790.397v-113.027H338.74v113.027Zm0-225.588h564.57v-112.913H338.74v112.913Z" fill-rule="evenodd" />
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M0 1919.887h1467.88V452.008H0v1467.88ZM1354.965 564.922v1242.051H112.914V564.922h1242.051ZM1920 0v1467.992h-338.741v-113.027h225.827V112.914H565.035V338.74H452.008V0H1920ZM338.741 1016.93h790.397V904.016H338.74v112.914Zm0 451.062h790.397v-113.027H338.74v113.027Zm0-225.588h564.57v-112.913H338.74v112.913Z"
+                    fill-rule="evenodd"
+                  />
                 </svg>
               </button>
             </div>
-
-
           </div>
         </div>
       </main>

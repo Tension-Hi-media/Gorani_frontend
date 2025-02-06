@@ -24,7 +24,7 @@
   justify-content: flex-start;
   /* 상단에 정렬 */
   align-items: center;
-  padding: 20px;
+  padding-top: 20px;
 }
 
 /* 번역 박스 스타일 */
@@ -151,6 +151,8 @@
   border-radius: 12px;
   padding: 20px;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+  align-items: center; /* 수평 가운데 정렬 */
+  position: relative;
 }
 
 /* 텍스트 영역 스타일 */
@@ -195,7 +197,7 @@ textarea:focus {
   box-shadow: 0 4px 6px rgba(46, 196, 182, 0.3);
 }
 
-.output-button{
+.output-button {
   margin: 0 0 0 auto;
 }
 
@@ -337,9 +339,11 @@ button svg {
   left: 0;
   top: 50%;
   height: 2px;
-  background: linear-gradient(-45deg,
-      rgba(95, 145, 255, 0.35),
-      rgba(0, 0, 255, 0));
+  background: linear-gradient(
+    -45deg,
+    rgba(95, 145, 255, 0.35),
+    rgba(0, 0, 255, 0)
+  );
   border-radius: 999px;
   filter: drop-shadow(0 0 6px #699bff);
   -webkit-animation: tail 4000ms linear infinite,
@@ -487,6 +491,70 @@ button svg {
   animation-delay: 801ms;
 }
 
+/* 번역 모델 선택 컨테이너 */
+.model-selection {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffffff;
+  padding: 8px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* 번역 모델 선택 버튼 */
+.model-button {
+  background-color: #ffffff;
+  width: 100px;
+  border: 1px solid #ccc;
+  padding: 8px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.model-button:hover {
+  background-color: #f4f4f4;
+}
+
+/* 드롭다운 리스트 */
+.model-dropdown {
+  position: absolute;
+  top: 40px; /* 드롭다운 리스트의 위치 */
+  left: 14px;
+  width: 100px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  padding: 5px 0;
+  list-style: none;
+}
+
+/* 드롭다운 리스트 항목 */
+.model-dropdown li {
+  padding: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+  text-align: center;
+}
+
+.model-dropdown li:hover {
+  background-color: #f0f0f0;
+}
+
+/* 선택된 모델 강조 */
+.model-dropdown li.selected {
+  font-weight: bold;
+  background-color: #e0e0e0;
+}
+
 @-webkit-keyframes tail {
   0% {
     width: 0;
@@ -544,5 +612,81 @@ button svg {
 
   100% {
     transform: translateX(100%);
+  }
+}
+
+@media (max-width: 768px) {
+  /* 전체 컨테이너 */
+  .translation-container {
+    height: auto; /* 높이 자동 조정 */
+    overflow-y: auto; /* 세로 스크롤 활성화 */
+  }
+
+  /* 메인 콘텐츠 */
+  .main-content {
+    width: 100%;
+  }
+
+  /* 번역 박스 */
+  .translation-box {
+    flex-direction: column; /* 세로 정렬 */
+    width: 80%; /* 전체 너비 */
+    height: auto; /* 높이 자동 */
+    gap: 15px;
+  }
+
+  /* 번역 모델 선택 */
+  .model-selection {
+    margin-top: 10px;
+    left: 50%; /* 가운데 정렬 */
+    transform: translateX(-50%);
+    position: static; /* 부모 컨테이너 흐름에 맞춤 */
+  }
+
+  /* 번역 및 결과 영역 */
+  .before-translation,
+  .translation-result {
+    width: 100%;
+    height: 100px;
+  }
+
+  /* 텍스트 입력 */
+  textarea,
+  .translation-output {
+    font-size: 14px;
+    width: 100%; /* 전체 너비 */
+    height: 100px;
+  }
+
+  /* 번역 버튼 */
+  .translation-button {
+    width: 100%; /* 전체 너비 */
+    font-size: 14px;
+  }
+
+  /* 출력 버튼 (수정, 복사) */
+  .output-button {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .output-edit,
+  .output-copy {
+    width: 40px;
+    height: 40px;
+    font-size: 12px;
+  }
+
+  /* 용어집 버튼 */
+  .glossary-button {
+    width: auto;
+    font-size: 14px;
+  }
+
+  /* 슈팅스타 숨기기 */
+  .shooting_star {
+    display: none; /* 모바일 화면에서 숨김 */
   }
 }
