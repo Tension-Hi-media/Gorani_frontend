@@ -21,7 +21,7 @@
 }
 
 .left-text {
-  width: 300px;
+  width: 190px;
 }
 
 .left-text .logo {
@@ -83,7 +83,7 @@
 .header .auth-buttons .account-button,
 .header .auth-buttons .logout-button,
 .header .login {
-  width: 300px;
+  width: 190px;
   font-size: 18px;
   color: white;
   cursor: pointer;

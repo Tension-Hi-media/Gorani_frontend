@@ -69,7 +69,7 @@ const MyPage = () => {
           한국어{" "}
         </p>
         <div className="button-container">
-          <button className="change-button" onClick={() => alert("언어 변경")}>
+          <button className="change-button" onClick={() => alert("서비스 준비중 입니다.")}>
             변경
           </button>
         </div>
@@ -80,7 +80,7 @@ const MyPage = () => {
         <h2>계정 업그레이드</h2>
         <p>Pro로 업그레이드하여 더욱 편리하게 번역할 수 있습니다.</p>
         <div className="button-container">
-          <button className="compare-button">플랜 비교</button>
+          <button className="compare-button" onClick={() => alert("서비스 준비중 입니다.")}>플랜 비교</button>
         </div>
       </div>
     ),

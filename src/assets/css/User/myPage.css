@@ -244,7 +244,7 @@ ul.nav-menu li:hover button span {
   border: none;
   border-radius: 12px;
   padding: 12px 20px;
-  font-size: 16px;
+  font-size: 18px;
   transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
   top: 0;
   margin: 0 auto;
@@ -320,7 +320,6 @@ ul.nav-menu li:hover button span {
   }
 
   .content {
-    height: 65%;
     width: 90%;
     max-width: 500px;
     overflow-y: visible;
@@ -332,7 +331,8 @@ ul.nav-menu li:hover button span {
   }
 
   .content p {
-    font-size: 14px;
+    font-size: 16px;
+    margin-bottom: 16px;
   }
 
   .provider-logo {
@@ -340,9 +340,16 @@ ul.nav-menu li:hover button span {
     height: 20px;
   }
 
-  .card{
+  .card {
     width: 85%;
     margin: 0 auto;
+  }
+
+  .company-button,
+  .change-button,
+  .compare-button {
+    padding: 10px 15px;
+    font-size: 16px;
   }
 
 }

@@ -72,7 +72,7 @@
 .glossary-cancel-button {
   background-color: var(--secondary-color);
   width: 40px;
-  height: 40px;
+  height: 36px;
 }
 
 .glossary-save-button,
@@ -99,7 +99,7 @@
 input[type="text"],
 input[type="password"],
 textarea {
-  padding: 10px 12px;
+  padding-left: 5px;
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   font-size: 16px;
@@ -245,7 +245,7 @@ textarea:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px;
+  padding: 5px;
   background-color: var(--white);
   color: var(--text-color);
   border: 1px solid var(--border-color);
@@ -275,16 +275,11 @@ textarea:focus {
   gap: 10px;
 }
 
-.glossary-edit-button,
-.glossary-delete-button {
-  width: var(--button-size);
-  height: var(--button-size);
-}
-
 /* 단어쌍 리스트 전체 박스 */
 .word-list {
-  margin-top: 20px;
-  padding: 10px;
+  width: 100%;
+  margin-top: 10px;
+  padding: 5px;
   background-color: var(--white);
   border-radius: 8px;
   border: 1px solid var(--border-color);
@@ -515,6 +510,10 @@ textarea:focus {
   stroke: var(--white);
 }
 
+.mobile-information{
+  display: none;
+}
+
 @media screen and (max-width: 768px) {
 
   .glossary-box {
@@ -527,7 +526,7 @@ textarea:focus {
     gap: 5px;
   }
 
-  .glossary-item span{
+  .glossary-item span {
     margin: 0 3px;
   }
 
@@ -571,20 +570,31 @@ textarea:focus {
     width: 58vw;
   }
 
-  .word-pair{
+  .word-pair {
     gap: 5px;
     height: 50px;
   }
 
-  .word-pair span{
+  .word-pair span {
     margin: 0;
   }
 
-  .word-pair input{
+  .word-pair input {
     margin: 0;
   }
 
-  .glossary-editor{
+  .create-glossary,
+  .glossary-editor {
     display: none;
+  }
+
+  .mobile-information{
+    display: inline;
+    font-size: 14px;
+    padding: 0 10px;
+  }
+
+  .divider{
+    margin-bottom: 0;
   }
 }
