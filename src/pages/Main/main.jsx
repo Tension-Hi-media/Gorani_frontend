@@ -87,7 +87,7 @@ function Main() {
     }
   };
 
-  const toggleGlossary = () => {
+  const openGlossary = () => {
     setShowGlossary((prev) => !prev);
   };
 
@@ -175,6 +175,23 @@ function Main() {
       />
       <main className="main-content">
         <div className="translation-box">
+          <div className="model-selection">
+            <button
+              className="model-button"
+              onClick={(e) => toggleModelDropdown(e)}
+            >
+              <span>{selectedModel}</span>
+            </button>
+            {showModelDropdown && (
+              <ul className="model-dropdown">
+                {availableModels.map((model) => (
+                  <li key={model} onClick={() => selectModel(model)}>
+                    {model}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
           <div className="before-translation">
             <div className="data-source-language">
               <div className="left-items">
@@ -198,30 +215,12 @@ function Main() {
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className={`dropdown-icon ${
-                      showSourceDropdown ? "clicked" : ""
-                    }`}
+                    className={`dropdown-icon ${showSourceDropdown ? "clicked" : ""
+                      }`}
                   >
                     <polyline points="6 9 12 15 18 9" />
                   </svg>
                 </button>
-              </div>
-              <div className="model-selection">
-                <button
-                  className="model-button"
-                  onClick={(e) => toggleModelDropdown(e)}
-                >
-                  <span>{selectedModel}</span>
-                </button>
-                {showModelDropdown && (
-                  <ul className="model-dropdown">
-                    {availableModels.map((model) => (
-                      <li key={model} onClick={() => selectModel(model)}>
-                        {model}
-                      </li>
-                    ))}
-                  </ul>
-                )}
               </div>
 
               <div className="right-items">
@@ -237,9 +236,8 @@ function Main() {
                   {["한국어", "영어", "일본어"].map((lang) => (
                     <li
                       key={lang}
-                      className={`language-option ${
-                        lang === targetLanguage ? "disabled" : ""
-                      }`}
+                      className={`language-option ${lang === targetLanguage ? "disabled" : ""
+                        }`}
                       onClick={() =>
                         lang !== targetLanguage && selectSourceLanguage(lang)
                       }
@@ -282,9 +280,8 @@ function Main() {
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className={`dropdown-icon ${
-                      showTargetDropdown ? "clicked" : ""
-                    }`}
+                    className={`dropdown-icon ${showTargetDropdown ? "clicked" : ""
+                      }`}
                   >
                     <polyline points="6 9 12 15 18 9" />
                   </svg>
@@ -295,25 +292,23 @@ function Main() {
                   className="glossary-button"
                   onClick={
                     isLoggedIn
-                      ? toggleGlossary
+                      ? openGlossary
                       : () => alert("로그인 후 이용 가능합니다.")
                   }
                 >
                   용어집
                 </button>
                 {showGlossary && isLoggedIn && userInfo && (
-                  <Glossary userInfo={userInfo} />
-                )}{" "}
-                {/* 로그인 상태에서만 Glossary 표시 */}
+                  <Glossary userInfo={userInfo} onClose={() => setShowGlossary(false)} />
+                )}
               </div>
               {showTargetDropdown && (
                 <ul className="language-dropdown">
                   {["한국어", "영어", "일본어"].map((lang) => (
                     <li
                       key={lang}
-                      className={`language-option ${
-                        lang === sourceLanguage ? "disabled" : ""
-                      }`}
+                      className={`language-option ${lang === sourceLanguage ? "disabled" : ""
+                        }`}
                       onClick={() =>
                         lang !== sourceLanguage && selectTargetLanguage(lang)
                       }

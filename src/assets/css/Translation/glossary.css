@@ -76,9 +76,9 @@
 }
 
 .glossary-save-button,
-.glossary-cancel-button{
+.glossary-cancel-button {
   display: none;
-  
+
 }
 
 .glossary-edit-button:hover,
@@ -156,7 +156,7 @@ textarea:focus {
 }
 
 .create-glossary {
-  padding: 10px;
+  padding: 8px;
   margin: 10px 0;
 }
 
@@ -184,8 +184,8 @@ textarea:focus {
   align-items: flex-start;
   position: absolute;
   z-index: 1500;
-  top: -70%;
-  right: 75px;
+  top: -15px;
+  right: -5px;
   margin-top: 10px;
   padding: 20px;
   background-color: var(--white);
@@ -408,35 +408,6 @@ textarea:focus {
   transform: scale(0.98);
 }
 
-/* 반응형 디자인 */
-@media (max-width: 600px) {
-  .glossary-box {
-    width: 90%;
-    right: 5%;
-  }
-
-  .start-word,
-  .arrive-word {
-    font-size: 14px;
-  }
-
-  .modal-content {
-    width: 95%;
-  }
-
-  .button--icon {
-    width: 35px;
-    height: 35px;
-  }
-
-  .button--icon svg {
-    width: 18px;
-    height: 18px;
-  }
-}
-
-/* glossary.css */
-
 /* 용어집 활성화/비활성화 토글 */
 .glossary-toggle {
   display: flex;
@@ -450,7 +421,7 @@ textarea:focus {
   display: none;
 }
 
-.glossary-toggle input[type="checkbox"] + span {
+.glossary-toggle input[type="checkbox"]+span {
   width: 50px;
   height: 25px;
   background-color: #ccc;
@@ -460,7 +431,7 @@ textarea:focus {
   transition: background-color 0.3s ease;
 }
 
-.glossary-toggle input[type="checkbox"] + span::before {
+.glossary-toggle input[type="checkbox"]+span::before {
   content: "";
   width: 21px;
   height: 21px;
@@ -473,12 +444,14 @@ textarea:focus {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.glossary-toggle input[type="checkbox"]:checked + span {
-  background-color: #4caf50; /* 활성화 색상 */
+.glossary-toggle input[type="checkbox"]:checked+span {
+  background-color: #4caf50;
+  /* 활성화 색상 */
 }
 
-.glossary-toggle input[type="checkbox"]:checked + span::before {
-  transform: translateX(25px); /* 스위치 이동 */
+.glossary-toggle input[type="checkbox"]:checked+span::before {
+  transform: translateX(25px);
+  /* 스위치 이동 */
 }
 
 .loading {
@@ -540,4 +513,78 @@ textarea:focus {
   width: var(--icon-size);
   height: var(--icon-size);
   stroke: var(--white);
+}
+
+@media screen and (max-width: 768px) {
+
+  .glossary-box {
+    width: 50vw;
+    min-width: 200px;
+    right: -20px;
+  }
+
+  .glossary-buttons {
+    gap: 5px;
+  }
+
+  .glossary-item span{
+    margin: 0 3px;
+  }
+
+  .glossary-toggle {
+    font-size: 14px;
+  }
+
+  .glossary-category {
+    font-size: 14px;
+  }
+
+  .glossary-item {
+    font-size: 14px;
+    padding: 5px;
+  }
+
+  .glossary-edit-button,
+  .glossary-delete-button,
+  .glossary-default-button,
+  .glossary-save-button,
+  .glossary-cancel-button {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    font-size: 13px;
+  }
+
+  .button svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  textarea {
+    font-size: 14px;
+  }
+
+  .word-list {
+    margin-top: 10px;
+    width: 58vw;
+  }
+
+  .word-pair{
+    gap: 5px;
+    height: 50px;
+  }
+
+  .word-pair span{
+    margin: 0;
+  }
+
+  .word-pair input{
+    margin: 0;
+  }
+
+  .glossary-editor{
+    display: none;
+  }
 }

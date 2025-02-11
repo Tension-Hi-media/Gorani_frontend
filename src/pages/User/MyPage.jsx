@@ -55,9 +55,11 @@ const MyPage = () => {
           대표자명:{" "}
           {user.company ? user.company.representativeName : "입력되지 않음"}
         </p>
-        <button className="company-button" onClick={handleCompanyButtonClick}>
-          {user.company ? "변경" : "입력"}
-        </button>
+        <div className="button-container">
+          <button className="company-button" onClick={handleCompanyButtonClick}>
+            {user.company ? "변경" : "입력"}
+          </button>
+        </div>
       </div>
     ),
     languageInfo: (
@@ -65,17 +67,21 @@ const MyPage = () => {
         <h2>언어 설정</h2>
         <p>
           한국어{" "}
+        </p>
+        <div className="button-container">
           <button className="change-button" onClick={() => alert("언어 변경")}>
             변경
           </button>
-        </p>
+        </div>
       </div>
     ),
     upgradeInfo: (
       <div className="card">
         <h2>계정 업그레이드</h2>
         <p>Pro로 업그레이드하여 더욱 편리하게 번역할 수 있습니다.</p>
-        <button className="compare-button">플랜 비교</button>
+        <div className="button-container">
+          <button className="compare-button">플랜 비교</button>
+        </div>
       </div>
     ),
   };
@@ -89,15 +95,14 @@ const MyPage = () => {
       {/* 상단 메뉴 */}
       <div className="left-side"></div>
       <ul className="nav-menu">
-        
+
 
         {/* 계정 정보 */}
         <li style={{ "--clr": "#ff253f" }}>
           <button
             onClick={() => setActiveMenu("accountInfo")}
-            className={`nav-button ${
-              activeMenu === "accountInfo" ? "active" : ""
-            }`}
+            className={`nav-button ${activeMenu === "accountInfo" ? "active" : ""
+              }`}
           >
             <i className="fa-solid fa-user"></i>
             <span>Account</span>
@@ -108,9 +113,8 @@ const MyPage = () => {
         <li style={{ "--clr": "#fff200" }}>
           <button
             onClick={() => setActiveMenu("companyInfo")}
-            className={`nav-button ${
-              activeMenu === "companyInfo" ? "active" : ""
-            }`}
+            className={`nav-button ${activeMenu === "companyInfo" ? "active" : ""
+              }`}
           >
             <i className="fa-solid fa-building"></i>
             <span>Company</span>
@@ -121,9 +125,8 @@ const MyPage = () => {
         <li style={{ "--clr": "#25d366" }}>
           <button
             onClick={() => setActiveMenu("languageInfo")}
-            className={`nav-button ${
-              activeMenu === "languageInfo" ? "active" : ""
-            }`}
+            className={`nav-button ${activeMenu === "languageInfo" ? "active" : ""
+              }`}
           >
             <i className="fa-solid fa-language"></i>
             <span>Language</span>
@@ -134,9 +137,8 @@ const MyPage = () => {
         <li style={{ "--clr": "#f32ec8" }}>
           <button
             onClick={() => setActiveMenu("upgradeInfo")}
-            className={`nav-button ${
-              activeMenu === "upgradeInfo" ? "active" : ""
-            }`}
+            className={`nav-button ${activeMenu === "upgradeInfo" ? "active" : ""
+              }`}
           >
             <i className="fa-solid fa-level-up-alt"></i>
             <span>Upgrade</span>

@@ -46,35 +46,44 @@ const Header = ({ toggleModal, isLoggedIn, nickname, handleLogout }) => {
           ))}
         </h1>
       </div>
+      <div className="non-changing-title">
+        GORANI
+      </div>
       {isLoggedIn ? (
-          <div className="auth-buttons">
-            <div
-                className="account-button"
+        <div className="auth-buttons">
+          <div
+            className="account-button"
+            onClick={toggleAccountBox}
+            role="button"
+          >
+            {nickname}
+          </div>
+          {showAccountBox && (
+            <div className="account-box">
+              <button
+                className="close-button"
                 onClick={toggleAccountBox}
-                role="button"
-            >
-              {nickname}
+              >
+                X 
+              </button>
+              <div className="email">{nickname}</div>
+              <div className="version">
+                <span>번역기</span>
+                <span>무료버전</span>
+              </div>
+              <button className="myPage" onClick={goToMyPage}>
+                계정
+              </button>
+              <button className="logOut" onClick={handleLogout}>
+                로그아웃
+              </button>
             </div>
-            {showAccountBox && (
-                <div className="account-box">
-                  <div className="email">{nickname}</div>
-                  <div className="version">
-                    <span>번역기</span>
-                    <span>무료버전</span>
-                  </div>
-                  <button className="myPage" onClick={goToMyPage}>
-                    계정
-                  </button>
-                  <button className="logOut" onClick={handleLogout}>
-                    로그아웃
-                  </button>
-                </div>
-            )}
-          </div>
+          )}
+        </div>
       ) : (
-          <div className="login" onClick={toggleModal} role="button">
-            로그인
-          </div>
+        <div className="login" onClick={toggleModal} role="button">
+          로그인
+        </div>
       )}
     </header>
   );

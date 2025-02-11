@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,400i,700");
+
 @font-face {
   font-family: "SmoochSans";
   src: url("../../font/SmoochSans-VariableFont_wght.ttf") format("truetype");
@@ -6,6 +7,7 @@
 
 /* 헤더 스타일 */
 .header {
+  box-sizing: border-box;
   background-color: #000000;
   color: white;
   display: flex;
@@ -14,30 +16,37 @@
   padding: 10px 20px;
   border-bottom: 1px solid #333;
   z-index: 1001;
-  width: 100%; /* 헤더가 화면 전체를 채움 */
+  width: 100%;
+  /* 헤더가 화면 전체를 채움 */
 }
+
 .left-text {
   width: 300px;
 }
 
 .left-text .logo {
-  width: 50px; /* 원하는 크기로 조정 */
+  width: 50px;
+  /* 원하는 크기로 조정 */
   height: auto;
   display: block;
 }
 
 .changing-title {
-  flex: 1;
   font-family: "SmoochSans", Arial, Helvetica, sans-serif;
   font-size: 65pt;
-  height: 120px; /* 텍스트가 중앙에 위치하도록 높이 조정 */
+  height: 120px;
   position: relative;
-  text-align: center; /* 텍스트 가운데 정렬 */
-  overflow: hidden; /* 초과 부분 숨김 */
+  text-align: center;
   display: flex;
-  justify-content: center; /* 수평 정렬 */
-  align-items: center; /* 수직 정렬 */
+  justify-content: center;
+  align-items: center;
   transform: translate3d(0, 0, 0);
+  margin: 0 auto;
+}
+
+.non-changing-title,
+.mobile-button {
+  display: none;
 }
 
 .changing-title h1 {
@@ -49,8 +58,10 @@
 .letter {
   position: relative;
   display: inline-block;
-  top: 1.2em; /* 초기 위치 */
-  opacity: 0; /* 초기 투명도 */
+  top: 1.2em;
+  /* 초기 위치 */
+  opacity: 0;
+  /* 초기 투명도 */
 }
 
 .letter.in {
@@ -62,6 +73,7 @@
     top: 1.2em;
     opacity: 0;
   }
+
   100% {
     top: 0em;
     opacity: 1;
@@ -89,7 +101,7 @@
 
 .account-box {
   position: absolute;
-  top: 30px;
+  top: 0;
   right: 115px;
   width: 300px;
   color: #0c0c0e;
@@ -104,6 +116,13 @@
   align-items: center;
   gap: 20px;
   font-size: 16px;
+}
+
+.account-box .close-button{
+  width: 30px;
+  position: absolute;
+  top:10px;
+  right: 10px;
 }
 
 .account-box .email {
@@ -144,4 +163,55 @@
 
 .account-box button:hover {
   background-color: #0056b3;
+}
+
+@media screen and (max-width: 768px) {
+  .header{
+    padding: 10px;
+  }
+  .changing-title,
+  .left-text .logo {
+    display: none;
+  }
+
+  .non-changing-title {
+    font-family: "SmoochSans", Arial, Helvetica, sans-serif;
+    font-size: 65pt;
+    height: 120px;
+    position: relative;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translate3d(0, 0, 0);
+    margin: 0 auto;
+  }
+
+  .left-text,
+  .header .auth-buttons .account-button,
+  .header .auth-buttons .logout-button,
+  .header .login {
+    width: 50px;
+    font-size: 16px;
+  }
+
+  .auth-buttons{
+    position: static;
+  }
+  .account-box{
+    position: absolute;
+    border-radius: 0;
+    top: 0;
+    right: 0;
+    width: 60%;
+    max-width: 230px;
+  }
+
+  .account-box .version{
+    width: 90%;
+  }
+
+  .account-box button{
+    width: 100%;
+  }
 }
