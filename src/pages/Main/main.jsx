@@ -88,7 +88,6 @@ function Main() {
   };
 
   const toggleGlossary = () => {
-    console.log("Glossary button clicked!"); // 클릭 확인 로그 추가
     setShowGlossary((prev) => !prev);
   };
 
