@@ -3,14 +3,16 @@ import { request, withoutTokenRequest, fastAPIrequest } from "./index";
 // ✨✨api 요청 함수 만드는 예시!✨✨
 export async function getTranslationResult(
   text,
-  sourceLang = "en",
-  targetLang = "ko"
+  sourceLang,
+  targetLang,
+  model
 ) {
   try {
     const response = await withoutTokenRequest("POST", `/api/v1/translation`, {
       text,
       sourceLang,
       targetLang,
+      model: model
     });
     return response.data.translated_text;
   } catch (error) {
@@ -102,20 +104,22 @@ export async function setDefaultGlossary(userId, glossaryId) {
     console.log("Request Body:", { glossaryId });
 
     // API 요청
-    const response = await request("PUT", `/api/v1/glossary/${userId}/default`, { glossaryId });
+    const response = await request(
+      "PUT",
+      `/api/v1/glossary/${userId}/default`,
+      { glossaryId }
+    );
 
     // FastAPI 응답 데이터 확인
     console.log("Raw Response:", response);
 
     // 데이터가 이미 JSON 형식이라면 파싱 없이 그대로 반환
     return response; // 그대로 반환
-
   } catch (error) {
     console.error("기본 용어집 설정 실패:", error);
     throw error;
   }
 }
-
 
 // 단어쌍 추가 API 호출 함수
 export async function addWordPair(glossaryId, wordPair) {
