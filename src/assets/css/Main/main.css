@@ -159,6 +159,7 @@
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
     align-items: center;
     z-index: 999;
+    min-height: 400px;
   }
 
   /* 텍스트 영역 스타일 */
@@ -677,7 +678,7 @@
       display: block;
       padding: 15px;
       padding-top: 50px;
-      min-height: 700px;
+      min-height: 675px;
       min-width: 0px;
     }
 
@@ -685,6 +686,7 @@
     .translation-result {
       min-height: 300px;
       padding: 15px;
+      margin-bottom: 10px;
     }
 
     .translation-box textarea {

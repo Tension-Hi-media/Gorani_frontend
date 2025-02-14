@@ -147,8 +147,41 @@
   color: white;
 }
 
+.mobile-Information{
+  display: none;
+}
+
 @media screen and (max-width: 768px) {
+  .modal{
+    width: 80%;
+    padding: 20px;
+    height: 300px;
+  }
+
   .modal-content{
-    width: 90%;
+    width: 80%;
+    max-width: 340px;
+  }
+
+  .form-group input{
+    width: 95%;
+    padding: 5px;
+  }
+
+  .logo{
+    margin-left: 20px;
+  }
+
+  .modal h2{
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+
+  .form-group label{
+    font-size: 16px;
+  }
+
+  .modal-content h2{
+    margin-bottom: 15px;
   }
 }
