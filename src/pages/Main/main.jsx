@@ -30,13 +30,8 @@ function Main() {
     const storedUserInfo = localStorage.getItem("userInfo");
     const storedToken = localStorage.getItem("token");
 
-    console.log("Stored User Info:", storedUserInfo);
-    console.log("Stored Token:", storedToken);
-
     if (storedUserInfo && storedToken) {
       const parsedUserInfo = JSON.parse(storedUserInfo);
-      console.log("Parsed User Info:", parsedUserInfo);
-
       setUserInfo(parsedUserInfo);
       setIsLoggedIn(true);
     } else {
@@ -48,7 +43,6 @@ function Main() {
 
   useEffect(() => {
     if (userInfo) {
-      console.log("Updating nickname from userInfo:", userInfo);
       setNickname(userInfo.username || "GORANI");
     }
   }, [userInfo]); // ✅ userInfo가 변경될 때마다 닉네임 업데이트
