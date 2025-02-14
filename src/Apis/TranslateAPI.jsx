@@ -8,7 +8,7 @@ export async function getTranslationResult(
   model
 ) {
   try {
-    const response = await withoutTokenRequest("POST", `/api/v1/translation`, {
+    const response = await withoutTokenRequest("POST", `/api/translation`, {
       text,
       sourceLang,
       targetLang,
