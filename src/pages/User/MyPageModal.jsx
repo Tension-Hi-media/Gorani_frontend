@@ -25,7 +25,7 @@ const MyPageModal = ({ company, onClose }) => {
         const headers = { Authorization: `Bearer ${token}` };
         console.log("📢 기업 정보 조회 요청:", companyId);
 
-        const response = await axios.get(`http://localhost:8080/api/v1/company/${companyId}`, { headers });
+        const response = await axios.get(`http://localhost:8080/api/v1/company/user/${userId}`, { headers });
 
         if (response.status === 200 && response.data) {
           setForm({
@@ -40,7 +40,7 @@ const MyPageModal = ({ company, onClose }) => {
     };
 
     fetchCompanyInfo();
-  }, [companyId]);
+  }, [companyId, userId]);
 
   // ✅ 입력 값 변경 핸들러
   const handleChange = (e) => {
@@ -60,42 +60,37 @@ const MyPageModal = ({ company, onClose }) => {
         return;
       }
 
-      const headers = { Authorization: `Bearer ${token}`, "Content-Type": "application/json" };
+      const headers = { 
+        Authorization: `Bearer ${token}`,  // ✅ JWT 토큰 추가
+        "Content-Type": "application/json" 
+      };
 
       if (!form.name || !form.registrationNumber || !form.representativeName) {
         alert("모든 필드를 입력해야 합니다.");
         return;
       }
 
-      // ✅ 새로운 기업 생성
-      const companyResponse = await axios.post("http://localhost:8080/api/v1/company", form, { headers });
-      const newCompanyId = companyResponse.data.companyId;
+      console.log("📢 기업 정보 저장 요청:", form);
 
-      console.log("✅ 기업 정보 저장 완료:", companyResponse.data);
-
-      const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-      if (!userInfo) {
-        alert("사용자 정보를 찾을 수 없습니다.");
-        return;
-      }
-
-      // ✅ 사용자 테이블에 companyId 업데이트
-      const updateCompanyResponse = await axios.post(
-        "http://localhost:8080/api/v1/user/updateCompany",
-        { userId: userInfo.id, companyId: newCompanyId },
+      // ✅ 새로운 기업 생성 & 사용자 정보 업데이트
+      const companyResponse = await axios.post(
+        `http://localhost:8080/api/v1/company/register?userId=${userId}`,
+        form,
         { headers }
       );
 
-      console.log("✅ 사용자 company_id 업데이트 완료:", updateCompanyResponse.data);
+      const newCompany = companyResponse.data;
+
+      console.log("✅ 기업 정보 저장 완료:", newCompany);
 
       // ✅ `localStorage` 업데이트
       const updatedUserInfo = {
-        ...userInfo,
+        ...parsedUserInfo,
         company: {
-          companyId: newCompanyId,
-          name: form.name,
-          registrationNumber: form.registrationNumber,
-          representativeName: form.representativeName,
+          companyId: newCompany.companyId,
+          name: newCompany.name,
+          registrationNumber: newCompany.registrationNumber,
+          representativeName: newCompany.representativeName,
         }
       };
       localStorage.setItem("userInfo", JSON.stringify(updatedUserInfo));

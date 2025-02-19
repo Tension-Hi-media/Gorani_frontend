@@ -24,7 +24,7 @@ function Main() {
   const translationOutputRef = useRef(null);
   const [selectedModel, setSelectedModel] = useState("OpenAI"); // 기본값 OpenAI
   const [showModelDropdown, setShowModelDropdown] = useState(false);
-  const availableModels = ["OpenAI", "Gorani"];
+  const availableModels = ["OpenAI", "Gorani", "LangGorani"];
 
   useEffect(() => {
     const storedUserInfo = localStorage.getItem("userInfo");

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../../assets/css/Translation/glossary.css";
 import GlossaryModal from "./GlossaryModal";
 import GlossaryList from "./GlossaryList";
@@ -16,7 +16,6 @@ function Glossary({ userInfo = {}, onClose }) {
     editingGlossary,
     isGlossaryEnabled,
     isSaving,
-    isDirty,
     isLoading,
     setIsGlossaryEnabled,
     toggleGlossaryList,

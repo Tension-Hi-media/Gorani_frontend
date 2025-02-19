@@ -9,46 +9,66 @@ const NaverSuccess = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const params = new URLSearchParams(location.search);
-        const code = params.get('code');
-        const state = params.get('state');
+        const fetchNaverLogin = async () => {
+            try {
+                const params = new URLSearchParams(location.search);
+                const code = params.get('code');
+                const state = params.get('state');
 
-        console.log('Received code:', code);
-        console.log('Received state:', state);
+                console.log('📢 네이버 로그인 요청:', { code, state });
 
-        if (!code || !state) {
-            setError("네이버 인증 코드가 제공되지 않았습니다.");
-            setLoading(false);
-            return;
-        }
-
-        naverLogin(code, state)
-            .then((response) => {
-                console.log("로그인 성공:", response);
-                
-                // 응답 구조 예: response.results.token, response.results.user
-                if (response.results) {
-                    const { token, user } = response.results;
-                    localStorage.setItem("token", token);
-                    localStorage.setItem("userInfo", JSON.stringify(user));
-
-                    navigate("/"); // 메인 페이지 이동
-                } else {
-                    throw new Error("잘못된 응답 구조입니다.");
+                if (!code || !state) {
+                    throw new Error("❌ 네이버 인증 코드가 제공되지 않았습니다.");
                 }
-            })
-            .catch((error) => {
-                console.error("네이버 로그인 실패:", error);
-                setError("로그인 중 문제가 발생했습니다. 다시 시도해주세요.");
-            })
-            .finally(() => {
+
+                // ✅ 네이버 로그인 API 호출
+                const response = await naverLogin(code, state);
+                console.log("✅ 네이버 로그인 성공:", response);
+
+                if (!response || !response.results) {
+                    throw new Error("❌ 잘못된 응답 구조입니다.");
+                }
+
+                const { token, user } = response.results;
+
+                if (!token || !user) {
+                    throw new Error("❌ 네이버 로그인 응답이 유효하지 않습니다.");
+                }
+
+                // ✅ 중첩된 `company.users` 제거
+                const sanitizedUser = { ...user };
+                if (sanitizedUser.company) {
+                    delete sanitizedUser.company.users; // 🔥 무한 참조 방지
+                }
+
+                // ✅ `localStorage`에 저장
+                localStorage.setItem("token", token);
+                localStorage.setItem("userInfo", JSON.stringify(sanitizedUser));
+
+                console.log("✅ 저장된 유저 정보:", sanitizedUser);
+
+                // ✅ 로그인 완료 후 메인 페이지로 이동
+                navigate("/");
+            } catch (error) {
+                console.error("❌ 네이버 로그인 실패:", error);
+                setError(error.message || "로그인 중 문제가 발생했습니다. 다시 시도해주세요.");
+            } finally {
                 setLoading(false);
-            });
+            }
+        };
+
+        fetchNaverLogin();
     }, [location, navigate]);
 
     return (
         <div>
-            {loading ? <p>네이버 로그인 중...</p> : error ? <p style={{ color: 'red' }}>{error}</p> : <p>로그인 성공! 메인 페이지로 이동 중...</p>}
+            {loading ? (
+                <p>⏳ 네이버 로그인 중...</p>
+            ) : error ? (
+                <p style={{ color: 'red' }}>❌ {error}</p>
+            ) : (
+                <p>✅ 로그인 성공! 메인 페이지로 이동 중...</p>
+            )}
         </div>
     );
 };
