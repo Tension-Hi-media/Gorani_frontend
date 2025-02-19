@@ -1,7 +1,5 @@
-import { request, withoutTokenRequest, fastAPIrequest } from "./index";
+import { withoutTokenRequest } from "./index";
 
-// ✨✨api 요청 함수 만드는 예시!✨✨
-// 네이버 로그인: code, state를 백엔드로 전송
 export const naverLogin = async (code, state) => {
     // 백엔드 라우트 예: POST /api/v1/auth/naver
     // withoutTokenRequest를 사용할 것이므로, 여기서 /api/v1까지 직접 붙여야 함
