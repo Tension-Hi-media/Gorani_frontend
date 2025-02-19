@@ -1,7 +1,7 @@
-import { withoutTokenRequest } from "./index";
+import { request, withoutTokenRequest, fastAPIrequest } from "./index";
+import { jwtDecode } from "jwt-decode"; // ✅ 올바른 import 방식
 
-// ✨✨api 요청 함수 만드는 예시!✨✨
-// 네이버 로그인: code, state를 백엔드로 전송
+// ✨ 네이버 로그인
 export const naverLogin = async (code, state) => {
     const url = '/api/v1/auth/naver';
 
