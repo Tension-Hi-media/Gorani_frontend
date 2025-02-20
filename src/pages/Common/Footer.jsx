@@ -12,7 +12,7 @@ const Footer = () => {
         {/* 왼쪽: 회사 정보 */}
         <div className="footer-section info">
           <h4>
-            <a href="https://gorani.world" target="_blank" rel="noopener noreferrer">
+            <a href="https://gorani.world" rel="noopener noreferrer">
               고라니 AI 번역
             </a>
           </h4>
