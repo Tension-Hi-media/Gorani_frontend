@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 // const DOMAIN = 'http://3.38.113.109:8080'; // Spring Boot 서버
-const DOMAIN = 'http://localhost:8080'; // Spring Boot 서버
+// const DOMAIN = 'http://localhost:8080'; // Spring Boot 서버
 // const DOMAIN2 = 'http://3.38.113.109:8000'; // FastAPI 서버 (사용 안 하면 지워도 됨)
 
 // [1] 토큰이 필요한 요청
@@ -32,7 +32,7 @@ export const withoutTokenRequest = async (method, url, data) => {
     try {
         const response = await axios({
             method,
-            url: `${DOMAIN}${url}`, // /api/v1 등 원하는 경로를 직접 붙여야 함
+            url: `${url}`, // /api/v1 등 원하는 경로를 직접 붙여야 함
             data,
             headers: {
                 'Content-Type': 'application/json',

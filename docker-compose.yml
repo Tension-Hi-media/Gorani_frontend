@@ -1,0 +1,30 @@
+services:
+  backend:
+    image: my-backend
+    container_name: backend
+    build:
+      context: ../Gorani-backend # ✅ 백엔드 폴더 위치
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    restart: always
+
+  frontend:
+    image: my-frontend
+    container_name: frontend
+    build:
+      context: . # ✅ 프론트엔드 폴더 위치
+      dockerfile: Dockerfile
+    restart: always
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/my-new-project.conf:/etc/nginx/conf.d/my-new-project.conf:ro # ✅ Nginx 설정 반영
+      - ./frontend/build:/usr/share/nginx/html:ro # ✅ React 빌드 파일 연결
+    depends_on:
+      - frontend
+      - backend

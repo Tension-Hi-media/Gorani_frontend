@@ -1,19 +1,20 @@
-# React 프론트엔드용 Dockerfile
-FROM node:16
+# 1. Node.js를 사용하여 프로젝트 빌드
+FROM node:18 as build
 
-# 작업 디렉터리 설정
 WORKDIR /app
 
-# 의존성 설치
-COPY package.json /app/
-COPY package-lock.json /app/
+COPY package.json package-lock.json ./
 RUN npm install
 
-# 코드 복사
-COPY . /app/
+COPY . .
 
-# 앱 빌드
 RUN npm run build
 
-# 웹 서버 실행
-CMD ["npm", "start"]
+# 2. Nginx를 사용하여 정적 파일 서빙
+FROM nginx:alpine
+
+COPY --from=build /app/build /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
