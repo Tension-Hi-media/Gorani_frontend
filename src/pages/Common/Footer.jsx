@@ -22,11 +22,19 @@ const Footer = () => {
               <img src={GitHubLogo} alt="GitHub Logo" width="30" />
               GORANI GitHub
             </a>
-
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="https://huggingface.co/lucian1120/gorani-3.1-8B-4bit" target="_blank" rel="noopener noreferrer">
-              <img src={HuggingFaceLogo} alt="Hugging Face Logo" width="30" />
+              <img className="huggingface-logo" src={HuggingFaceLogo} alt="Hugging Face Logo" width="30" />
               GORANI Hugging Face
             </a>
+          </p>
+          <p>
+            팀장: <a>임현성</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            팀원: 
+            <a>노태윤</a> 
+            <a>배하은</a> 
+            <a>이현승</a> 
+            <a>지동현</a>
           </p>
         </div>
       </div>
