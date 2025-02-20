@@ -177,11 +177,17 @@
     white-space: pre-wrap;
   }
 
-  .translation-box textarea {
+
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+
+  .translation-input,
+  .translation-output {
     font-size: 18px;
     height: 65%;
     margin: 10px 0;
     border: 1px solid #e0e0e0;
+    font-weight: 600;
+    font-family: "Noto Sans KR", serif;
   }
 
   textarea:focus {
@@ -703,35 +709,37 @@
       padding: 8px 14px;
     }
 
-    .data-source-language{
+    .data-source-language {
       height: 30px;
       margin-bottom: 10px;
     }
 
-    .data-source-language-button{
+    .data-source-language-button {
       font-size: 14px;
     }
 
-    .language-dropdown{
+    .language-dropdown {
       top: 90%;
     }
 
-    .language-option{
+    .language-option {
       font-size: 14px;
     }
 
-    .reverse-icon{
+    .reverse-icon {
       width: 20px;
       height: 20px;
     }
 
-    .output-edit, .output-copy{
+    .output-edit,
+    .output-copy {
       width: 30px;
       height: 30px;
       padding: 6px;
     }
 
-    .output-edit svg, .output-copy svg{
+    .output-edit svg,
+    .output-copy svg {
       width: 17px;
       height: 17px;
     }

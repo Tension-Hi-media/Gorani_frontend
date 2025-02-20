@@ -26,13 +26,32 @@
   font-size: 16px; /* 제목 크기 */
   margin-bottom: 8px;
   color: #ddd; /* 기존 #f2f2f2에서 더 부드러운 색상으로 변경 */
+  margin: 0 auto;
 }
 
 .footer-section.info p {
-  margin: 2px 0;
+  display: flex;
+  margin: 5px;
   color: #bbb; /* 글씨 색상을 더 연한 회색으로 조정 */
   font-size: 12px; /* 적당히 작은 폰트 크기 */
   line-height: 1.6; /* 읽기 편하게 줄 간격 설정 */
+  align-items: center;
+  gap: 5px;
+}
+
+.footer-section.info a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+
+.footer-section.info h4 a {
+  display: block;
+}
+
+.footer-section.info img {
+  margin-left: 30px;
 }
 
 /* 오른쪽 섹션: 내비게이션 + 소셜 */

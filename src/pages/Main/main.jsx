@@ -159,6 +159,7 @@ function Main() {
     });
   };
 
+
   return (
     <div className="translation-container">
       <Header
@@ -243,9 +244,11 @@ function Main() {
               )}
             </div>
             <textarea
+              className="translation-input"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               placeholder="번역할 내용을 입력하세요"
+              lang={languageCodeMap[sourceLanguage]}
             />
             <button className="translation-button" onClick={handleTranslate}>
               번역하기
@@ -319,6 +322,7 @@ function Main() {
               onChange={(e) => setTranslatedText(e.target.value)}
               disabled={!isEditing}
               ref={translationOutputRef}
+              lang={languageCodeMap[targetLanguage]}
             ></textarea>
             <div className="output-button">
               <button className="output-edit" onClick={toggleEdit}>
