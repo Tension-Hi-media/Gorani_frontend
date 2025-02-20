@@ -25,7 +25,10 @@ const MyPageModal = ({ company, onClose }) => {
         const headers = { Authorization: `Bearer ${token}` };
         console.log("📢 기업 정보 조회 요청:", companyId);
 
-        const response = await axios.get(`http://localhost:8080/api/v1/company/user/${userId}`, { headers });
+        const response = await axios.get(
+          `http://localhost:8080/api/v1/company/user/${userId}`,
+          { headers }
+        );
 
         if (response.status === 200 && response.data) {
           setForm({
@@ -60,9 +63,9 @@ const MyPageModal = ({ company, onClose }) => {
         return;
       }
 
-      const headers = { 
-        Authorization: `Bearer ${token}`,  // ✅ JWT 토큰 추가
-        "Content-Type": "application/json" 
+      const headers = {
+        Authorization: `Bearer ${token}`, // ✅ JWT 토큰 추가
+        "Content-Type": "application/json",
       };
 
       if (!form.name || !form.registrationNumber || !form.representativeName) {
@@ -91,14 +94,17 @@ const MyPageModal = ({ company, onClose }) => {
           name: newCompany.name,
           registrationNumber: newCompany.registrationNumber,
           representativeName: newCompany.representativeName,
-        }
+        },
       };
       localStorage.setItem("userInfo", JSON.stringify(updatedUserInfo));
 
       alert("기업 정보가 저장되었습니다.");
       onClose(updatedUserInfo.company);
     } catch (error) {
-      console.error("❌ 기업 정보 저장 또는 사용자 업데이트 중 오류 발생:", error);
+      console.error(
+        "❌ 기업 정보 저장 또는 사용자 업데이트 중 오류 발생:",
+        error
+      );
       alert("기업 정보 저장 중 오류가 발생했습니다.");
     }
   };
@@ -140,8 +146,12 @@ const MyPageModal = ({ company, onClose }) => {
           />
         </div>
         <div className="modal-buttons">
-          <button onClick={handleSave} className="save-button">저장</button>
-          <button onClick={handleCancel} className="cancel-button">취소</button>
+          <button onClick={handleSave} className="save-button">
+            저장
+          </button>
+          <button onClick={handleCancel} className="cancel-button">
+            취소
+          </button>
         </div>
       </div>
     </div>

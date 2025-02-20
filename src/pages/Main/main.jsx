@@ -133,9 +133,9 @@ function Main() {
   };
 
   const languageCodeMap = {
-    한국어: "ko",
-    영어: "en",
-    일본어: "ja",
+    한국어: "korean",
+    영어: "english",
+    일본어: "Japanese",
   };
 
   const handleCopy = () => {
@@ -163,7 +163,7 @@ function Main() {
     <div className="translation-container">
       <Header
         isLoggedIn={isLoggedIn}
-        nickname={nickname} // nickname 전달
+        nickname={nickname} 
         toggleModal={toggleModal}
         handleLogout={handleLogout}
       />
@@ -209,8 +209,9 @@ function Main() {
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className={`dropdown-icon ${showSourceDropdown ? "clicked" : ""
-                      }`}
+                    className={`dropdown-icon ${
+                      showSourceDropdown ? "clicked" : ""
+                    }`}
                   >
                     <polyline points="6 9 12 15 18 9" />
                   </svg>
@@ -230,8 +231,9 @@ function Main() {
                   {["한국어", "영어", "일본어"].map((lang) => (
                     <li
                       key={lang}
-                      className={`language-option ${lang === targetLanguage ? "disabled" : ""
-                        }`}
+                      className={`language-option ${
+                        lang === targetLanguage ? "disabled" : ""
+                      }`}
                       onClick={() =>
                         lang !== targetLanguage && selectSourceLanguage(lang)
                       }
@@ -274,8 +276,9 @@ function Main() {
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className={`dropdown-icon ${showTargetDropdown ? "clicked" : ""
-                      }`}
+                    className={`dropdown-icon ${
+                      showTargetDropdown ? "clicked" : ""
+                    }`}
                   >
                     <polyline points="6 9 12 15 18 9" />
                   </svg>
@@ -293,7 +296,10 @@ function Main() {
                   용어집
                 </button>
                 {showGlossary && isLoggedIn && userInfo && (
-                  <Glossary userInfo={userInfo} onClose={() => setShowGlossary(false)} />
+                  <Glossary
+                    userInfo={userInfo}
+                    onClose={() => setShowGlossary(false)}
+                  />
                 )}
               </div>
               {showTargetDropdown && (
@@ -301,8 +307,9 @@ function Main() {
                   {["한국어", "영어", "일본어"].map((lang) => (
                     <li
                       key={lang}
-                      className={`language-option ${lang === sourceLanguage ? "disabled" : ""
-                        }`}
+                      className={`language-option ${
+                        lang === sourceLanguage ? "disabled" : ""
+                      }`}
                       onClick={() =>
                         lang !== sourceLanguage && selectTargetLanguage(lang)
                       }

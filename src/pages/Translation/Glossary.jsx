@@ -41,7 +41,7 @@ function Glossary({ userInfo = {}, onClose }) {
   const closeGlossary = () => {
     setShowGlossary(false);
     if (onClose) onClose();
-  }
+  };
 
   if (isLoading) {
     return <div className="loading">로딩 중...</div>;
@@ -135,7 +135,9 @@ function Glossary({ userInfo = {}, onClose }) {
             onChangeWordPair={handleChangeWordPair}
           />
         )}
-        <span className="mobile-information">용어집의 단어쌍 편집은 PC버전에서 가능합니다.</span>
+        <span className="mobile-information">
+          용어집의 단어쌍 편집은 PC버전에서 가능합니다.
+        </span>
       </div>
     )
   );
