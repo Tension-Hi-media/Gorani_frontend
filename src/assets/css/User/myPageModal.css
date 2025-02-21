@@ -138,8 +138,8 @@
 }
 
 .modal-content button:first-child {
-  background-color: #007bff;
-  color: white;
+  background: none;
+  color: #000;
 }
 
 .modal-content button:last-child {
