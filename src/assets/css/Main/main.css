@@ -514,7 +514,6 @@
     font-weight: bold;
     cursor: pointer;
     transition: 0.3s;
-    z-index: 1001;
   }
 
   /* 번역 모델 선택 버튼 */
