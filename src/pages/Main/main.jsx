@@ -9,7 +9,6 @@ import Glossary from "../Translation/Glossary";
 import { getTranslationResult } from "../../Apis/TranslateAPI";
 
 function Main() {
-  
   const [inputText, setInputText] = useState("");
   const [translatedText, setTranslatedText] = useState("");
   const [isEditing, setIsEditing] = useState(false);
