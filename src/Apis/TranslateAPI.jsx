@@ -1,6 +1,5 @@
-import { request, withoutTokenRequest, fastAPIrequest } from "./index";
+import { request, withoutTokenRequest } from "./index";
 
-// ✨✨api 요청 함수 만드는 예시!✨✨
 export async function getTranslationResult(
   text,
   sourceLang,
@@ -95,7 +94,6 @@ export async function deleteGlossary(id) {
   }
 }
 
-//용어집 기본 설정
 // 용어집 기본 설정
 export async function setDefaultGlossary(userId, glossaryId) {
   try {

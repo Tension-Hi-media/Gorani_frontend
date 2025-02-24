@@ -1,19 +1,30 @@
-# React 프론트엔드용 Dockerfile
-FROM node:16
+# 1. Node.js를 기반으로 React 앱 빌드
+FROM node:18 as build
 
-# 작업 디렉터리 설정
 WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm install --production
+COPY . .
 
-# 의존성 설치
-COPY package.json /app/
-COPY package-lock.json /app/
-RUN npm install
+# ✅ 환경 변수 수동 추가
+ARG REACT_APP_NAVER_CLIENT_ID
+ARG REACT_APP_NAVER_REDIRECT_URI
+ARG REACT_APP_KAKAO_ID
+ARG REACT_APP_KAKAO_REDIRECT_URI
+ARG REACT_APP_GOOGLE_CLIENT_ID
+ARG REACT_APP_GOOGLE_REDIRECT_URI
 
-# 코드 복사
-COPY . /app/
+ENV REACT_APP_NAVER_CLIENT_ID=$REACT_APP_NAVER_CLIENT_ID
+ENV REACT_APP_NAVER_REDIRECT_URI=$REACT_APP_NAVER_REDIRECT_URI
+ENV REACT_APP_KAKAO_ID=$REACT_APP_KAKAO_ID
+ENV REACT_APP_KAKAO_REDIRECT_URI=$REACT_APP_KAKAO_REDIRECT_URI
+ENV REACT_APP_GOOGLE_CLIENT_ID=$REACT_APP_GOOGLE_CLIENT_ID
+ENV REACT_APP_GOOGLE_REDIRECT_URI=$REACT_APP_GOOGLE_REDIRECT_URI
 
-# 앱 빌드
 RUN npm run build
 
-# 웹 서버 실행
-CMD ["npm", "start"]
+# 2. Nginx로 React 앱 실행
+FROM nginx:alpine
+COPY --from=build /app/build /usr/share/nginx/html
+
+EXPOSE 80

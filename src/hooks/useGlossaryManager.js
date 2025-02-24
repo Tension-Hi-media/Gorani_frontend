@@ -18,7 +18,7 @@ export default function useGlossaryManager(userInfo) {
   const [selectedGlossary, setSelectedGlossary] = useState({
     name: "",
     words: [],
-    _id: ""
+    _id: "",
   });
   const [editingGlossary, setEditingGlossary] = useState(null);
   const [isGlossaryEnabled, setIsGlossaryEnabled] = useState(true);
@@ -56,7 +56,6 @@ export default function useGlossaryManager(userInfo) {
       setSelectedGlossary({ name: "", words: [] });
     }
   }, [glossaryList]); // glossaryList와 selectedGlossary가 변경될 때만 실행
-
 
   // 컴포넌트 마운트 시 용어집 목록 로드
   useEffect(() => {
@@ -277,7 +276,10 @@ export default function useGlossaryManager(userInfo) {
 
     setIsSaving(index);
     try {
-      const savedWordPair = await addWordPair(selectedGlossary._id, newWordPair);
+      const savedWordPair = await addWordPair(
+        selectedGlossary._id,
+        newWordPair
+      );
       setGlossaryList((prev) =>
         prev.map((g) =>
           g.id === selectedGlossary.id
@@ -311,11 +313,11 @@ export default function useGlossaryManager(userInfo) {
         prev.map((g) =>
           g._id === selectedGlossary._id
             ? {
-              ...g,
-              words: g.words.map((word, idx) =>
-                idx === index ? updatedWordPair : word
-              ),
-            }
+                ...g,
+                words: g.words.map((word, idx) =>
+                  idx === index ? updatedWordPair : word
+                ),
+              }
             : g
         )
       );
@@ -340,7 +342,9 @@ export default function useGlossaryManager(userInfo) {
         const updatedGlossary = { ...selectedGlossary, words: updatedWords };
         setSelectedGlossary(updatedGlossary);
         setGlossaryList((prev) =>
-          prev.map((g) => (g._id === selectedGlossary._id ? updatedGlossary : g))
+          prev.map((g) =>
+            g._id === selectedGlossary._id ? updatedGlossary : g
+          )
         );
         alert("단어쌍이 성공적으로 삭제되었습니다.");
       } catch (error) {

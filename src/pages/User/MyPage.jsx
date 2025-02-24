@@ -1,31 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../assets/css/User/myPage.css";
 import MyPageModal from "./MyPageModal";
+import { BsDisplay } from "react-icons/bs";
 
 const MyPage = () => {
+  // localStorage에서 userInfo 가져오기 및 초기화
   const parsedUserInfo = JSON.parse(localStorage.getItem("userInfo"));
-  const [user, setUser] = useState(parsedUserInfo);
+  const [user, setUser] = useState(parsedUserInfo || {}); // 기본값을 빈 객체로 설정
   const navigate = useNavigate();
   const [isModalOpen, setModalOpen] = useState(false);
 
   // 메뉴와 콘텐츠 상태 관리
   const [activeMenu, setActiveMenu] = useState("accountInfo");
 
+  // 기업 정보 버튼 클릭 시 모달 열기
   const handleCompanyButtonClick = () => {
     setModalOpen(true); // 모달 열기
   };
 
+  // 모달 닫을 때 처리
   const handleModalClose = (updatedCompany) => {
     if (updatedCompany) {
-      setUser((prevUser) => ({
-        ...prevUser,
+      const updatedUser = {
+        ...user,
         company: updatedCompany,
-      }));
+      };
+
+      setUser(updatedUser);
+      localStorage.setItem("userInfo", JSON.stringify(updatedUser)); // 🔹 localStorage 업데이트
     }
     setModalOpen(false); // 모달 닫기
   };
 
+  // 콘텐츠 데이터
   const contentData = {
     accountInfo: (
       <div className="card">
@@ -65,11 +73,12 @@ const MyPage = () => {
     languageInfo: (
       <div className="card">
         <h2>언어 설정</h2>
-        <p>
-          한국어{" "}
-        </p>
+        <p>한국어 </p>
         <div className="button-container">
-          <button className="change-button" onClick={() => alert("서비스 준비중 입니다.")}>
+          <button
+            className="change-button"
+            onClick={() => alert("서비스 준비중 입니다.")}
+          >
             변경
           </button>
         </div>
@@ -80,7 +89,12 @@ const MyPage = () => {
         <h2>계정 업그레이드</h2>
         <p>Pro로 업그레이드하여 더욱 편리하게 번역할 수 있습니다.</p>
         <div className="button-container">
-          <button className="compare-button" onClick={() => alert("서비스 준비중 입니다.")}>플랜 비교</button>
+          <button
+            className="compare-button"
+            onClick={() => alert("서비스 준비중 입니다.")}
+          >
+            플랜 비교
+          </button>
         </div>
       </div>
     ),
@@ -95,14 +109,13 @@ const MyPage = () => {
       {/* 상단 메뉴 */}
       <div className="left-side"></div>
       <ul className="nav-menu">
-
-
         {/* 계정 정보 */}
         <li style={{ "--clr": "#ff253f" }}>
           <button
             onClick={() => setActiveMenu("accountInfo")}
-            className={`nav-button ${activeMenu === "accountInfo" ? "active" : ""
-              }`}
+            className={`nav-button ${
+              activeMenu === "accountInfo" ? "active" : ""
+            }`}
           >
             <i className="fa-solid fa-user"></i>
             <span>Account</span>
@@ -113,8 +126,9 @@ const MyPage = () => {
         <li style={{ "--clr": "#fff200" }}>
           <button
             onClick={() => setActiveMenu("companyInfo")}
-            className={`nav-button ${activeMenu === "companyInfo" ? "active" : ""
-              }`}
+            className={`nav-button ${
+              activeMenu === "companyInfo" ? "active" : ""
+            }`}
           >
             <i className="fa-solid fa-building"></i>
             <span>Company</span>
@@ -125,8 +139,9 @@ const MyPage = () => {
         <li style={{ "--clr": "#25d366" }}>
           <button
             onClick={() => setActiveMenu("languageInfo")}
-            className={`nav-button ${activeMenu === "languageInfo" ? "active" : ""
-              }`}
+            className={`nav-button ${
+              activeMenu === "languageInfo" ? "active" : ""
+            }`}
           >
             <i className="fa-solid fa-language"></i>
             <span>Language</span>
@@ -137,8 +152,9 @@ const MyPage = () => {
         <li style={{ "--clr": "#f32ec8" }}>
           <button
             onClick={() => setActiveMenu("upgradeInfo")}
-            className={`nav-button ${activeMenu === "upgradeInfo" ? "active" : ""
-              }`}
+            className={`nav-button ${
+              activeMenu === "upgradeInfo" ? "active" : ""
+            }`}
           >
             <i className="fa-solid fa-level-up-alt"></i>
             <span>Upgrade</span>
@@ -158,7 +174,9 @@ const MyPage = () => {
       </ul>
 
       {/* 콘텐츠 */}
-      <div className="content">{contentData[activeMenu]}</div>
+      <div className="content">
+        {contentData[activeMenu]}
+      </div>
 
       {/* 모달 */}
       {isModalOpen && (

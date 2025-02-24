@@ -9,6 +9,7 @@ import Glossary from "../Translation/Glossary";
 import { getTranslationResult } from "../../Apis/TranslateAPI";
 
 function Main() {
+  
   const [inputText, setInputText] = useState("");
   const [translatedText, setTranslatedText] = useState("");
   const [isEditing, setIsEditing] = useState(false);
@@ -24,7 +25,7 @@ function Main() {
   const translationOutputRef = useRef(null);
   const [selectedModel, setSelectedModel] = useState("OpenAI"); // 기본값 OpenAI
   const [showModelDropdown, setShowModelDropdown] = useState(false);
-  const availableModels = ["OpenAI", "Gorani"];
+  const availableModels = ["OpenAI", "Gorani", "LangGorani"];
 
   useEffect(() => {
     const storedUserInfo = localStorage.getItem("userInfo");
@@ -133,9 +134,9 @@ function Main() {
   };
 
   const languageCodeMap = {
-    한국어: "ko",
-    영어: "en",
-    일본어: "ja",
+    한국어: "korean",
+    영어: "english",
+    일본어: "Japanese",
   };
 
   const handleCopy = () => {
@@ -159,11 +160,12 @@ function Main() {
     });
   };
 
+
   return (
     <div className="translation-container">
       <Header
         isLoggedIn={isLoggedIn}
-        nickname={nickname} // nickname 전달
+        nickname={nickname} 
         toggleModal={toggleModal}
         handleLogout={handleLogout}
       />
@@ -209,8 +211,9 @@ function Main() {
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className={`dropdown-icon ${showSourceDropdown ? "clicked" : ""
-                      }`}
+                    className={`dropdown-icon ${
+                      showSourceDropdown ? "clicked" : ""
+                    }`}
                   >
                     <polyline points="6 9 12 15 18 9" />
                   </svg>
@@ -230,8 +233,9 @@ function Main() {
                   {["한국어", "영어", "일본어"].map((lang) => (
                     <li
                       key={lang}
-                      className={`language-option ${lang === targetLanguage ? "disabled" : ""
-                        }`}
+                      className={`language-option ${
+                        lang === targetLanguage ? "disabled" : ""
+                      }`}
                       onClick={() =>
                         lang !== targetLanguage && selectSourceLanguage(lang)
                       }
@@ -243,9 +247,11 @@ function Main() {
               )}
             </div>
             <textarea
+              className="translation-input"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               placeholder="번역할 내용을 입력하세요"
+              lang={languageCodeMap[sourceLanguage]}
             />
             <button className="translation-button" onClick={handleTranslate}>
               번역하기
@@ -274,8 +280,9 @@ function Main() {
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className={`dropdown-icon ${showTargetDropdown ? "clicked" : ""
-                      }`}
+                    className={`dropdown-icon ${
+                      showTargetDropdown ? "clicked" : ""
+                    }`}
                   >
                     <polyline points="6 9 12 15 18 9" />
                   </svg>
@@ -293,7 +300,10 @@ function Main() {
                   용어집
                 </button>
                 {showGlossary && isLoggedIn && userInfo && (
-                  <Glossary userInfo={userInfo} onClose={() => setShowGlossary(false)} />
+                  <Glossary
+                    userInfo={userInfo}
+                    onClose={() => setShowGlossary(false)}
+                  />
                 )}
               </div>
               {showTargetDropdown && (
@@ -301,8 +311,9 @@ function Main() {
                   {["한국어", "영어", "일본어"].map((lang) => (
                     <li
                       key={lang}
-                      className={`language-option ${lang === sourceLanguage ? "disabled" : ""
-                        }`}
+                      className={`language-option ${
+                        lang === sourceLanguage ? "disabled" : ""
+                      }`}
                       onClick={() =>
                         lang !== sourceLanguage && selectTargetLanguage(lang)
                       }
@@ -319,6 +330,7 @@ function Main() {
               onChange={(e) => setTranslatedText(e.target.value)}
               disabled={!isEditing}
               ref={translationOutputRef}
+              lang={languageCodeMap[targetLanguage]}
             ></textarea>
             <div className="output-button">
               <button className="output-edit" onClick={toggleEdit}>
