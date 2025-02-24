@@ -15,15 +15,12 @@ const NaverSuccess = () => {
                 const code = params.get('code');
                 const state = params.get('state');
 
-                console.log('📢 네이버 로그인 요청:', { code, state });
-
                 if (!code || !state) {
                     throw new Error("❌ 네이버 인증 코드가 제공되지 않았습니다.");
                 }
 
                 // ✅ 네이버 로그인 API 호출
                 const response = await naverLogin(code, state);
-                console.log("✅ 네이버 로그인 성공:", response);
 
                 if (!response || !response.results) {
                     throw new Error("❌ 잘못된 응답 구조입니다.");
@@ -44,8 +41,6 @@ const NaverSuccess = () => {
                 // ✅ `localStorage`에 저장
                 localStorage.setItem("token", token);
                 localStorage.setItem("userInfo", JSON.stringify(sanitizedUser));
-
-                console.log("✅ 저장된 유저 정보:", sanitizedUser);
 
                 // ✅ 로그인 완료 후 메인 페이지로 이동
                 navigate("/");
