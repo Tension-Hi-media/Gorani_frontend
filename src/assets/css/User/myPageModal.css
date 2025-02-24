@@ -129,22 +129,14 @@
   border-radius: 4px;
 }
 
-.modal-content button {
-  margin-right: 10px;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.modal-content button:first-child {
-  background: none;
-  color: #000;
-}
-
-.modal-content button:last-child {
+.create-button {
   background-color: #6c757d;
   color: white;
+}
+
+.create-button:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
 }
 
 .mobile-Information{
