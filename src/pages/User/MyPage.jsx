@@ -174,7 +174,9 @@ const MyPage = () => {
       </ul>
 
       {/* 콘텐츠 */}
-      <div className="content">{contentData[activeMenu]}</div>
+      <div className="content">
+        {contentData[activeMenu]}
+      </div>
 
       {/* 모달 */}
       {isModalOpen && (

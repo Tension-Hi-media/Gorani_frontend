@@ -33,7 +33,7 @@ function GlossaryModal({ isOpen, onClose, onCreate }) {
   return isOpen ? (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <button className="cancel-button" onClick={onClose}>
+        <button className="close-button" onClick={onClose}>
           X
         </button>
         <h2>새 용어집 생성</h2>
