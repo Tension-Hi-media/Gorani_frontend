@@ -1,5 +1,5 @@
-import { request, withoutTokenRequest, fastAPIrequest } from "./index";
-import { jwtDecode } from "jwt-decode"; // ✅ 올바른 import 방식
+import { withoutTokenRequest} from "./index";
+import { jwtDecode } from "jwt-decode"; 
 
 // ✨ 네이버 로그인
 export const naverLogin = async (code, state) => {

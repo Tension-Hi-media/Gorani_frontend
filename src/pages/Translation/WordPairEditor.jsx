@@ -11,7 +11,6 @@ function WordPairEditor({
   onDeleteWord,
   onChangeWordPair,
 }) {
-  // words가 undefined일 경우 빈 배열로 대체
   const words = selectedGlossary?.words ?? [];
 
   return (
@@ -72,8 +71,7 @@ function WordPairEditor({
 
       {words.length === 0 && (
         <div className="no-words-message">
-          아직 단어쌍이 없습니다. 추가 버튼을 눌러 새 단어쌍을
-          만들어보세요!
+          아직 단어쌍이 없습니다. 추가 버튼을 눌러 새 단어쌍을 만들어보세요!
         </div>
       )}
 
