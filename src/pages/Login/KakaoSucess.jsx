@@ -1,44 +1,51 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { kakaoLogin } from '../../Apis/UserAPI';
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { kakaoLogin } from "../../Apis/UserAPI";
 
 const KakaoSuccessPage = () => {
-    const location = useLocation();
-    const [loading, setLoading] = useState(true);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const params = new URLSearchParams(location.search);
-        const code = params.get('code');
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const code = params.get("code");
 
-        if (code) {
-            console.log('Received code:', code);
-            kakaoLogin(code)
-                .then(response => {
-                    console.log('Login successful:', response);
-                    window.location.href = '/'; // 메인 페이지로 리다이렉트
-                })
-                .catch(error => {
-                    console.error('Login failed:', error);
-                    if (error.response && error.response.data) {
-                        alert(`로그인 실패: ${error.response.data.message}`);
-                    } else {
-                        alert('로그인 중 문제가 발생했습니다. 다시 시도해주세요.');
-                    }
-                    // window.location.href = '/'; // 로그인 페이지로 리다이렉트
-                })
-                .finally(() => setLoading(false)); // 로딩 상태 변경
-        } else {
-            console.error('Authorization code not found');
-            alert('인증 코드가 없습니다. 다시 로그인해주세요.');
-            window.location.href = '/login';
-        }
-    }, [location]);
+    console.log("Received Kakao code:", code);
 
-    if (loading) {
-        return <div>로그인 처리 중...</div>;
+    if (!code) {
+      setError("카카오 인증 코드가 제공되지 않았습니다.");
+      setLoading(false);
+      return;
     }
 
-    return null; // 로딩이 끝나면 아무것도 렌더링하지 않음
+    kakaoLogin(code)
+      .then(() => {
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("로그인 실패:", error);
+        setError(
+          error.response?.data?.message || "로그인 중 문제가 발생했습니다."
+        );
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [location, navigate]);
+
+  return (
+    <div>
+      {loading ? (
+        <p>로그인 처리 중...</p>
+      ) : error ? (
+        <p style={{ color: "red" }}>{error}</p>
+      ) : (
+        <p>로그인 성공! 메인 페이지로 이동 중...</p>
+      )}
+    </div>
+  );
 };
 
 export default KakaoSuccessPage;
