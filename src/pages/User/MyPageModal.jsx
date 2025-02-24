@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { request } from "../../Apis/index.jsx"; // ✅ request.js 함수 가져오기
+
 import "../../assets/css/User/myPageModal.css";
+
+
 
 const MyPageModal = ({ company, onClose }) => {
   // ✅ `localStorage`에서 사용자 정보 가져오기
@@ -15,26 +18,20 @@ const MyPageModal = ({ company, onClose }) => {
     representativeName: company?.representativeName || "",
   });
 
-  // ✅ 기업 정보 불러오기 (기존 데이터가 있을 경우)
   useEffect(() => {
     const fetchCompanyInfo = async () => {
       try {
-        const token = localStorage.getItem("token");
-        if (!token || !companyId) return;
+        if (!companyId) return;
 
-        const headers = { Authorization: `Bearer ${token}` };
         console.log("📢 기업 정보 조회 요청:", companyId);
 
-        const response = await axios.get(
-          `http://localhost:8080/api/v1/company/user/${userId}`,
-          { headers }
-        );
+        const response = await request("GET", `/company/user/${userId}`);
 
-        if (response.status === 200 && response.data) {
+        if (response) {
           setForm({
-            name: response.data.name || "",
-            registrationNumber: response.data.registrationNumber || "",
-            representativeName: response.data.representativeName || "",
+            name: response.name || "",
+            registrationNumber: response.registrationNumber || "",
+            representativeName: response.representativeName || "",
           });
         }
       } catch (error) {
@@ -57,17 +54,6 @@ const MyPageModal = ({ company, onClose }) => {
   // ✅ 기업 정보 저장 (신규 기업 등록 & users 테이블 업데이트)
   const handleSave = async () => {
     try {
-      const token = localStorage.getItem("token");
-      if (!token) {
-        alert("로그인이 필요합니다.");
-        return;
-      }
-
-      const headers = {
-        Authorization: `Bearer ${token}`, // ✅ JWT 토큰 추가
-        "Content-Type": "application/json",
-      };
-
       if (!form.name || !form.registrationNumber || !form.representativeName) {
         alert("모든 필드를 입력해야 합니다.");
         return;
@@ -75,14 +61,8 @@ const MyPageModal = ({ company, onClose }) => {
 
       console.log("📢 기업 정보 저장 요청:", form);
 
-      // ✅ 새로운 기업 생성 & 사용자 정보 업데이트
-      const companyResponse = await axios.post(
-        `http://localhost:8080/api/v1/company/register?userId=${userId}`,
-        form,
-        { headers }
-      );
-
-      const newCompany = companyResponse.data;
+      // ✅ `request.js`의 request() 함수 사용
+      const newCompany = await request("POST", `/company/register?userId=${userId}`, form);
 
       console.log("✅ 기업 정보 저장 완료:", newCompany);
 
@@ -101,10 +81,7 @@ const MyPageModal = ({ company, onClose }) => {
       alert("기업 정보가 저장되었습니다.");
       onClose(updatedUserInfo.company);
     } catch (error) {
-      console.error(
-        "❌ 기업 정보 저장 또는 사용자 업데이트 중 오류 발생:",
-        error
-      );
+      console.error("❌ 기업 정보 저장 중 오류 발생:", error);
       alert("기업 정보 저장 중 오류가 발생했습니다.");
     }
   };

@@ -9,7 +9,7 @@ import NaverSuccess from "./pages/Login/NaverSuccess";
 import KakaoLogin from "./pages/Login/KakaoLogin";
 import KakaoSuccessPage from "./pages/Login/KakaoSucess";
 import KakaoCallback from "./pages/Login/KakooCallBack";
-import GoogleSuccess from "./pages/Login/GoogleSuccess"; // 구글 로그인 성공 컴포넌트 import
+import GoogleSuccess from "./pages/Login/GoogleSuccess";
 
 function App() {
   return (

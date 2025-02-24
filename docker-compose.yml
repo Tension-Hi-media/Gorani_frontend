@@ -1,30 +1,32 @@
+version: '3.8'
+
 services:
   backend:
-    image: my-backend
-    container_name: backend
     build:
-      context: ../Gorani-backend # ✅ 백엔드 폴더 위치
+      context: C:\Users\201\Desktop\Gorani-backend  
       dockerfile: Dockerfile
+    image: aripos/gorani-backend:latest  
+    container_name: backend
     ports:
       - "8080:8080"
     restart: always
+    # 🔥 더 이상 volumes나 환경 변수 설정 필요 없음 (이미지에 포함됨)
 
   frontend:
-    image: my-frontend
-    container_name: frontend
     build:
-      context: . # ✅ 프론트엔드 폴더 위치
+      context: C:\Users\201\Desktop\Gorani1
       dockerfile: Dockerfile
-    restart: always
-
-  nginx:
-    image: nginx:latest
-    container_name: nginx
+      args:
+        REACT_APP_NAVER_CLIENT_ID: ${REACT_APP_NAVER_CLIENT_ID}
+        REACT_APP_NAVER_REDIRECT_URI: ${REACT_APP_NAVER_REDIRECT_URI}
+        REACT_APP_KAKAO_ID: ${REACT_APP_KAKAO_ID}
+        REACT_APP_KAKAO_REDIRECT_URI: ${REACT_APP_KAKAO_REDIRECT_URI}
+        REACT_APP_GOOGLE_CLIENT_ID: ${REACT_APP_GOOGLE_CLIENT_ID}
+        REACT_APP_GOOGLE_REDIRECT_URI: ${REACT_APP_GOOGLE_REDIRECT_URI}
+    image: aripos/gorani-frontend:latest 
+    container_name: frontend
     ports:
       - "80:80"
-    volumes:
-      - ./nginx/my-new-project.conf:/etc/nginx/conf.d/my-new-project.conf:ro # ✅ Nginx 설정 반영
-      - ./frontend/build:/usr/share/nginx/html:ro # ✅ React 빌드 파일 연결
-    depends_on:
-      - frontend
-      - backend
+    restart: always
+    env_file:
+      - .env
