@@ -4,6 +4,7 @@
   color: #fff;
   padding: 20px 10px; /* 위아래 간격 축소 */
   font-size: 12px; /* 전체 폰트 크기 축소 */
+  z-index: 2;
 }
 
 /* 푸터 컨테이너 */
