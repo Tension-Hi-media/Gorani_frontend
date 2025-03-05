@@ -50,7 +50,7 @@ export async function kakaoLogin(code) {
 
 export async function googleLogin(code) {
     try {
-        const response = await withoutTokenRequest('POST', `/api/v1/auth/google`, { code });
+        const response = await withoutTokenRequest('GET', `/auth/callback?code=${code}&provider=google`);
         console.log("Google Login Response:", response);
 
         if (!response.data || !response.data.results) {

@@ -8,11 +8,11 @@ export async function getTranslationResult(
   model
 ) {
   try {
-    const response = await withoutTokenRequest("POST", `/api/translation`, {
+    const response = await withoutTokenRequest("POST", `/api/v1/translation`, {
       text,
       sourceLang,
       targetLang,
-      model: model
+      model
     });
     return response.data.translated_text;
   } catch (error) {
